@@ -1,0 +1,396 @@
+a {
+  color: #cf0606;
+}
+a:hover {
+  color: #9d0505;
+}
+.btn {
+  border-radius: 0;
+}
+.btn.btn-primary {
+  background-color: #cf0606;
+  border-color: #cf0606;
+}
+.btn.btn-primary:hover {
+  background-color: #b60505;
+  border-color: #9d0505;
+}
+.btn.btn-primary:not(:disabled):not(.disabled):active {
+  background-color: #9d0505;
+  border-color: #b60505;
+}
+.btn.btn-primary:not(:disabled):not(.disabled):active:focus {
+  box-shadow: 0 0 0 0.2rem rgba(207, 6, 6, 0.5);
+}
+.btn.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(207, 6, 6, 0.5);
+}
+.input-group,
+.form-group {
+  margin-bottom: 0;
+}
+.input-group > input,
+.form-group > input {
+  border-radius: 0;
+}
+body {
+  font-family: 'Open Sans';
+  font-size: 0.875rem;
+  background: #fbfbff;
+}
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
+  font-family: 'Raleway';
+}
+.scrollable {
+  overflow-y: auto;
+}
+.incarcerated {
+  font-weight: 700;
+  letter-spacing: -0.125rem;
+  text-transform: uppercase;
+}
+.incarcerated .in {
+  color: #cf0606;
+  text-decoration: underline;
+}
+.incarcerated .carcerated {
+  color: #fbfbff;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+.navbar {
+  background-color: #111111;
+  color: #fbfbff;
+  min-height: 100px;
+  font-size: 1rem;
+  font-family: 'Raleway';
+}
+.navbar .incarcerated {
+  font-size: 1.5rem;
+}
+.navbar .incarcerated:hover .carcerated {
+  color: #cf0606;
+}
+.navbar ul.navbar-nav li {
+  transition: color 0.3s ease;
+}
+@media only screen and (min-width: 992px) {
+  .navbar ul.navbar-nav li {
+    border-right: thin solid rgba(251, 251, 255, 0.25);
+  }
+  .navbar ul.navbar-nav li:last-child {
+    border-right: none;
+  }
+}
+.navbar ul.navbar-nav li.active a {
+  color: #cf0606;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.navbar ul.navbar-nav li.active a:hover {
+  color: #f81010;
+}
+.navbar ul.navbar-nav li a {
+  color: #bdbdbd;
+  transition: color 0.3s ease;
+}
+.navbar ul.navbar-nav li a:hover {
+  color: #fbfbff;
+}
+.navbar .navbar-toggler {
+  font-size: 2em;
+  transition: color 0.3s ease;
+  color: #bdbdbd;
+  outline: none;
+}
+.navbar .navbar-toggler:hover {
+  color: #fbfbff;
+}
+.navbar .navbar-collapse.show ul li,
+.navbar .navbar-collapse.collapsing ul li {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  text-align: center;
+}
+@media only screen and (min-width: 992px) {
+  .navbar .navbar-collapse.show ul li,
+  .navbar .navbar-collapse.collapsing ul li {
+    padding: 0;
+    margin: 0;
+  }
+}
+.navbar .navbar-collapse.show a.btn-book,
+.navbar .navbar-collapse.collapsing a.btn-book {
+  text-align: center;
+}
+@media (min-width: 979px) {
+  .navbar .nav-item.dropdown:hover > .dropdown-menu {
+    display: block;
+  }
+}
+.postnav {
+  height: 100px;
+  background: url('/images/layout/postnav.png');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+}
+.prefoot {
+  height: 100px;
+  background: url('/images/layout/prefoot.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+}
+.home .landing {
+  background: #fbfbff;
+}
+.footer {
+  background-color: #111111;
+  color: #fbfbff;
+  margin-bottom: 8rem;
+  text-align: center;
+}
+@media only screen and (min-width: 576px) {
+  .footer {
+    margin-bottom: 0;
+  }
+}
+.footer h5 {
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  font-weight: 200;
+}
+@media only screen and (min-width: 768px) {
+  .footer .left-section {
+    text-align: center;
+  }
+}
+.footer .center-section {
+  text-align: center;
+}
+@media only screen and (min-width: 768px) {
+  .footer .right-section {
+    text-align: center;
+  }
+}
+.social {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  z-index: 999;
+}
+.social a {
+  font-size: 2rem;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  color: rgba(251, 251, 255, 0.9);
+  transition: color 0.3s ease, background 0.3s ease;
+}
+.social a.facebook {
+  width: 50vw;
+  background: rgba(59, 89, 152, 0.9);
+}
+.social a.tripadvisor {
+  width: 50vw;
+  background: rgba(88, 148, 66, 0.9);
+}
+.social a.book {
+  width: 100vw;
+  background: rgba(207, 6, 6, 0.9);
+}
+.social a.book:hover,
+.social a.tripadvisor:hover,
+.social a.facebook:hover {
+  background: rgba(251, 251, 255, 0.9);
+  color: rgba(207, 6, 6, 0.9);
+}
+@media only screen and (min-width: 576px) {
+  .social a {
+    background: rgba(251, 251, 255, 0.9) !important;
+    color: rgba(207, 6, 6, 0.8) !important;
+    transition: color 0.3s ease, background 0.3s ease;
+  }
+  .social a.facebook {
+    width: 4rem;
+  }
+  .social a.facebook:hover {
+    color: #3b5998 !important;
+  }
+  .social a.tripadvisor {
+    width: 4rem;
+  }
+  .social a.tripadvisor:hover {
+    color: #589442 !important;
+  }
+  .social a.book {
+    width: 4rem;
+  }
+  .social a.book:hover {
+    color: #cf0606 !important;
+  }
+}
+.navbar.admin-navbar {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 1000;
+}
+.admin {
+  min-height: calc(100vh - 100px);
+  margin-top: 100px;
+}
+.admin .admin-postnav {
+  background: url('/images/layout/postnav.png');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  position: fixed;
+  top: 100px;
+  height: 100px;
+  width: 100%;
+  z-index: 900;
+}
+.admin > .row {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+.admin .admin-foot {
+  background: url('/images/layout/prefoot.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  position: fixed;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+  z-index: 900;
+}
+.admin .admin-foot .logged-in-as {
+  z-index: 901;
+  color: #fbfbff;
+}
+.admin.login {
+  background: #fbfbff;
+}
+.admin.dashboard {
+  background: #fbfbff;
+}
+.admin.dashboard a {
+  transition: all 0.1s ease-out;
+}
+.admin.dashboard a.link-tile {
+  background: #cf0606;
+  color: #fbfbff;
+  width: 100%;
+  height: 75px;
+  padding: 1rem;
+  margin: 1rem;
+  border: thin solid #fbfbff;
+}
+.admin.dashboard a.link-tile .link-tile-icon {
+  font-size: 2rem;
+}
+@media only screen and (min-width: 576px) {
+  .admin.dashboard a.link-tile {
+    width: 150px;
+    height: 150px;
+  }
+}
+.admin.dashboard a:hover {
+  background: #fbfbff;
+  color: #cf0606;
+  border-color: #cf0606;
+}
+.part ol {
+  counter-reset: sectioncounter partcounter;
+  margin: 0px;
+  padding: 0px;
+}
+ol.sections {
+  counter-reset: sectioncounter;
+  margin: 0px;
+  padding: 0px;
+}
+ol.sections li {
+  list-style: none;
+  margin-left: 2rem;
+  position: relative;
+}
+ol.sections li.definitionli {
+  margin-left: 0;
+}
+ol.sections li .partTitle {
+  list-style: none;
+  counter-increment: none;
+  counter-reset: numberedpart;
+  margin-left: 0;
+}
+ol.sections li .sectionTitle {
+  list-style: none;
+  counter-increment: none;
+  counter-reset: numberedsection;
+  margin-left: 0;
+}
+ol.sections li .unnumberedunit {
+  margin-left: 0;
+}
+ol.units {
+  counter-reset: unitcounter;
+  margin: 0 0 2rem 0;
+}
+.sections li:before {
+  position: absolute;
+  left: -2rem;
+}
+.sections li.numberedpart:before {
+  content: counter(partcounter, DECIMAL) ". ";
+  counter-increment: partcounter;
+}
+.sections li.numberedsection:before {
+  content: counter(sectioncounter, DECIMAL) ". ";
+  counter-increment: sectioncounter;
+}
+.units li.numberedunit:before {
+  content: counter(sectioncounter, DECIMAL) "." counter(unitcounter, DECIMAL) " ";
+  counter-increment: unitcounter;
+}
+.unnumberedsection .units li.numberedunit:before {
+  content: counter(unitcounter, DECIMAL) " ";
+  counter-increment: unitcounter;
+}
+li.unit ol,
+li.unit ol ol ol {
+  counter-reset: loweralpha;
+}
+li.unit ol:not(.unnumbered) li:before,
+li.unit ol ol ol:not(.unnumbered) li:before {
+  content: "(" counter(loweralpha, lower-alpha) ") ";
+  counter-increment: loweralpha;
+}
+li.unit ol ol,
+li.unit ol ol ol ol {
+  counter-reset: lowerroman;
+}
+li.unit ol ol:not(.unnumbered) li:before,
+li.unit ol ol ol ol:not(.unnumbered) li:before {
+  content: "(" counter(lowerroman, lower-roman) ") ";
+  counter-increment: lowerroman;
+}
+li.unit ol.unnumbered ol li:before,
+li.unit ol ol ol.unnumbered ol li:before {
+  content: "(" counter(lowerroman, lower-alpha) ") ";
+  counter-increment: lowerroman;
+}
+.part dfn {
+  font-weight: bold;
+}

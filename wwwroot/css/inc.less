@@ -1,0 +1,497 @@
+// Colours
+@cOffBlack: rgb(17, 17, 17);
+@cOffWhite: rgb(251, 251, 255);
+@cRed: rgb(207, 6, 6);
+
+@cFacebook: rgb(59, 89, 152);
+@cTripadvisor: rgb(88, 148, 66);
+
+// Media Queries
+@sm:   ~"only screen and (min-width: 576px)";
+@md:   ~"only screen and (min-width: 768px)";
+@lg:   ~"only screen and (min-width: 992px)";
+@xl:   ~"only screen and (min-width: 1200px)";
+
+// Bootstrap Overides
+a{
+    color: @cRed;
+
+    &:hover{
+        color: darken(@cRed, 10%);
+    }
+}
+
+.btn{
+    border-radius: 0;
+
+    &.btn-primary{
+        background-color: @cRed;
+        border-color: @cRed;
+
+        &:hover{
+            background-color: darken(@cRed, 5%);
+            border-color: darken(@cRed, 10%);
+        }
+
+        &:not(:disabled):not(.disabled):active{
+            background-color: darken(@cRed, 10%);
+            border-color: darken(@cRed, 5%);
+            
+            &:focus{
+                box-shadow: 0 0 0 0.2rem fade(@cRed, 50%);
+            }
+        }
+
+        &:focus{
+            box-shadow: 0 0 0 0.2rem fade(@cRed, 50%);
+        }
+    }
+}
+
+.input-group, .form-group{ 
+    margin-bottom: 0;
+    
+    > input{
+        border-radius: 0;
+    }
+}
+
+// Styles
+body {
+  font-family: 'Open Sans';
+  font-size: 0.875rem;
+  background: @cOffWhite;
+  
+  h1,  h2,  h3,  h4,  h5,  h6 {
+    font-family: 'Raleway';
+  }
+}
+
+.scrollable{
+    overflow-y:auto;
+}
+
+.incarcerated {
+    font-weight: 700;
+    letter-spacing: -0.125rem;
+    text-transform: uppercase;
+  
+    .in {
+      color: @cRed;
+      text-decoration: underline;
+    }
+  
+    .carcerated {
+      color: @cOffWhite;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+}   
+
+.navbar {
+    background-color: @cOffBlack;
+    color: @cOffWhite;
+    min-height: 100px;
+    font-size: 1rem;
+    font-family: 'Raleway';
+
+    .incarcerated{
+        font-size: 1.5rem;
+
+        &:hover .carcerated{
+            color: @cRed;
+        }
+    }
+
+    ul.navbar-nav{
+        li {
+            transition: color 0.3s ease;
+            
+            @media @lg{
+                border-right: thin solid fade(@cOffWhite, 25%);
+
+                &:last-child{
+                    border-right: none;
+                }
+            }
+
+            &.active a{
+                color: @cRed;
+                font-weight: 700;
+                text-transform: uppercase;
+
+                &:hover{
+                    color: lighten(@cRed,10%)   ;
+                }
+            }
+
+            a{
+                color: desaturate(darken(@cOffWhite, 25%), 100%);
+                transition: color 0.3s ease;
+
+                &:hover{
+                    color: @cOffWhite;
+                }
+            }
+        }   
+    }
+
+    .navbar-toggler{
+        font-size: 2em;
+        transition: color 0.3s ease;
+        color: desaturate(darken(@cOffWhite, 25%), 100%);
+
+        outline: none;
+
+        &:hover{
+            color: @cOffWhite;
+        }
+    }
+
+    .navbar-collapse{ 
+        &.show, &.collapsing{
+            ul li{
+                padding: 0.5rem;
+                margin: 0.5rem;
+                text-align: center;
+
+                @media @lg{
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+
+            a.btn-book{
+                text-align: center;
+            }
+        }
+    }
+
+  // todo make media query @
+  @media (min-width: 979px) {
+    .nav-item.dropdown:hover > .dropdown-menu {
+      display: block;
+    }
+  }
+}
+
+.postnav{
+    height: 100px;
+    background: url('/images/layout/postnav.png');
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+}
+
+.prefoot{
+    height: 100px;
+    background: url('/images/layout/prefoot.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+}
+
+.home{
+    .landing{
+        background: @cOffWhite;
+    }
+}
+
+.footer {
+    background-color: @cOffBlack;
+        color: @cOffWhite;
+    margin-bottom: 8rem;
+    text-align: center;
+
+  @media @sm{
+      margin-bottom: 0;
+  }
+
+  h5{
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      font-weight: 200;
+  }
+
+  .left-section {
+      @media @md{
+        text-align: center;
+    }
+  }
+
+  .center-section {
+      text-align: center;
+  }
+
+  .right-section {
+      @media @md{
+        text-align: center;
+    }
+  }
+}
+
+.social{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    z-index: 999;
+
+    a {
+        font-size: 2rem;
+        float: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 4rem;
+        color: fade(@cOffWhite, 90%);
+        transition: color 0.3s ease, background 0.3s ease;
+
+        &.facebook{
+            width: 50vw;
+            background: fade(@cFacebook, 90%);
+        }
+
+        &.tripadvisor{
+            width: 50vw;
+            background: fade(@cTripadvisor, 90%);
+        }
+
+        &.book{
+            width: 100vw;
+            background: fade(@cRed, 90%);
+        }
+
+        &.book, &.tripadvisor, &.facebook{
+            &:hover{
+                background: fade(@cOffWhite, 90%);
+                color: fade(@cRed, 90%);
+            }
+        }
+    }
+
+    @media @sm{
+        a {
+            background: fade(@cOffWhite, 90%) !important;
+            color: fade(@cRed, 80%) !important;
+            transition: color 0.3s ease, background 0.3s ease;
+            
+            &.facebook{
+                width: 4rem;
+                
+                &:hover{
+                    color: @cFacebook !important;
+                }
+            }
+
+            &.tripadvisor{
+                width: 4rem;
+                
+                &:hover{
+                    color: @cTripadvisor !important;
+                }
+            }
+
+            &.book{
+                width: 4rem;
+                
+                &:hover{
+                    color: @cRed !important;
+                }
+            }
+        }
+    }
+}
+
+.navbar.admin-navbar{
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 1000;
+}
+
+.admin{
+
+    min-height: ~"calc(100vh - 100px)";
+    margin-top: 100px;
+
+    .admin-postnav{
+        background: url('/images/layout/postnav.png');
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: cover;
+
+        position: fixed;
+        top: 100px;
+
+        height: 100px;
+        width: 100%;
+        
+        z-index: 900;
+        
+    }
+    
+    > .row{
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+
+    .admin-foot{
+        background: url('/images/layout/prefoot.png');
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        background-size: cover;
+
+        position: fixed;
+        bottom: 0;
+
+        height: 100px;
+        width: 100%;
+
+        z-index: 900;
+    
+        .logged-in-as{
+            
+            z-index: 901;
+            color: @cOffWhite;
+        }
+    }
+
+    &.login{
+        background: @cOffWhite;
+
+    }
+
+    &.dashboard{
+        background: @cOffWhite;
+
+        a {
+            transition: all 0.1s ease-out;
+
+            &.link-tile{
+                background: @cRed;
+                color: @cOffWhite;
+                width: 100%;
+                height: 75px;  
+                padding: 1rem;
+                margin: 1rem;
+                border: thin solid @cOffWhite;
+
+                .link-tile-icon{
+                    font-size: 2rem;
+                }
+
+                @media @sm{
+                        width: 150px;
+                        height: 150px;
+                }
+            }
+
+            &:hover{
+                background: @cOffWhite;
+                color: @cRed;
+                border-color: @cRed;
+            }
+        }
+    }
+}
+
+// Privacy Policy
+.part ol {
+	counter-reset: sectioncounter partcounter;
+	margin: 0px;
+	padding: 0px;
+}
+
+ol.sections {
+	counter-reset: sectioncounter;
+	margin: 0px;
+    padding: 0px;
+    
+    li {
+        list-style: none;
+        margin-left: 2rem;
+        position: relative;
+
+        &.definitionli {
+            margin-left: 0;
+        }
+
+        .partTitle {
+            list-style: none;
+            counter-increment: none;
+            counter-reset: numberedpart;
+            margin-left: 0;
+        }
+
+        .sectionTitle {
+            list-style: none;
+            counter-increment: none;
+            counter-reset: numberedsection;
+            margin-left: 0;
+        }
+
+        .unnumberedunit {
+            margin-left: 0;
+        }
+    }
+}
+
+ol.units {
+	counter-reset: unitcounter;
+	margin: 0 0 2rem 0;
+}
+
+.sections li{
+    &:before {
+	    position: absolute;
+	    left: -2rem;
+    }
+
+    &.numberedpart:before {
+        content: counter(partcounter, DECIMAL) ". ";
+        counter-increment: partcounter;
+    }
+
+    &.numberedsection:before {
+        content: counter(sectioncounter, DECIMAL) ". ";
+        counter-increment: sectioncounter;
+    }
+}
+
+.units li.numberedunit:before {
+	content: counter(sectioncounter, DECIMAL) "." counter(unitcounter, DECIMAL) " ";
+	counter-increment: unitcounter;
+}
+
+.unnumberedsection .units li.numberedunit:before {
+	content: counter(unitcounter, DECIMAL) " ";
+	counter-increment: unitcounter;
+}
+
+li.unit ol,
+li.unit ol ol ol {
+	counter-reset: loweralpha;
+}
+li.unit ol:not(.unnumbered) li:before,
+li.unit ol ol ol:not(.unnumbered) li:before {
+	content: "(" counter(loweralpha, lower-alpha) ") ";
+	counter-increment: loweralpha;
+}
+li.unit ol ol,
+li.unit ol ol ol ol {
+	counter-reset: lowerroman;
+}
+li.unit ol ol:not(.unnumbered) li:before,
+li.unit ol ol ol ol:not(.unnumbered) li:before {
+	content: "(" counter(lowerroman, lower-roman) ") ";
+	counter-increment: lowerroman;
+}
+li.unit ol.unnumbered ol li:before,
+li.unit ol ol ol.unnumbered ol li:before {
+	content: "(" counter(lowerroman, lower-alpha) ") ";
+	counter-increment: lowerroman;
+}
+.part dfn {
+	font-weight: bold;
+}

@@ -1,0 +1,33 @@
+<nav class="navbar no-gutter flex-column flex-sm-row admin-navbar">
+  <a class=" navbar-brand incarcerated" href="/">
+    <span class="in">In</span><span class="carcerated">carcerated</span>
+  </a>
+
+  <span class="text-uppercase">{{title}}</span>
+
+  {{#unless preAuth}}
+    <div class="mt-2 mt-sm-0">
+      {{#if showHomeLink}}
+        <a href="/admin" class="btn btn-info mx-1">
+          <i class="far fa-home fa-fw"></i>
+        </a> 
+      {{/if}}
+
+      <a href="https://my.bookifyapp.co.uk/" class="btn btn-primary d-none d-md-inline-block mx-1" target="_blank">
+        Bookify
+      </a>
+
+      <a href="https://www.facebook.com/IncarceratedSwindon/?ref=admin" class="btn btn-primary d-none d-md-inline-block mx-1" target="_blank">
+        <i class="fab fa-facebook-f fa-fw"></i>
+      </a>
+
+      <a href="https://www.tripadvisor.co.uk/Attraction_Review-g187049-d10662189-Reviews-Incarcerated-Swindon_Wiltshire_England.html" class="btn btn-primary d-none d-md-inline-block mx-1" target="_blank">
+        <i class="fab fa-tripadvisor fa-fw"></i>
+      </a>
+
+      <a href="/admin/logout" class="btn btn-primary mx-1">
+        <i class="fal fa-sign-out fa-fw"></i>
+      </a>
+    </div>
+  {{/unless}}
+</nav>
