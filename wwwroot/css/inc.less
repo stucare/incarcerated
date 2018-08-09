@@ -73,6 +73,10 @@ body {
     overflow-y:auto;
 }
 
+.text-red{
+    color: @cRed;
+}
+
 .incarcerated {
     font-weight: 700;
     letter-spacing: -0.125rem;
@@ -228,11 +232,54 @@ body {
                 color: @cRed;
             }
         }
+
+        h2{
+            font-weight: 200;
+        }
     }
 
     .boasts{
-        h2{
-            font-weight: 200;
+
+        .whofor-icon{
+            .text{
+                text-transform: uppercase;
+                font-size: 1.25rem;
+                font-weight: 200;
+            }
+
+            .icon{
+                max-width: 90px;
+                max-height: 90px;
+            }
+        }
+    }
+
+    .rooms{
+        .carousel{
+            
+            .carousel-control-prev, .carousel-control-next{
+                color: @cRed;
+            }
+            
+            img{
+                border-radius: 5px 5px 0 0;
+
+                @media @xl{                    
+                    border-radius: 5px 0 0 5px;
+                }
+            }
+            .details{
+                min-width: 30vw;
+                border-radius: 0 0 5px 5px;
+                border: 1px solid @cRed;
+                border-top: none;
+
+                @media @xl{                    
+                    border-radius: 0 5px 5px 0;
+                    border-top: 1px solid @cRed;
+                    border-left: none;
+                }
+            }
         }
     }
 }

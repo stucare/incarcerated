@@ -49,6 +49,9 @@ body h6 {
 .scrollable {
   overflow-y: auto;
 }
+.text-red {
+  color: #cf0606;
+}
 .incarcerated {
   font-weight: 700;
   letter-spacing: -0.125rem;
@@ -176,8 +179,42 @@ body h6 {
 .home .landing .carousel .carousel-control-next {
   color: #cf0606;
 }
-.home .boasts h2 {
+.home .landing h2 {
   font-weight: 200;
+}
+.home .boasts .whofor-icon .text {
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  font-weight: 200;
+}
+.home .boasts .whofor-icon .icon {
+  max-width: 90px;
+  max-height: 90px;
+}
+.home .rooms .carousel .carousel-control-prev,
+.home .rooms .carousel .carousel-control-next {
+  color: #cf0606;
+}
+.home .rooms .carousel img {
+  border-radius: 5px 5px 0 0;
+}
+@media only screen and (min-width: 1200px) {
+  .home .rooms .carousel img {
+    border-radius: 5px 0 0 5px;
+  }
+}
+.home .rooms .carousel .details {
+  min-width: 30vw;
+  border-radius: 0 0 5px 5px;
+  border: 1px solid #cf0606;
+  border-top: none;
+}
+@media only screen and (min-width: 1200px) {
+  .home .rooms .carousel .details {
+    border-radius: 0 5px 5px 0;
+    border-top: 1px solid #cf0606;
+    border-left: none;
+  }
 }
 .footer {
   background-color: #111111;
