@@ -6,6 +6,8 @@
 @cFacebook: rgb(59, 89, 152);
 @cTripadvisor: rgb(88, 148, 66);
 
+@shadowLight: ~"0 0 5px 0 #ccc";
+
 // Media Queries
 @sm:   ~"only screen and (min-width: 576px)";
 @md:   ~"only screen and (min-width: 768px)";
@@ -108,7 +110,7 @@ body {
             transition: color 0.3s ease;
             
             @media @lg{
-                border-right: thin solid fade(@cOffWhite, 25%);
+                border-right: thin solid fade(@cOffWhite, 12%);
 
                 &:last-child{
                     border-right: none;
@@ -194,6 +196,18 @@ body {
 .home{
     .landing{
         background: @cOffWhite;
+
+        .carousel{
+            img:not(.no-shadow){
+                transition: all 0.3s ease-in-out;
+                box-shadow: @shadowLight;
+            }
+
+            .carousel-control-prev, .carousel-control-next{
+                color: @cRed;
+            }
+        }
+
     }
 }
 

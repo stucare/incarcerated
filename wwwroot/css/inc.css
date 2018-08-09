@@ -81,7 +81,7 @@ body h6 {
 }
 @media only screen and (min-width: 992px) {
   .navbar ul.navbar-nav li {
-    border-right: thin solid rgba(251, 251, 255, 0.25);
+    border-right: thin solid rgba(251, 251, 255, 0.12);
   }
   .navbar ul.navbar-nav li:last-child {
     border-right: none;
@@ -149,6 +149,14 @@ body h6 {
 }
 .home .landing {
   background: #fbfbff;
+}
+.home .landing .carousel img:not(.no-shadow) {
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 5px 0 #ccc;
+}
+.home .landing .carousel .carousel-control-prev,
+.home .landing .carousel .carousel-control-next {
+  color: #cf0606;
 }
 .footer {
   background-color: #111111;
