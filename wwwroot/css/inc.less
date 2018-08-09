@@ -193,6 +193,27 @@ body {
     background-size: cover;
 }
 
+.red-above{
+    height: 50px;
+    background: url('/images/layout/redabove.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+}
+
+.red{
+    background-color: @cRed;
+    color: @cOffWhite;
+}
+
+.red-below{
+    height: 50px;
+    background: url('/images/layout/redbelow.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+}
+
 .home{
     .landing{
         background: @cOffWhite;
@@ -207,7 +228,12 @@ body {
                 color: @cRed;
             }
         }
+    }
 
+    .boasts{
+        h2{
+            font-weight: 200;
+        }
     }
 }
 

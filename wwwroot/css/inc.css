@@ -147,6 +147,24 @@ body h6 {
   background-position: center bottom;
   background-size: cover;
 }
+.red-above {
+  height: 50px;
+  background: url('/images/layout/redabove.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+}
+.red {
+  background-color: #cf0606;
+  color: #fbfbff;
+}
+.red-below {
+  height: 50px;
+  background: url('/images/layout/redbelow.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+}
 .home .landing {
   background: #fbfbff;
 }
@@ -157,6 +175,9 @@ body h6 {
 .home .landing .carousel .carousel-control-prev,
 .home .landing .carousel .carousel-control-next {
   color: #cf0606;
+}
+.home .boasts h2 {
+  font-weight: 200;
 }
 .footer {
   background-color: #111111;
