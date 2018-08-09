@@ -46,14 +46,14 @@ module.exports = (router) => {
           res.status(200).send('/admin/');
 
         }).catch((err) => {
-          logger.errorlog(`POST /admin/login error generating token`, err);
+          logger.errorlog(req, res, "Error generating token", error);
           res.status(500).send();
         });
       } else {
         res.status(401).send();
       }
     }).catch((err) => {
-      logger.errorlog(`POST /admin/login failed`, err);
+      logger.errorlog(req, res, "Unknown Error", error);
       res.status(400).send();
     });
   });
