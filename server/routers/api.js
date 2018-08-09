@@ -40,7 +40,7 @@ module.exports = (router) => {
             res.send({ updatedStatus });
 
         } catch (error) {
-            logger.errorlog(`PATCH /api/maintenance failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -52,7 +52,7 @@ module.exports = (router) => {
             res.send(users);
 
         } catch (error) {
-            logger.errorlog('GET /api/users failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -74,7 +74,7 @@ module.exports = (router) => {
             res.send({ user })
 
         } catch (error) {
-            logger.errorlog(`GET /api/users/${id} failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -99,7 +99,7 @@ module.exports = (router) => {
             res.send({ createdUser });
 
         } catch (error) {
-            logger.errorlog('POST /api/users failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -141,7 +141,7 @@ module.exports = (router) => {
             res.send({ user });
 
         } catch (error) {
-            logger.errorlog(`PATCH /api/users/${id} failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -167,7 +167,7 @@ module.exports = (router) => {
             res.send({ user })
 
         } catch (error) {
-            logger.errorlog(`DELETE /api/users/${id} failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -195,7 +195,7 @@ module.exports = (router) => {
             res.send({ updatedUser });
 
         } catch (error) {
-            logger.errorlog(`PATCH /api/users/${id}/active failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -223,7 +223,7 @@ module.exports = (router) => {
             res.send({ updatedUser });
 
         } catch (error) {
-            logger.errorlog(`PATCH /users/${id}/su failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -248,7 +248,7 @@ module.exports = (router) => {
             res.send(user.roles);
 
         } catch (error) {
-            logger.errorlog(`GET /users/${id}/roles failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -286,7 +286,7 @@ module.exports = (router) => {
             }
 
         } catch (error) {
-            logger.errorlog(`POST /users/${id}/roles failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -312,7 +312,7 @@ module.exports = (router) => {
             res.send({ removedRole })
 
         } catch (error) {
-            logger.errorlog(`DELETE /users/${id}/roles failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -322,7 +322,7 @@ module.exports = (router) => {
         try {
           res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/chat failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -331,7 +331,7 @@ module.exports = (router) => {
       try {
         res.status(501).send();
       } catch (error) {
-        logger.errorlog('POST /api/chat failed', error);
+        logger.errorlog(req, res, "Unknown Error", error);
         res.status(400).send();
       }
     });
@@ -341,7 +341,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -350,7 +350,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -359,7 +359,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -368,7 +368,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -377,7 +377,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     })
@@ -386,7 +386,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     })
@@ -396,7 +396,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -405,7 +405,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -414,7 +414,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -423,7 +423,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -432,7 +432,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });

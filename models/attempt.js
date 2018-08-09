@@ -44,6 +44,7 @@ let AttemptSchema = new mongoose.Schema({
     }
 })
 
+//! todo fix this in a new branch
 let Attempt = mongoose.model('Room', AttemptSchema);
 
 module.exports = { Attempt };
