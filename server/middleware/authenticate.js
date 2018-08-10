@@ -30,7 +30,7 @@ var authenticate = (req, res, next) => {
     }
 
   }).catch((err) => {
-    errorlog(`Unable to authenticate user with ip: ${req.ip}`, err);
+    errorlog(req, res, `Unable to authenticate user with ip: ${req.ip}`, err);
     res.status(403).send();
   });
 };
@@ -62,7 +62,7 @@ var adminAuthenticate = (req, res, next) => {
     }
 
   }).catch((err) => {
-    errorlog(`Unable to authenticate user with ip: ${req.ip}`, err);
+    errorlog(req, res, `Unable to authenticate user with ip: ${req.ip}`, err);
     res.status(403).redirect('/admin/login');
   });
 };
