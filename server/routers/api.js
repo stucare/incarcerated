@@ -21,6 +21,16 @@ module.exports = (router) => {
     // });
 
     //! MAINTENANCE
+    router.get('/maintenance', async (req, res) => {
+        try {
+            let maintenance = await Maintenance.findOne({});
+            res.send({ maintenance })
+        } catch (error) {
+            logger.errorlog(req, res, "Unknown Error", error);
+            res.status(400).send();
+        }
+    });
+
     router.patch('/maintenance', async (req, res) => {
         try {
             if (!req.user.isSuperuser) {
@@ -35,9 +45,9 @@ module.exports = (router) => {
             }
 
             status.active = data.active;
-            let updatedStatus = await maint.save();
+            let maintenance = await status.save();
 
-            res.send({ updatedStatus });
+            res.send({ maintenance });
 
         } catch (error) {
             logger.errorlog(req, res, "Unknown Error", error);
@@ -49,7 +59,18 @@ module.exports = (router) => {
     router.get('/users', async (req, res) => {
         try {
             let users = await User.find({});
-            res.send(users);
+            res.send({ users });
+
+        } catch (error) {
+            logger.errorlog(req, res, "Unknown Error", error);
+            res.status(400).send();
+        }
+    });
+
+    router.get('/users/active', async (req, res) => {
+        try {
+            let users = await User.find({ isActive: true });
+            res.send({ users });
 
         } catch (error) {
             logger.errorlog(req, res, "Unknown Error", error);
@@ -94,9 +115,9 @@ module.exports = (router) => {
                 lastName: data.lastName,
             });
 
-            let createdUser = await newUser.save();
+            let user = await newUser.save();
 
-            res.send({ createdUser });
+            res.send({ user });
 
         } catch (error) {
             logger.errorlog(req, res, "Unknown Error", error);
@@ -320,7 +341,7 @@ module.exports = (router) => {
     //! CHAT
     router.get('/chat', async (req, res) => {
         try {
-          res.status(501).send();
+            res.status(501).send();
         } catch (error) {
             logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
@@ -328,12 +349,12 @@ module.exports = (router) => {
     });
 
     router.post('/chat', async (req, res) => {
-      try {
-        res.status(501).send();
-      } catch (error) {
-        logger.errorlog(req, res, "Unknown Error", error);
-        res.status(400).send();
-      }
+        try {
+            res.status(501).send();
+        } catch (error) {
+            logger.errorlog(req, res, "Unknown Error", error);
+            res.status(400).send();
+        }
     });
 
     //! ATTEMPTS
