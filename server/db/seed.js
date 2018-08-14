@@ -112,7 +112,15 @@ const seedRoom = [{
         maxPlayers: 7
     }
 }, {
-    code: "cr",
+    code: "crc",
+    display: {
+        name: "Cops &amp; Robbers",
+        description: "<p>Cops and Robbers is a brand new, head to head, escape room experience!</p><p>Facing the Cops is a grueling investigation where they need to discover the King Pin’s identity and ultimately gain access to the King Pin’s safe house. Meanwhile the Robbers are facing stealthy clear out of the safe house. However the only safe exit is now the emergency door, which no one knows how to unlock. The Robbers kn<p>Will the Cops gain access to the Safe House and catch the criminals?<br>Will the Robbers manage to clear the safe house of all the incriminating items?</p><p>	All we know is the King Pin is on his way back to release his associates so the pressure is on the Cops to solve the crimes that are still under investigation.</p>",
+        minPlayers: 4,
+        maxPlayers: 12
+    }
+}, {
+    code: "crr",
     display: {
         name: "Cops &amp; Robbers",
         description: "<p>Cops and Robbers is a brand new, head to head, escape room experience!</p><p>Facing the Cops is a grueling investigation where they need to discover the King Pin’s identity and ultimately gain access to the King Pin’s safe house. Meanwhile the Robbers are facing stealthy clear out of the safe house. However the only safe exit is now the emergency door, which no one knows how to unlock. The Robbers kn<p>Will the Cops gain access to the Safe House and catch the criminals?<br>Will the Robbers manage to clear the safe house of all the incriminating items?</p><p>	All we know is the King Pin is on his way back to release his associates so the pressure is on the Cops to solve the crimes that are still under investigation.</p>",

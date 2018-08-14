@@ -18,14 +18,29 @@ let RoomSchema = new mongoose.Schema({
         required: true,
         default: 'ready'
     },
-    time: {
+    timeBase: {
+        type: Number,
+        required: false,
+        default: 0
+    },
+    timeRemain: {
         type: Number,
         required: true,
         default: (60*60*1000)
     },
+    timeElapsed: {
+        type: Number,
+        required: true,
+        default: 0
+    },
     messages: [{
         message: {
             type: String,
+        },
+        isSilent: {
+            type: Boolean,
+            required: true,
+            default: true
         },
         created: {
             type: Number,
@@ -79,6 +94,18 @@ let RoomSchema = new mongoose.Schema({
         default: new Date().getTime()
     }
 })
+
+RoomSchema.methods.addMessage = function (message) {
+    let room = this;
+  
+    room.messages = room.messages.concat([message]);
+  
+    return room.save().then(() => {
+      return Promise.resolve(_.filter(room.messages, m => m.created === message.created)[0]);
+    }).catch((err) => {
+      return Promise.reject();
+    });
+  };
 
 let Room = mongoose.model('Room', RoomSchema);
 
