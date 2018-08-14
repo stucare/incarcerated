@@ -129,7 +129,7 @@ const seedRoom = [{
 }]
 
 const seedMaintenance = {
-    active: true
+    active: false
 }
 
 const seedTestUser = async function (done) {

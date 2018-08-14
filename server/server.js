@@ -15,6 +15,7 @@ const { seed } = require('./db/seed');
 let { mongoose } = require('./db/mongoose');
 let { User } = require('./../models/user');
 let { Maintenance } = require('./../models/maintenance');
+let { getAuthenticatedUser } = require('./middleware/authenticate');
 
 const PORT = process.env.PORT;
 const PUBLIC_PATH = path.join(__dirname, '../wwwroot')
@@ -41,25 +42,32 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+app.all(/^(?!((\/api){1,}|(\/admin){1,})).*$/, async (req, res, next) => {
+    try {
+        let maint = await Maintenance.findOne({});
+        if (maint) {
+            if (maint.active) {
+                let user = await getAuthenticatedUser(req);
+                if (!user || !user.isSuperuser) {
+                    return res.render('maintenance', {
+                        layout: false
+                    });
+                }
+            }
+        }
+        next();
+    } catch (error) {
+        logger.errorlog(req, res, "Failed to check maint", error);
+        res.status(500).send();
+    }
+});
+
 app.use((req, res, next) => {
     res.on("finish", function () {
         logger.serverlog(req, res, next);
     });
     next();
 });
-
-// // todo resolve maintenance mode
-// app.use(/((?!(^\/api){1}|(^\/admin){1}).)*/, (req, res, next) => {
-//   Maintenance.findOne({}).then((maint) => {
-//     if (maint.active) {
-//       res.render('maintenance');
-//     } else {
-//       next();
-//     }
-//   }).catch((err) => {
-//     next();
-//   });
-// });
 
 // routers
 let adminRouter = express.Router();
@@ -71,10 +79,6 @@ require('./routers/api')(apiRouter);
 app.use('/api', apiRouter);
 
 // routes
-app.get('/err', (req, res) => {
-    res.send(fs.readFileSync(__dirname + '/logs/error.log'));
-});
-
 app.get('/', (req, res) => {
     res.render('layout', {
         title: 'Home',
@@ -163,7 +167,7 @@ app.get('/contact', (req, res) => {
     });
 });
 
-app.get('/book', (req, res) => {
+app.get('/booknow', (req, res) => {
     res.render('layout', {
         title: 'Book Now',
         template: 'pages/book',
