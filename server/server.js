@@ -90,17 +90,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/about', (req, res) => {
-    res.render('layout', {
-        title: 'About Us',
-        template: 'pages/about',
-        mainClass: 'about',
-        activeNav: {
-            about: true
-        }
-    });
-});
-
 app.get('/teambuilding', (req, res) => {
     res.render('layout', {
         title: 'Teambuilding',
