@@ -145,17 +145,6 @@ app.get('/giftvouchers', (req, res) => {
     });
 });
 
-app.get('/contact', (req, res) => {
-    res.render('layout', {
-        title: 'Contact',
-        template: 'pages/contact',
-        mainClass: 'contact',
-        activeNav: {
-            contact: true
-        }
-    });
-});
-
 app.get('/booknow', (req, res) => {
     res.render('layout', {
         title: 'Book Now',
