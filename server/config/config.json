@@ -1,4 +1,5 @@
 {
+    "version": "0.2",
     "test": {
       "PORT": 3001,
       "MONGODB_URI": "mongodb://localhost:27017/IncTest",
