@@ -168,6 +168,24 @@ body h6 {
   background-position: center bottom;
   background-size: cover;
 }
+.black-above {
+  height: 50px;
+  background: url('/images/layout/blackabove.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+}
+.black {
+  background-color: #111111;
+  color: #fbfbff;
+}
+.black-below {
+  height: 50px;
+  background: url('/images/layout/blackbelow.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+}
 .home .landing {
   background: #fbfbff;
 }
@@ -191,6 +209,16 @@ body h6 {
   max-width: 90px;
   max-height: 90px;
 }
+.home .rooms .carousel .carousel-indicators {
+  position: relative;
+  margin-bottom: 0;
+}
+.home .rooms .carousel .carousel-indicators li {
+  background: rgba(207, 6, 6, 0.25);
+}
+.home .rooms .carousel .carousel-indicators li.active {
+  background: #cf0606;
+}
 .home .rooms .carousel .carousel-control-prev,
 .home .rooms .carousel .carousel-control-next {
   color: #cf0606;
@@ -211,10 +239,69 @@ body h6 {
 }
 @media only screen and (min-width: 1200px) {
   .home .rooms .carousel .details {
+    max-width: 30vw;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .home .rooms .carousel .details {
     border-radius: 0 5px 5px 0;
     border-top: 1px solid #cf0606;
     border-left: none;
   }
+}
+.ourrooms #RoomTabs {
+  border-bottom: none;
+}
+.ourrooms #RoomTabs img {
+  border-radius: 3px;
+}
+.ourrooms #RoomTabs .nav-item {
+  margin: 5px;
+}
+.ourrooms #RoomTabs .nav-item .nav-link {
+  padding: 3px;
+  border-radius: 0.25rem;
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+.ourrooms #RoomTabs .nav-item .nav-link:hover {
+  background: rgba(207, 6, 6, 0.33);
+}
+.ourrooms #RoomTabs .nav-item .nav-link.active {
+  background: #cf0606;
+}
+.ourrooms .tab-pane h1 {
+  text-align: center;
+  color: #cf0606;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0 #111111;
+  margin: 2rem;
+}
+.ourrooms .tab-pane h2 {
+  text-align: center;
+  color: #fbfbff;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0 #cf0606;
+}
+.ourrooms .tab-pane p {
+  font-size: 1.33rem;
+  font-family: 'Anonymous Pro';
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.ourrooms .tab-pane .leaderboards p {
+  font-size: 1.33rem;
+  text-align: center;
+  font-family: 'Anonymous Pro';
+}
+.ourrooms .tab-pane strong {
+  text-transform: uppercase;
+  color: #cf0606;
+}
+.ourrooms .tab-pane .icon-row {
+  transition: all 0.3s ease-in;
 }
 .footer {
   background-color: #111111;
