@@ -1,2 +1,35 @@
-<h1>Maintenance Mode Active</h1>
-<p>Keep checking back!</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{{title}} &raquo; Incarcerated Swindon, Live Escape Room Games</title>
+
+    <meta name="robots" content="{{#if meta.robots}}index, follow{{else}}noindex, nofollow{{/if}}" />
+    <meta name="description" content="{{meta.description}}" />
+
+    {{> _favicon}}
+    {{> _jquery}}
+    {{> _stylesheets}}
+</head>
+
+
+<body>
+    {{> _nonavpageheader}}
+
+
+
+    <div class="container-fluid maint">
+        <h1>Maintenance Mode</h1>
+        <p>We are just performing some work on the site, please keep checking back!</p>
+        {{> _pagefooter}}
+    </div>
+
+    {{> _social}}
+    {{> _modals}}
+    {{> _scripts}}
+</body>
+</html>
