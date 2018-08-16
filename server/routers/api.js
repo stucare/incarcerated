@@ -21,6 +21,16 @@ module.exports = (router) => {
     // });
 
     //! MAINTENANCE
+    router.get('/maintenance', async (req, res) => {
+        try {
+            let maintenance = await Maintenance.findOne({});
+            res.send({ maintenance })
+        } catch (error) {
+            logger.errorlog(req, res, "Unknown Error", error);
+            res.status(400).send();
+        }
+    });
+
     router.patch('/maintenance', async (req, res) => {
         try {
             if (!req.user.isSuperuser) {
@@ -35,12 +45,12 @@ module.exports = (router) => {
             }
 
             status.active = data.active;
-            let updatedStatus = await maint.save();
+            let maintenance = await status.save();
 
-            res.send({ updatedStatus });
+            res.send({ maintenance });
 
         } catch (error) {
-            logger.errorlog(`PATCH /api/maintenance failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -49,10 +59,21 @@ module.exports = (router) => {
     router.get('/users', async (req, res) => {
         try {
             let users = await User.find({});
-            res.send(users);
+            res.send({ users });
 
         } catch (error) {
-            logger.errorlog('GET /api/users failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
+            res.status(400).send();
+        }
+    });
+
+    router.get('/users/active', async (req, res) => {
+        try {
+            let users = await User.find({ isActive: true });
+            res.send({ users });
+
+        } catch (error) {
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -74,7 +95,7 @@ module.exports = (router) => {
             res.send({ user })
 
         } catch (error) {
-            logger.errorlog(`GET /api/users/${id} failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -94,12 +115,12 @@ module.exports = (router) => {
                 lastName: data.lastName,
             });
 
-            let createdUser = await newUser.save();
+            let user = await newUser.save();
 
-            res.send({ createdUser });
+            res.send({ user });
 
         } catch (error) {
-            logger.errorlog('POST /api/users failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -141,7 +162,7 @@ module.exports = (router) => {
             res.send({ user });
 
         } catch (error) {
-            logger.errorlog(`PATCH /api/users/${id} failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -167,7 +188,7 @@ module.exports = (router) => {
             res.send({ user })
 
         } catch (error) {
-            logger.errorlog(`DELETE /api/users/${id} failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -195,7 +216,7 @@ module.exports = (router) => {
             res.send({ updatedUser });
 
         } catch (error) {
-            logger.errorlog(`PATCH /api/users/${id}/active failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -223,7 +244,7 @@ module.exports = (router) => {
             res.send({ updatedUser });
 
         } catch (error) {
-            logger.errorlog(`PATCH /users/${id}/su failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -248,7 +269,7 @@ module.exports = (router) => {
             res.send(user.roles);
 
         } catch (error) {
-            logger.errorlog(`GET /users/${id}/roles failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -286,7 +307,7 @@ module.exports = (router) => {
             }
 
         } catch (error) {
-            logger.errorlog(`POST /users/${id}/roles failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -312,7 +333,7 @@ module.exports = (router) => {
             res.send({ removedRole })
 
         } catch (error) {
-            logger.errorlog(`DELETE /users/${id}/roles failed`, error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -320,20 +341,20 @@ module.exports = (router) => {
     //! CHAT
     router.get('/chat', async (req, res) => {
         try {
-          res.status(501).send();
+            res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/chat failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
 
     router.post('/chat', async (req, res) => {
-      try {
-        res.status(501).send();
-      } catch (error) {
-        logger.errorlog('POST /api/chat failed', error);
-        res.status(400).send();
-      }
+        try {
+            res.status(501).send();
+        } catch (error) {
+            logger.errorlog(req, res, "Unknown Error", error);
+            res.status(400).send();
+        }
     });
 
     //! ATTEMPTS
@@ -341,7 +362,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -350,7 +371,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -359,7 +380,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -368,7 +389,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
@@ -377,7 +398,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     })
@@ -386,7 +407,7 @@ module.exports = (router) => {
         try {
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     })
@@ -394,45 +415,126 @@ module.exports = (router) => {
     //! ROOMS
     router.get('/rooms', async (req, res) => {
         try {
-            res.status(501).send();
+            let rooms = await Room.find({});
+            res.send({ rooms });
+
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
 
     router.get('/rooms/:id', async (req, res) => {
         try {
-            res.status(501).send();
+            let id = req.params.id;
+            if (!ObjectID.isValid(id)) {
+                return res.status(400).send();
+            }
+
+            let room = await Room.findById(id);
+            if (!room) {
+                return res.status(404).send();
+            }
+
+            res.send({ room });
+
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
 
     router.post('/rooms', async (req, res) => {
         try {
-            res.status(501).send();
+            if (!req.user.hasRole("canDeleteRooms")) {
+                return res.status(403).send();
+            }
+
+            let data = _.pick(req.body, ['code', 'name', 'description', 'minPlayers', 'maxPlayers', 'isLive', 'isAccessible']);
+
+            let newRoom = new Room({
+                code: data.code,
+                display: {
+                    name: data.name,
+                    description: data.description,
+                    minPlayers: data.minPlayers,
+                    maxPlayers: data.maxPlayers,
+                    isLive: !data.isLive ? false : data.isLive,
+                    isAccessible: !data.isAccessible ? false : data.isAccessible
+                }
+            });
+
+            let room = await newRoom.save();
+
+            res.send({ room });
+
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
+            res.status(400).send();
+        }
+    });
+
+    router.post('/rooms/:id/message', async (req, res) => {
+        try {
+            let id = req.params.id;
+            if (!ObjectID.isValid(id)) {
+                return res.status(400).send();
+            }
+
+            let room = await Room.findById(id);
+            if (!room) {
+                return res.status(404).send();
+            }
+
+            let data = _.pick(req.body, ['message', 'isSilent']);
+
+            if(data.message.length === 0){
+                data.isSilent = true;
+            }
+
+            let message = await room.addMessage({
+                message: data.message,
+                isSilent: !data.isSilent ? false : data.isSilent,
+                createdBy: req.user._id.toString(),
+                created: new Date().getTime()
+            })
+
+            res.send({ message });
+
+        } catch (error) {
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
 
     router.patch('/rooms/:id', async (req, res) => {
         try {
+            let id = req.params.id;
+            if (!ObjectID.isValid(id)) {
+                return res.status(400).send();
+            }
+
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });
 
     router.delete('/rooms/:id', async (req, res) => {
         try {
+            if (!req.user.hasRole("canDeleteRooms")) {
+                return res.status(403).send();
+            }
+
+            let id = req.params.id;
+            if (!ObjectID.isValid(id)) {
+                return res.status(400).send();
+            }
+
             res.status(501).send();
         } catch (error) {
-            logger.errorlog('GET /api/attempts failed', error);
+            logger.errorlog(req, res, "Unknown Error", error);
             res.status(400).send();
         }
     });

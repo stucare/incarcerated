@@ -6,6 +6,8 @@
 @cFacebook: rgb(59, 89, 152);
 @cTripadvisor: rgb(88, 148, 66);
 
+@shadowLight: ~"0 0 5px 0 #ccc";
+
 // Media Queries
 @sm:   ~"only screen and (min-width: 576px)";
 @md:   ~"only screen and (min-width: 768px)";
@@ -71,6 +73,10 @@ body {
     overflow-y:auto;
 }
 
+.text-red{
+    color: @cRed;
+}
+
 .incarcerated {
     font-weight: 700;
     letter-spacing: -0.125rem;
@@ -108,7 +114,7 @@ body {
             transition: color 0.3s ease;
             
             @media @lg{
-                border-right: thin solid fade(@cOffWhite, 25%);
+                border-right: thin solid fade(@cOffWhite, 12%);
 
                 &:last-child{
                     border-right: none;
@@ -191,9 +197,202 @@ body {
     background-size: cover;
 }
 
+.red-above{
+    height: 50px;
+    background: url('/images/layout/redabove.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+}
+
+.red{
+    background-color: @cRed;
+    color: @cOffWhite;
+}
+
+.red-below{
+    height: 50px;
+    background: url('/images/layout/redbelow.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+}
+
+.black-above{
+    height: 50px;
+    background: url('/images/layout/blackabove.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+}
+
+.black{
+    background-color: @cOffBlack;
+    color: @cOffWhite;
+}
+
+.black-below{
+    height: 50px;
+    background: url('/images/layout/blackbelow.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+}
+
+.maint{
+    height: ~"calc(100vh - 250px)";
+}
+
 .home{
     .landing{
         background: @cOffWhite;
+
+        .carousel{
+            img:not(.no-shadow){
+                transition: all 0.3s ease-in-out;
+                box-shadow: @shadowLight;
+            }
+
+            .carousel-control-prev, .carousel-control-next{
+                color: @cRed;
+            }
+        }
+
+        h2{
+            font-weight: 200;
+        }
+    }
+
+    .boasts{
+
+        .whofor-icon{
+            .text{
+                text-transform: uppercase;
+                font-size: 1.25rem;
+                font-weight: 200;
+            }
+
+            .icon{
+                max-width: 90px;
+                max-height: 90px;
+            }
+        }
+    }
+
+    .rooms{
+        .carousel{
+            
+            .carousel-indicators{
+                position: relative;
+                margin-bottom: 0;
+         
+                li{
+                    background: fade(@cRed, 25%);
+
+                    &.active{
+                        background: @cRed;
+                    }
+                }
+            }
+
+            .carousel-control-prev, .carousel-control-next{
+                color: @cRed;
+            }
+            
+            img{
+                border-radius: 5px 5px 0 0;
+
+                @media @xl{                    
+                    border-radius: 5px 0 0 5px;
+                }
+            }
+            .details{
+                min-width: 30vw;
+                border-radius: 0 0 5px 5px;
+                border: 1px solid @cRed;
+                border-top: none;
+
+                @media @xl{
+                    max-width: 30vw;
+                }
+
+                @media @xl{                    
+                    border-radius: 0 5px 5px 0;
+                    border-top: 1px solid @cRed;
+                    border-left: none;
+                }
+            }
+        }
+    }
+}
+
+.ourrooms{
+    #RoomTabs{
+        border-bottom: none;
+
+        img{
+            border-radius: 3px;
+        }  
+
+        .nav-item{
+            margin: 5px;
+            .nav-link{
+                padding: 3px;
+                border-radius: .25rem;
+                border: none;
+
+                transition: all 0.3s ease-in-out;
+
+                &:hover{
+                    background: fade(@cRed, 33%);
+                }
+
+                &.active{
+                    background: @cRed;
+                }
+            }
+        }
+    }
+
+    .tab-pane{
+        h1{
+            text-align: center;
+            color: @cRed;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 0 @cOffBlack;
+            margin: 2rem;
+        }
+
+        h2 {
+            text-align: center;
+            color: @cOffWhite;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 0 @cRed;
+        }
+
+        p{
+            font-size: 1.33rem;
+            font-family:'Anonymous Pro';
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .leaderboards p{
+            font-size: 1.33rem;
+            text-align: center;
+            font-family:'Anonymous Pro';
+        }
+
+        strong{
+            text-transform: uppercase;
+            color: @cRed;
+        }
+
+        .icon-row{
+            transition: all 0.3s ease-in;
+        }
     }
 }
 
