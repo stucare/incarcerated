@@ -26,6 +26,10 @@ const seedUser = [{
     tokens: [{
         access: 'auth',
         token: jwt.sign({ _id: seedUserIds[0], access: 'auth' }, process.env.SECRET).toString()
+    }],
+    roles: [{
+        role: 'doesNothing',
+        description: 'doesNothing'
     }]
 }, {
     _id: seedUserIds[1],
