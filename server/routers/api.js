@@ -2,6 +2,7 @@ const _ = require('lodash');
 
 const logger = require('./../logger/logger');
 const cryptography = require('./../../services/cryptography');
+const moment = require('moment');
 
 const { ObjectID } = require('mongodb');
 let { mongoose } = require('./../db/mongoose');
@@ -724,7 +725,7 @@ module.exports = (router) => {
             }
 
             let message = await room.addMessage({
-                message: data.message,
+                text: data.message,
                 isSilent: !data.isSilent ? false : data.isSilent,
                 createdBy: req.user._id.toString(),
                 created: new Date().getTime()
@@ -742,7 +743,6 @@ module.exports = (router) => {
         }
     });
 
-    // todo look at multi start stop timing discrepency 
     router.patch('/sas/:code/start', async (req, res) => {
         try {
             let roomCode = req.params.code;
@@ -754,9 +754,10 @@ module.exports = (router) => {
             }
 
             if (room.game.state !== "active") {
-                let currentTime = new Date().getTime();
+
                 room.game.state = "active";
-                room.game.timeBase = currentTime;
+                room.game.timeBase = new Date().getTime();;
+                
                 await room.save()
             }
 
@@ -782,14 +783,33 @@ module.exports = (router) => {
                 );
             }
 
+            let data = _.pick(req.body, ['end']);
+
             if (room.game.state === "active") {
                 let currentTime = new Date().getTime();
-                let timeElapsed = currentTime - room.game.timeBase;
-                let timeRemain = room.game.timeRemain - timeElapsed;
+                let segmentElapsed = (currentTime - room.game.timeBase);
+                let timeElapsed = segmentElapsed + room.game.timeElapsed;
+                let timeRemain = room.game.timeRemain - segmentElapsed;
+                
+                let isTimedOut = timeRemain <= 0;
+                let state = isTimedOut ? "loss" : "inactive";
 
-                room.game.timeElapsed = timeElapsed;
-                room.game.timeRemain = timeRemain;
-                room.game.state = "inactive";
+                if(state === "inactive" && data.end){
+                    state = "win";
+
+                    let message = await room.addMessage({
+                        text: `<div class="win">Congratulations</div>
+                               <div>You escaped in: ${moment(timeElapsed).format('mm:ss')}</div>
+                               <div>${room.game.clueCount} Clues</div>`,
+                        isSilent: true,
+                        createdBy: req.user._id.toString(),
+                        created: new Date().getTime()
+                    });
+                }
+
+                room.game.timeElapsed = isTimedOut ? room.game.gameDuration : timeElapsed;
+                room.game.timeRemain = isTimedOut ? timeRemain : 0;
+                room.game.state = state;
                 room.game.timeBase = currentTime;
                 await room.save()
             }
@@ -817,11 +837,11 @@ module.exports = (router) => {
                 );
             }
 
-            let data = _.pick(req.body, ['minutesRemaining', 'resetMessage']);
+            let data = _.pick(req.body, ['gameDuration', 'resetMessage']);
 
             if ('resetMessage') {
                 let message = await room.addMessage({
-                    message: `<h1>${room.display.name}</h1>`,
+                    text: `<h1>${room.display.name}</h1>`,
                     isSilent: true,
                     createdBy: req.user._id.toString(),
                     created: new Date().getTime()
@@ -830,12 +850,13 @@ module.exports = (router) => {
 
             let timeRemain = 60 * 60 * 1000;
 
-            if (data.minutesRemaining) {
-                timeRemain = data.minutesRemaining * 60 * 1000;
+            if (data.gameDuration) {
+                gameDuration = data.gameDuration * 60 * 1000;
             }
 
             room.game.timeElapsed = 0;
-            room.game.timeRemain = timeRemain;
+            room.game.timeRemain = gameDuration;
+            room.game.gameDuration = gameDuration;
             room.game.state = "ready";
             room.game.timeBase = 0;
             room.game.clueCount = 0;

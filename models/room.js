@@ -29,6 +29,11 @@ let RoomSchema = new mongoose.Schema({
             required: true,
             default: (60 * 60 * 1000)
         },
+        gameDuration: {
+            type: Number,
+            required: true,
+            default: (60 * 60 * 1000)
+        },
         timeElapsed: {
             type: Number,
             required: true,
@@ -40,7 +45,7 @@ let RoomSchema = new mongoose.Schema({
             default: 0
         },
         messages: [{
-            message: {
+            text: {
                 type: String,
             },
             isSilent: {
@@ -105,11 +110,24 @@ let RoomSchema = new mongoose.Schema({
 RoomSchema.methods.addMessage = function (message) {
     let room = this;
 
-    if (_.last(room.game.messages).message !== message.message) {
-        if (message.message.length !== 0) {
-            room.game.clueCount++;
-        }
+    if (room.game.messages.length > 0) {
+        if (_.last(room.game.messages).text !== message.text) {
+            if (message.text.length !== 0) {
+                room.game.clueCount++;
+            }
 
+            room.game.messages = _.takeRight(room.game.messages.concat([message]), 100);
+
+            return room.save().then(() => {
+                return Promise.resolve(_.last(room.game.messages));
+            }).catch((err) => {
+                return Promise.reject();
+            });
+        } else {
+            return Promise.resolve(_.last(room.game.messages))
+        }
+    } else {
+        room.game.clueCount++;
         room.game.messages = _.takeRight(room.game.messages.concat([message]), 100);
 
         return room.save().then(() => {
@@ -117,8 +135,6 @@ RoomSchema.methods.addMessage = function (message) {
         }).catch((err) => {
             return Promise.reject();
         });
-    } else {
-        return Promise.resolve(_.last(room.game.messages))
     }
 };
 
