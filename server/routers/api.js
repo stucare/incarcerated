@@ -2,6 +2,7 @@ const _ = require('lodash');
 
 const logger = require('./../logger/logger');
 const cryptography = require('./../../services/cryptography');
+const moment = require('moment');
 
 const { ObjectID } = require('mongodb');
 let { mongoose } = require('./../db/mongoose');
@@ -576,19 +577,13 @@ module.exports = (router) => {
         }
     });
 
-    router.get('/rooms/:id', async (req, res) => {
+    router.get('/rooms/:code', async (req, res) => {
         try {
-            let id = req.params.id;
-            if (!ObjectID.isValid(id)) {
-                return res.status(400).send(
-                    createResponse(false, true, "bad id", {}, req.user, error)
-                );
-            }
-
-            let room = await Room.findById(id);
+            let roomCode = req.params.code;
+            let room = await Room.findOne({ code: roomCode });
             if (!room) {
                 return res.status(404).send(
-                    createResponse(false, true, "room not found", {}, req.user, error)
+                    createResponse(false, true, "room not found", {}, req.user)
                 );
             }
 
@@ -640,12 +635,13 @@ module.exports = (router) => {
         }
     });
 
-    router.patch('/rooms/:id', async (req, res) => {
+    router.patch('/rooms/:code', async (req, res) => {
         try {
-            let id = req.params.id;
-            if (!ObjectID.isValid(id)) {
-                return res.status(400).send(
-                    createResponse(false, true, "bad id", {}, req.user, error)
+            let roomCode = req.params.code;
+            let room = await Room.findOne({ code: roomCode });
+            if (!room) {
+                return res.status(404).send(
+                    createResponse(false, true, "room not found", {}, req.user)
                 );
             }
 
@@ -660,7 +656,7 @@ module.exports = (router) => {
         }
     });
 
-    router.delete('/rooms/:id', async (req, res) => {
+    router.delete('/rooms/:code', async (req, res) => {
         try {
             if (!req.user.hasRole("canDeleteRooms")) {
                 return res.status(403).send(
@@ -668,18 +664,12 @@ module.exports = (router) => {
                 );
             }
 
-            let id = req.params.id;
-            if (!ObjectID.isValid(id)) {
-                return res.status(400).send(
-                    createResponse(false, true, "bad id", {}, req.user, error)
-                );
-            }
+            let roomCode = req.params.code;
 
-            let room = Room.findByIdAndRemove(id);
-
+            let room = await Room.findOne({ code: roomCode });
             if (!room) {
                 return res.status(404).send(
-                    createResponse(false, true, "room not found", {}, req.user, error)
+                    createResponse(false, true, "room not found", {}, req.user)
                 );
             }
 
@@ -696,10 +686,31 @@ module.exports = (router) => {
     });
 
     //! SCREEN SYSTEM
-    router.post('/:code/message', async (req, res) => {
+    router.get('/sas/:code', async (req, res) => {
         try {
             let roomCode = req.params.code;
+            let room = await Room.findOne({ code: roomCode });
+            if (!room) {
+                return res.status(404).send(
+                    createResponse(false, true, "room not found", {}, req.user)
+                );
+            }
 
+            res.send(
+                createResponse(true, true, "success", { game: room.game }, req.user)
+            );
+
+        } catch (error) {
+            logger.errorlog(req, res, "Unknown Error", error);
+            res.status(400).send(
+                createResponse(false, true, "bad request", {}, req.user, error)
+            );
+        }
+    });
+
+    router.post('/sas/:code/message', async (req, res) => {
+        try {
+            let roomCode = req.params.code;
             let room = await Room.findOne({ code: roomCode });
             if (!room) {
                 return res.status(404).send(
@@ -714,7 +725,7 @@ module.exports = (router) => {
             }
 
             let message = await room.addMessage({
-                message: data.message,
+                text: data.message,
                 isSilent: !data.isSilent ? false : data.isSilent,
                 createdBy: req.user._id.toString(),
                 created: new Date().getTime()
@@ -722,6 +733,137 @@ module.exports = (router) => {
 
             res.send(
                 createResponse(true, true, "success", { message }, req.user)
+            );
+
+        } catch (error) {
+            logger.errorlog(req, res, "Unknown Error", error);
+            res.status(400).send(
+                createResponse(false, true, "bad request", {}, req.user, error)
+            );
+        }
+    });
+
+    router.patch('/sas/:code/start', async (req, res) => {
+        try {
+            let roomCode = req.params.code;
+            let room = await Room.findOne({ code: roomCode });
+            if (!room) {
+                return res.status(404).send(
+                    createResponse(false, true, "room not found", {}, req.user)
+                );
+            }
+
+            if (room.game.state !== "active") {
+
+                room.game.state = "active";
+                room.game.timeBase = new Date().getTime();;
+                
+                await room.save()
+            }
+
+            res.send(
+                createResponse(true, true, "success", { game: room.game }, req.user)
+            );
+
+        } catch (error) {
+            logger.errorlog(req, res, "Unknown Error", error);
+            res.status(400).send(
+                createResponse(false, true, "bad request", {}, req.user, error)
+            );
+        }
+    });
+
+    router.patch('/sas/:code/stop', async (req, res) => {
+        try {
+            let roomCode = req.params.code;
+            let room = await Room.findOne({ code: roomCode });
+            if (!room) {
+                return res.status(404).send(
+                    createResponse(false, true, "room not found", {}, req.user)
+                );
+            }
+
+            let data = _.pick(req.body, ['end']);
+
+            if (room.game.state === "active") {
+                let currentTime = new Date().getTime();
+                let segmentElapsed = (currentTime - room.game.timeBase);
+                let timeElapsed = segmentElapsed + room.game.timeElapsed;
+                let timeRemain = room.game.timeRemain - segmentElapsed;
+                
+                let isTimedOut = timeRemain <= 0;
+                let state = isTimedOut ? "loss" : "inactive";
+
+                if(state === "inactive" && data.end){
+                    state = "win";
+
+                    let message = await room.addMessage({
+                        text: `<div class="win">Congratulations</div>
+                               <div>You escaped in: ${moment(timeElapsed).format('mm:ss')}</div>
+                               <div>${room.game.clueCount} Clues</div>`,
+                        isSilent: true,
+                        createdBy: req.user._id.toString(),
+                        created: new Date().getTime()
+                    });
+                }
+
+                room.game.timeElapsed = isTimedOut ? room.game.gameDuration : timeElapsed;
+                room.game.timeRemain = isTimedOut ? timeRemain : 0;
+                room.game.state = state;
+                room.game.timeBase = currentTime;
+                await room.save()
+            }
+
+            res.send(
+                createResponse(true, true, "success", { game: room.game }, req.user)
+            );
+
+        } catch (error) {
+            logger.errorlog(req, res, "Unknown Error", error);
+            res.status(400).send(
+                createResponse(false, true, "bad request", {}, req.user, error)
+            );
+        }
+    });
+
+    router.patch('/sas/:code/reset', async (req, res) => {
+        try {
+            let roomCode = req.params.code;
+
+            let room = await Room.findOne({ code: roomCode });
+            if (!room) {
+                return res.status(404).send(
+                    createResponse(false, true, "room not found", {}, req.user)
+                );
+            }
+
+            let data = _.pick(req.body, ['gameDuration', 'resetMessage']);
+
+            if ('resetMessage') {
+                let message = await room.addMessage({
+                    text: `<h1>${room.display.name}</h1>`,
+                    isSilent: true,
+                    createdBy: req.user._id.toString(),
+                    created: new Date().getTime()
+                });
+            }
+
+            let timeRemain = 60 * 60 * 1000;
+
+            if (data.gameDuration) {
+                gameDuration = data.gameDuration * 60 * 1000;
+            }
+
+            room.game.timeElapsed = 0;
+            room.game.timeRemain = gameDuration;
+            room.game.gameDuration = gameDuration;
+            room.game.state = "ready";
+            room.game.timeBase = 0;
+            room.game.clueCount = 0;
+            await room.save()
+
+            res.send(
+                createResponse(true, true, "success", { game: room.game }, req.user)
             );
 
         } catch (error) {
