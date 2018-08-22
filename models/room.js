@@ -13,45 +13,52 @@ let RoomSchema = new mongoose.Schema({
         unique: true,
         minlength: 2
     },
-    state: {
-        type: String,
-        required: true,
-        default: 'ready'
-    },
-    timeBase: {
-        type: Number,
-        required: false,
-        default: 0
-    },
-    timeRemain: {
-        type: Number,
-        required: true,
-        default: (60*60*1000)
-    },
-    timeElapsed: {
-        type: Number,
-        required: true,
-        default: 0
-    },
-    messages: [{
-        message: {
+    game: {
+        state: {
             type: String,
-        },
-        isSilent: {
-            type: Boolean,
             required: true,
-            default: true
+            default: 'ready'
         },
-        created: {
+        timeBase: {
+            type: Number,
+            required: false,
+            default: 0
+        },
+        timeRemain: {
             type: Number,
             required: true,
-            default: new Date().getTime()
+            default: (60 * 60 * 1000)
         },
-        createdBy: {
-            type: String,
-            required: true
-        }
-    }],
+        timeElapsed: {
+            type: Number,
+            required: true,
+            default: 0
+        },
+        clueCount: {
+            type: Number,
+            required: true,
+            default: 0
+        },
+        messages: [{
+            message: {
+                type: String,
+            },
+            isSilent: {
+                type: Boolean,
+                required: true,
+                default: true
+            },
+            created: {
+                type: Number,
+                required: true,
+                default: new Date().getTime()
+            },
+            createdBy: {
+                type: String,
+                required: true
+            }
+        }]
+    },
     display: {
         name: {
             type: String,
@@ -97,15 +104,23 @@ let RoomSchema = new mongoose.Schema({
 
 RoomSchema.methods.addMessage = function (message) {
     let room = this;
-  
-    room.messages = room.messages.concat([message]);
-  
-    return room.save().then(() => {
-      return Promise.resolve(_.filter(room.messages, m => m.created === message.created)[0]);
-    }).catch((err) => {
-      return Promise.reject();
-    });
-  };
+
+    if (_.last(room.game.messages).message !== message.message) {
+        if (message.message.length !== 0) {
+            room.game.clueCount++;
+        }
+
+        room.game.messages = _.takeRight(room.game.messages.concat([message]), 100);
+
+        return room.save().then(() => {
+            return Promise.resolve(_.last(room.game.messages));
+        }).catch((err) => {
+            return Promise.reject();
+        });
+    } else {
+        return Promise.resolve(_.last(room.game.messages))
+    }
+};
 
 let Room = mongoose.model('Room', RoomSchema);
 
