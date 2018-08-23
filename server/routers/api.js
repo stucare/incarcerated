@@ -785,12 +785,14 @@ module.exports = (router) => {
 
             let data = _.pick(req.body, ['end']);
 
+            //todo cut out win to a separate call
+
             if (room.game.state === "active") {
                 let currentTime = new Date().getTime();
                 let segmentElapsed = (currentTime - room.game.timeBase);
                 let timeElapsed = segmentElapsed + room.game.timeElapsed;
                 let timeRemain = room.game.timeRemain - segmentElapsed;
-                
+
                 let isTimedOut = timeRemain <= 0;
                 let state = isTimedOut ? "loss" : "inactive";
 
@@ -808,7 +810,7 @@ module.exports = (router) => {
                 }
 
                 room.game.timeElapsed = isTimedOut ? room.game.gameDuration : timeElapsed;
-                room.game.timeRemain = isTimedOut ? timeRemain : 0;
+                room.game.timeRemain = !isTimedOut ? timeRemain : 0;
                 room.game.state = state;
                 room.game.timeBase = currentTime;
                 await room.save()
@@ -848,7 +850,7 @@ module.exports = (router) => {
                 });
             }
 
-            let timeRemain = 60 * 60 * 1000;
+            let gameDuration = 60 * 60 * 1000;
 
             if (data.gameDuration) {
                 gameDuration = data.gameDuration * 60 * 1000;

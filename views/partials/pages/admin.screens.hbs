@@ -1,28 +1,36 @@
 <div>
     <h5>Pick A Room</h5>
-    <select class="selectpicker show-tick" title="None" data-style="btn-primary">
-        <option data-code="adod">A Dose of Death</option>
-        <option data-code="pow">Prisoner of War</option>
-        <option data-code="crc">Cops &amp; Robbers - Cops</option>
-        <option data-code="crr">Cops &amp; Robbers - Robbers</strong></option>
-        <option data-code="age">Conspiracy - Agenda 21</option>
+    <select id="RoomSelect" class="selectpicker show-tick" title="None" data-style="btn-primary">
+        <option value="adod">A Dose of Death</option>
+        <option value="pow">Prisoner of War</option>
+        <option value="crc">Cops &amp; Robbers - Cops</option>
+        <option value="crr">Cops &amp; Robbers - Robbers</strong></option>
+        <option value="age">Conspiracy - Agenda 21</option>
     </select>
+    <input id="SelectedRoom" type="hidden" value="">
 </div>
 <div>
-    <div>Room State</div>
-    <div>00:00</div>
+    <div id="GameState" class="p-4 text-uppercase text-center"> State: <span class="placeholder"></span></div>
+    <div id="GameTime" class="text-center">&nbsp;</div>
+    <div id="CurrentMessage" class="p-4 text-center" style="width: 50vw; border: thin solid #ddd;">
+        <div class="text">&nbsp;</div>
+        <div class="date small text-right text-lowercase">&nbsp;</div>
+    </div>
 </div>
 <div class="m-3 row">
-        <button type="button" class="btn btn-success mx-2">
+        <button type="button" id="GameStart" class="btn btn-success mx-2">
             <i class="fas fa-play fa-fw"></i>
         </button>
-        <button type="button" class="btn btn-warning mx-2">
+        
+        <button type="button" id="GameStop" class="btn btn-warning mx-2">
             <i class="fas fa-pause fa-fw"></i>
         </button>
-        <button type="button" class="btn btn-primary mx-2">
+
+        <button type="button" id="GameEnd" class="btn btn-primary mx-2">
             <i class="fas fa-trophy fa-fw"></i>
         </button>
-        <button type="button" class="btn btn-info mx-2">
+
+        <button type="button" id="GameReset" class="btn btn-info mx-2">
             <i class="fas fa-undo-alt fa-fw"></i>
         </button>
 </div>
