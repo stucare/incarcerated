@@ -396,6 +396,40 @@ body {
     }
 }
 
+.packages{
+    .type-selector{
+        font-size: 1.5rem;
+
+        a {
+            color: @cOffWhite;
+
+            &.box-1{
+                background: url('/images/packages/sb1.png') center no-repeat;
+                background-size: contain;
+            }
+
+            &.box-2{
+                background: url('/images/packages/sb2.png') center no-repeat;
+                background-size: contain;
+            }
+
+            &:hover{
+                text-decoration: none;
+            }
+
+            div{
+                font-family: 'Raleway';
+                font-weight: 100;
+
+                .read-more{ 
+                    font-family: 'Open Sans';
+                    font-size: 0.8rem
+                }
+            }
+        }
+    }
+}
+
 .footer {
     background-color: @cOffBlack;
         color: @cOffWhite;

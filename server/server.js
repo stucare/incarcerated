@@ -90,17 +90,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/teambuilding', (req, res) => {
-    res.render('layout', {
-        title: 'Teambuilding',
-        template: 'pages/teambuilding',
-        mainClass: 'teambuilding',
-        activeNav: {
-            teambuilding: true
-        }
-    });
-});
-
 app.get('/ourrooms', (req, res) => {
     res.render('layout', {
         title: 'Our Rooms',
@@ -145,13 +134,35 @@ app.get('/giftvouchers', (req, res) => {
     });
 });
 
-app.get('/contact', (req, res) => {
+app.get('/packages', (req, res) => {
     res.render('layout', {
-        title: 'Contact',
-        template: 'pages/contact',
-        mainClass: 'contact',
+        title: 'Packages',
+        template: 'pages/packages',
+        mainClass: 'packages',
         activeNav: {
-            contact: true
+            packages: true
+        }
+    });
+});
+
+app.get('/packages/occasions', (req, res) => {
+    res.render('layout', {
+        title: 'Packages - Birthdays &amp; Special Occasions',
+        template: 'pages/occasions',
+        mainClass: 'packages occasions',
+        activeNav: {
+            packages: true
+        }
+    });
+});
+
+app.get('/packages/corporate', (req, res) => {
+    res.render('layout', {
+        title: 'Packages - Corporate &amp; Team Building',
+        template: 'pages/corporate',
+        mainClass: 'packages corporate',
+        activeNav: {
+            packages: true
         }
     });
 });
