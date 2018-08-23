@@ -306,6 +306,31 @@ body h6 {
 .ourrooms .tab-pane .icon-row {
   transition: all 0.3s ease-in;
 }
+.packages .type-selector {
+  font-size: 1.5rem;
+}
+.packages .type-selector a {
+  color: #fbfbff;
+}
+.packages .type-selector a.box-1 {
+  background: url('/images/packages/sb1.png') center no-repeat;
+  background-size: contain;
+}
+.packages .type-selector a.box-2 {
+  background: url('/images/packages/sb2.png') center no-repeat;
+  background-size: contain;
+}
+.packages .type-selector a:hover {
+  text-decoration: none;
+}
+.packages .type-selector a div {
+  font-family: 'Raleway';
+  font-weight: 100;
+}
+.packages .type-selector a div .read-more {
+  font-family: 'Open Sans';
+  font-size: 0.8rem;
+}
 .footer {
   background-color: #111111;
   color: #fbfbff;
