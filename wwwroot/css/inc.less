@@ -392,6 +392,10 @@ body {
 
         .icon-row{
             transition: all 0.3s ease-in;
+
+            strong{
+                color: @cOffWhite;
+            }
         }
     }
 }
@@ -558,7 +562,23 @@ body {
 
     &.login{
         background: @cOffWhite;
+        
+        h3{
+            color: @cRed;
+        }
 
+        #LoginForm{
+            input{
+                border-radius: none;
+                font-size: 1.25rem;
+                padding: 0.5rem;
+                color: @cOffBlack;
+            }
+            
+            a{
+                color: @cRed;
+            }
+        }
     }
 
     &.dashboard{

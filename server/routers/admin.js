@@ -25,7 +25,7 @@ module.exports = (router) => {
             layout: false,
             title: 'Login',
             template: 'pages/admin.login',
-            mainClass: 'login d-flex flex-col align-items-center justify-content-center',
+            mainClass: 'login d-flex flex-column align-items-center justify-content-center',
             preAuth: true
         });
     });
@@ -34,7 +34,7 @@ module.exports = (router) => {
         try {
 
             let data = _.pick(req.body, ['username', 'password'])
-            let user = await User.findOne({ username: data.username });
+            let user = await User.findOne({ username: data.username.toLowerCase() });
             if (!user) {
                 return res.status(404).send(
                     createResponse(false, false, "user not found", {})
@@ -74,7 +74,7 @@ module.exports = (router) => {
             user: req.user,
             title: 'Dashboard',
             template: 'pages/admin.dashboard',
-            mainClass: 'dashboard d-flex flex-col flex-wrap align-items-center justify-content-center'
+            mainClass: 'dashboard d-flex flex-column flex-wrap align-items-center justify-content-center'
         });
     });
 
@@ -84,7 +84,7 @@ module.exports = (router) => {
             user: req.user,
             title: 'User Admin',
             template: 'pages/admin.useradmin',
-            mainClass: 'useradmin d-flex flex-col flex-wrap align-items-center justify-content-center',
+            mainClass: 'useradmin d-flex flex-column flex-wrap align-items-center justify-content-center',
             showHomeLink: true
         });
     });
@@ -95,7 +95,7 @@ module.exports = (router) => {
             user: req.user,
             title: 'Screen System',
             template: 'pages/admin.screens',
-            mainClass: 'screens d-flex flex-col flex-wrap align-items-center justify-content-center',
+            mainClass: 'screens d-flex flex-column flex-wrap align-items-center justify-content-center',
             showHomeLink: true
         });
     });
@@ -106,7 +106,7 @@ module.exports = (router) => {
             user: req.user,
             title: 'Manage Leaderboards',
             template: 'pages/admin.leaderboards',
-            mainClass: 'leaderboards d-flex flex-col flex-wrap align-items-center justify-content-center',
+            mainClass: 'leaderboards d-flex flex-column flex-wrap align-items-center justify-content-center',
             showHomeLink: true
         });
     });
@@ -117,7 +117,7 @@ module.exports = (router) => {
             user: req.user,
             title: 'Gift Vouchers',
             template: 'pages/admin.vouchers',
-            mainClass: 'vouchers d-flex flex-col flex-wrap align-items-center justify-content-center',
+            mainClass: 'vouchers d-flex flex-column flex-wrap align-items-center justify-content-center',
             showHomeLink: true
         });
     });
@@ -128,7 +128,7 @@ module.exports = (router) => {
             user: req.user,
             title: 'Chat',
             template: 'pages/admin.chat',
-            mainClass: 'chat d-flex flex-col flex-wrap align-items-center justify-content-center',
+            mainClass: 'chat d-flex flex-column flex-wrap align-items-center justify-content-center',
             showHomeLink: true
         });
     });

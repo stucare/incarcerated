@@ -145,10 +145,10 @@ module.exports = (router) => {
             let data = _.pick(req.body, ['username', 'firstName', 'lastName', 'password']);
 
             let newUser = new User({
-                username: data.username,
+                username: data.username.toLowerCase(),
                 password: data.password,
-                firstName: data.firstName,
-                lastName: data.lastName,
+                firstName: data.firstName.toLowerCase(),
+                lastName: data.lastName.toLowerCase(),
             });
 
             let user = await newUser.save();
