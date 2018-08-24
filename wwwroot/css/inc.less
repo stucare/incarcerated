@@ -392,6 +392,10 @@ body {
 
         .icon-row{
             transition: all 0.3s ease-in;
+
+            strong{
+                color: @cOffWhite;
+            }
         }
     }
 }
@@ -543,56 +547,66 @@ body {
     z-index: 1000;
 }
 
+.admin-postnav{
+    background: url('/images/layout/postnav.png');
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+
+    position: fixed;
+    top: 100px;
+
+    height: 100px;
+    width: 100%;
+    
+    z-index: 900;
+    
+}
+
+.admin-foot{
+    background: url('/images/layout/prefoot.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+
+    position: fixed;
+    bottom: 0;
+
+    height: 100px;
+    width: 100%;
+
+    z-index: 900;
+
+    .logged-in-as{
+        
+        z-index: 901;
+        color: @cOffWhite;
+    }
+}
+
 .admin{
-
-    min-height: ~"calc(100vh - 100px)";
-    margin-top: 100px;
-
-    .admin-postnav{
-        background: url('/images/layout/postnav.png');
-        background-repeat: no-repeat;
-        background-position: center top;
-        background-size: cover;
-
-        position: fixed;
-        top: 100px;
-
-        height: 100px;
-        width: 100%;
-        
-        z-index: 900;
-        
-    }
+    min-height: ~"calc(100vh - 300px)";
+    margin-top: 200px;
     
-    > .row{
-        margin-top: 100px;
-        margin-bottom: 100px;
-    }
-
-    .admin-foot{
-        background: url('/images/layout/prefoot.png');
-        background-repeat: no-repeat;
-        background-position: center bottom;
-        background-size: cover;
-
-        position: fixed;
-        bottom: 0;
-
-        height: 100px;
-        width: 100%;
-
-        z-index: 900;
-    
-        .logged-in-as{
-            
-            z-index: 901;
-            color: @cOffWhite;
-        }
-    }
-
     &.login{
         background: @cOffWhite;
+        
+        h3{
+            color: @cRed;
+        }
 
+        #LoginForm{
+            input{
+                border-radius: none;
+                font-size: 1.25rem;
+                padding: 0.5rem;
+                color: @cOffBlack;
+            }
+            
+            a{
+                color: @cRed;
+            }
+        }
     }
 
     &.dashboard{

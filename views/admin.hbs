@@ -20,16 +20,18 @@
 <body>
     {{> _adminpageheader}}
 
-    <div class="container-fluid admin {{mainClass}}">
-        <div class="admin-postnav"></div>
+    <div class="admin-postnav"></div>
 
+    <div class="container-fluid admin {{mainClass}}">
+        
         {{> (lookup . 'template')}}
 
-        <div class="admin-foot d-flex justify-content-end align-items-end">
-            {{#unless preAuth}}
-                <span class="p-2 text-uppercase small logged-in-as">Logged in as: <a href="#">{{user.username}}</a></span> 
-            {{/unless}}
-        </div>
+    </div>
+
+    <div class="admin-foot d-flex justify-content-end align-items-end">
+        {{#unless preAuth}}
+            <span class="p-2 text-uppercase small logged-in-as">Logged in as: <a href="#">{{user.username}}</a></span> 
+        {{/unless}}
     </div>
 
     {{> _scripts}}

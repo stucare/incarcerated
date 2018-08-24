@@ -1,1 +1,63 @@
+<div class="row m-5">
+    <div class="col-12 col-md-6">
+        <div class="row">
+            <div class="col-12 text-center">
+                <select id="RoomSelect" class="selectpicker show-tick mt-2" title="None" data-style="btn-primary">
+                    <option value="adod">A Dose of Death</option>
+                    <option value="pow">Prisoner of War</option>
+                    <option value="crc">Cops &amp; Robbers - Cops</option>
+                    <option value="crr">Cops &amp; Robbers - Robbers</strong></option>
+                    <option value="age">Conspiracy - Agenda 21</option>
+                </select>
+            </div>
+
+            <div class="col-12 text-center">
+                <div id="GameState" class="p-4 text-uppercase text-center"><span class="placeholder">&nbsp;</span></div>
+            </div>
+          
+            <div class="col-12">
+                <div id="GameTime" class="text-center"></div>
+            </div>
+            
+            <div class="col-12">
+                <div id="CurrentMessage" class="text-center"></div>
+            </div>      
+          
+            <div class="col-12 text-center">
+                <div class="btn-group btn-group-lg mx-auto" role="group">
+                    <button type="button" id="Start" class="btn btn-outline-primary" disabled>
+                        <i class="fas fa-play fa-fw"></i>
+                    </button>
+                    
+                    <button type="button" id="Stop" class="btn btn-outline-primary" disabled>
+                        <i class="fas fa-pause fa-fw"></i>
+                    </button>
+
+                    <button type="button" id="Escape" class="btn btn-outline-primary" disabled>
+                        <i class="fas fa-door-open fa-fw"></i>
+                    </button>
+
+                    <button type="button" id="Fail" class="btn btn-outline-primary" disabled>
+                        <i class="fas fa-door-closed fa-fw"></i>
+                    </button>
+
+                    <button type="button" id="Reset" class="btn btn-outline-primary" disabled>
+                        <i class="fas fa-undo-alt fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-12 col-md-6">
+        <div class="row">
+            <div id="Messages" class="col-12 text-center">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<input id="SelectedRoom" type="hidden" value="">
+    
 <script src="/js/admin/screens.js"></script>
