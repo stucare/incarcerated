@@ -30,7 +30,7 @@
 
     <div class="admin-foot d-flex justify-content-end align-items-end">
         {{#unless preAuth}}
-            <span class="p-2 text-uppercase small logged-in-as">Logged in as: <a href="#">{{user.username}}</a></span> 
+            <span id="UserId" data-user-id="{{user._id}}" class="p-2 text-uppercase small logged-in-as">Logged in as: <a href="#">{{user.username}}</a></span> 
         {{/unless}}
     </div>
 

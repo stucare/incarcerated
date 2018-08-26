@@ -89,14 +89,18 @@ module.exports = (router) => {
         });
     });
 
-    router.get('/screens', adminAuthenticate, (req, res) => {
+    router.get('/screens', adminAuthenticate, async (req, res) => {
+
+        let rooms = await Room.find({isLive: true});
+
         res.render('admin', {
             layout: false,
             user: req.user,
             title: 'Screen System',
             template: 'pages/admin.screens',
             mainClass: 'screens d-flex flex-column flex-wrap ',
-            showHomeLink: true
+            showHomeLink: true,
+            rooms: rooms
         });
     });
 

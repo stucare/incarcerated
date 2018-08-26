@@ -58,6 +58,31 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-12">
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <td>Room</td>
+                    <td>State</td>
+                    <td>Remain</td>
+                    <td># Clues</td>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each rooms}}
+                <tr class="room-row" data-room="{{this.code}}">
+                    <td>{{{this.adminName}}}</td>
+                    <td>{{this.game.state}}</td>
+                    <td>{{this.game.timeRemain}}</td>
+                    <td>{{this.game.clueCount}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 <input id="SelectedRoom" type="hidden" value="">
     
 <script src="/js/admin/screens.js"></script>

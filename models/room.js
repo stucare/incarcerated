@@ -13,6 +13,12 @@ let RoomSchema = new mongoose.Schema({
         unique: true,
         minlength: 2
     },
+    adminName: {
+        type: String,
+        required: true,
+        unique: true,
+        minlength: 2
+    },
     game: {
         state: {
             type: String,

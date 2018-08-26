@@ -1,8 +1,15 @@
+var socket;
+
 $(function () {
-    var socket = io({
+    socket = io({
         query: {
-            user: ""
+            userId: $('#UserId').data('user-id')
         }
+    });
+
+    socket.on('refreshRoomData', function (data) {
+        console.log(JSON.stringify(data.apiResponse, undefined, 2));
+        RefreshRoom(data.apiResponse.return.game);
     });
 
     $('#RoomSelect').on('changed.bs.select', changeRoom);
@@ -14,92 +21,51 @@ $(function () {
     $('button#Reset').on('click', resetGame);
 
     $('#GameTime').on('finish.countdown', loseGame);
-
 });
 
 var timerInterval;
 
-function changeRoom() {
+function changeRoom(e, clickedIndex, isSelected, previousValue) {
     var roomCode = $('#RoomSelect').selectpicker('val');
-
-    debugger;
-
-    //todo change socket room
-
     $('#SelectedRoom').val(roomCode);
 
-    var jqxhr = $.ajax({
-            method: "GET",
-            url: "/api/sas/" + roomCode
-        })
-        .done(function (data) {
-            var game = data.return.game;
-            renderPage(game);
-        });
+    // change to correct socket room
+    if (previousValue) {
+        socket.emit('leave', previousValue);
+    }
+    socket.emit('join', roomCode)
+
+    // request initial data
+    socket.emit('sasRequest', { action: "select", roomCode: roomCode });
+}
+
+function RefreshRoom(game) {
+    renderPage(game);
 }
 
 function startGame() {
     var roomCode = $('#SelectedRoom').val();
-
-    var jqxhr = $.ajax({
-            method: "PATCH",
-            url: "/api/sas/" + roomCode + "/start"
-        })
-        .done(function (data) {
-            var game = data.return.game;
-            renderPage(game);
-        });
+    socket.emit('sasRequest', { action: "start", roomCode: roomCode });
 }
 
 function stopGame() {
     var roomCode = $('#SelectedRoom').val();
-
-    var jqxhr = $.ajax({
-            method: "PATCH",
-            url: "/api/sas/" + roomCode + "/stop"
-        })
-        .done(function (data) {
-            var game = data.return.game;
-            renderPage(game);
-        });
+    socket.emit('sasRequest', { action: "stop", roomCode: roomCode });
 }
 
 function winGame() {
     var roomCode = $('#SelectedRoom').val();
-
-    var jqxhr = $.ajax({
-            method: "PATCH",
-            url: "/api/sas/" + roomCode + "/win"
-        })
-        .done(function (data) {
-            var game = data.return.game;
-            renderPage(game);
-        });
+    socket.emit('sasRequest', { action: "win", roomCode: roomCode });
 }
 
 function loseGame() {
     var roomCode = $('#SelectedRoom').val();
-
-    var jqxhr = $.ajax({
-            method: "PATCH",
-            url: "/api/sas/" + roomCode + "/loss"
-        })
-        .done(function (data) {
-            var game = data.return.game;
-            renderPage(game);
-        });
+    socket.emit('sasRequest', { action: "loss", roomCode: roomCode });
 }
 
 function resetGame() {
     var roomCode = $('#SelectedRoom').val();
-    var jqxhr = $.ajax({
-            method: "PATCH",
-            url: "/api/sas/" + roomCode + "/reset"
-        })
-        .done(function (data) {
-            var game = data.return.game;
-            renderPage(game);
-        });
+    socket.emit('sasRequest', { action: "reset", roomCode: roomCode });
 }
 
 function setButtons(game) {
@@ -186,7 +152,7 @@ function renderPage(game) {
                             <div class="date">&nbsp;</div>
                         </div>`;
 
-            if( i === last ){
+            if (i === last) {
                 $('#CurrentMessage').html(message);
             }
 
@@ -200,7 +166,7 @@ function renderPage(game) {
 
     var updateMessageTime = function () {
         $('.message .date').html(
-            moment(this.data('created')).fromNow()
+            moment($(this).data('created')).fromNow()
         );
     }
 
