@@ -23,6 +23,10 @@ a{
     }
 }
 
+.btn-group-lg>.btn, .btn-lg{
+    border-radius: 0 0 0 0;
+}
+
 .btn{
     border-radius: 0;
 
@@ -638,6 +642,29 @@ body {
                 background: @cOffWhite;
                 color: @cRed;
                 border-color: @cRed;
+            }
+        }
+    }
+
+    &.screens{
+
+        .screenMirror{
+            background: @cOffBlack;
+            color: @cOffWhite;
+            height: 200px;
+            
+            .message{
+            }
+        }
+
+        #Messages {
+            position: relative;
+            height: ~"calc(100vh - 400px)";
+            overflow: auto;
+            
+            .message {
+                border-left: 3px solid @cRed;
+                text-align: left;
             }
         }
     }

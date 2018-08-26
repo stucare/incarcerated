@@ -4,6 +4,10 @@ a {
 a:hover {
   color: #9d0505;
 }
+.btn-group-lg > .btn,
+.btn-lg {
+  border-radius: 0 0 0 0;
+}
 .btn {
   border-radius: 0;
 }
@@ -502,6 +506,20 @@ body h6 {
   background: #fbfbff;
   color: #cf0606;
   border-color: #cf0606;
+}
+.admin.screens .screenMirror {
+  background: #111111;
+  color: #fbfbff;
+  height: 200px;
+}
+.admin.screens #Messages {
+  position: relative;
+  height: calc(100vh - 400px);
+  overflow: auto;
+}
+.admin.screens #Messages .message {
+  border-left: 3px solid #cf0606;
+  text-align: left;
 }
 .part ol {
   counter-reset: sectioncounter partcounter;

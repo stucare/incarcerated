@@ -1,7 +1,18 @@
-<div class="row m-5">
-    <div class="col-12 col-md-6">
+<div class="row m-md-5">
+    <div class="col-12 col-md-4 my-4 my-md-0 order-2 order-md-1">
         <div class="row">
             <div class="col-12 text-center">
+                <h5>Recent Clues</h5>
+                <div id="Messages">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-4 my-4 my-md-0 order-1 order-md-2">
+        <div class="row">
+            <div class="col-12 text-center mb-3">
                 <select id="RoomSelect" class="selectpicker show-tick mt-2" title="None" data-style="btn-primary">
                     <option value="adod">A Dose of Death</option>
                     <option value="pow">Prisoner of War</option>
@@ -11,19 +22,11 @@
                 </select>
             </div>
 
-            <div class="col-12 text-center">
-                <div id="GameState" class="p-4 text-uppercase text-center"><span class="placeholder">&nbsp;</span></div>
+            <div class="col-12 text-center my-3">
+                <div id="GameState" class="text-uppercase text-center"><span class="placeholder">&nbsp;</span></div>
             </div>
           
-            <div class="col-12">
-                <div id="GameTime" class="text-center"></div>
-            </div>
-            
-            <div class="col-12">
-                <div id="CurrentMessage" class="text-center"></div>
-            </div>      
-          
-            <div class="col-12 text-center">
+            <div class="col-12 text-center my-3">
                 <div class="btn-group btn-group-lg mx-auto" role="group">
                     <button type="button" id="Start" class="btn btn-outline-primary" disabled>
                         <i class="fas fa-play fa-fw"></i>
@@ -46,21 +49,32 @@
                     </button>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <div class="col-12 col-md-6">
-        <div class="row">
-            <div id="Messages" class="col-12 text-center">
-
+            
+            <div class="col-12 text-center my-3">
+                <form>
+                    <div class="input-group">
+                        <input type="text" id="Clue" name="Clue" class="form-control" placeholder="Clue...">
+                        <div class="input-group-append">
+                            <button id="MessageSubmit" class="btn btn-primary" type="button" disabled>Send</button>
+                        </div>
+                    </div>
+                </form>
             </div>
+
+            <div class="col-12 mt-3 text-center">
+                <div class="screenMirror p-3">
+                    <div id="GameTime" class="text-center">00:00</div>
+                    <div id="CurrentMessage" class="text-center">Clue</div>
+                    <div id="ClueCount" class="text-center">0</div>
+                </div>
+                
+            </div>   
+
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-12">
-        <table class="table table-responsive">
+    <div class="col-12 col-md-4 my-4 my-md-0 order-3">
+        <table class="table table-fluid">
             <thead>
                 <tr>
                     <td>Room</td>

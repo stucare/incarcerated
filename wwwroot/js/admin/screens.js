@@ -9,8 +9,10 @@ $(function () {
 
     socket.on('refreshRoomData', function (data) {
         console.log(JSON.stringify(data.apiResponse, undefined, 2));
-        RefreshRoom(data.apiResponse.return.game);
+        renderPage(data.apiResponse.return.game);
     });
+
+    $('form').on('submit', function (e) { e.preventDefault(); return false; });
 
     $('#RoomSelect').on('changed.bs.select', changeRoom);
 
@@ -37,10 +39,6 @@ function changeRoom(e, clickedIndex, isSelected, previousValue) {
 
     // request initial data
     socket.emit('sasRequest', { action: "select", roomCode: roomCode });
-}
-
-function RefreshRoom(game) {
-    renderPage(game);
 }
 
 function startGame() {
@@ -70,7 +68,7 @@ function resetGame() {
 
 function setButtons(game) {
     $('button.active').addClass('btn-outline-primary');
-    $('button.active').removeClass('active btn-outline-success');
+    $('button.active').removeClass('active btn-success');
     switch (game.state) {
         case 'active':
             $('#Start').prop('disabled', true)
@@ -78,7 +76,9 @@ function setButtons(game) {
             $('#Escape').prop('disabled', false);
             $('#Fail').prop('disabled', false);
             $('#Reset').prop('disabled', true);
-            $('#Start').addClass('active btn-outline-success');
+            $('#MessageSubmit').prop('disabled', false);
+            $('#Start').removeClass('btn-outline-primary');
+            $('#Start').addClass('active btn-success');
             break;
 
         case 'inactive':
@@ -87,7 +87,9 @@ function setButtons(game) {
             $('#Escape').prop('disabled', false);
             $('#Fail').prop('disabled', false);
             $('#Reset').prop('disabled', false);
-            $('#Stop').addClass('active btn-outline-success');
+            $('#MessageSubmit').prop('disabled', false);
+            $('#Stop').removeClass('btn-outline-primary');
+            $('#Stop').addClass('active btn-success');
             break;
 
         case 'win':
@@ -96,7 +98,9 @@ function setButtons(game) {
             $('#Escape').prop('disabled', true)
             $('#Fail').prop('disabled', true);
             $('#Reset').prop('disabled', false);
-            $('#Escape').addClass('active btn-outline-success');
+            $('#MessageSubmit').prop('disabled', false);
+            $('#Escape').removeClass('btn-outline-primary');
+            $('#Escape').addClass('active btn-success');
             break;
 
         case 'loss':
@@ -105,7 +109,9 @@ function setButtons(game) {
             $('#Escape').prop('disabled', true);
             $('#Fail').prop('disabled', true)
             $('#Reset').prop('disabled', false);
-            $('#Fail').addClass('active btn-outline-success');
+            $('#MessageSubmit').prop('disabled', false);
+            $('#Fail').removeClass('btn-outline-primary');
+            $('#Fail').addClass('active btn-success');
             break;
 
         case 'ready':
@@ -114,7 +120,9 @@ function setButtons(game) {
             $('#Escape').prop('disabled', true);
             $('#Fail').prop('disabled', true);
             $('#Reset').prop('disabled', false)
-            $('#Reset').addClass('active btn-outline-success');
+            $('#MessageSubmit').prop('disabled', false);
+            $('#Reset').removeClass('btn-outline-primary');
+            $('#Reset').addClass('active btn-success');
             break;
 
         default:
@@ -123,6 +131,7 @@ function setButtons(game) {
             $('#Escape').prop('disabled', true);
             $('#Fail').prop('disabled', true);
             $('#Reset').prop('disabled', true);
+            $('#MessageSubmit').prop('disabled', true);
             break;
     }
 }
@@ -134,33 +143,37 @@ function renderPage(game) {
     setButtons(game);
 
     $('#GameState .placeholder').html(game.state);
-
-    $('#Messages .message').fadeOut();
     $('#Messages .message').remove();
+
+    $('#GameTime').html(game.timeRemain);
+    //$('#ClueCount').text(game.clueCount);
 
     if (game.messages.length > 0) {
         var last = game.messages.length - 1;
         var i = last;
-        var j = 0.1;
 
         while (i >= (last - 10) && i >= 0) {
 
-            var text = game.messages[i].text;
-
-            var message = `<div class="message" style="opacity: ${1-j};" data-created="${game.messages[i].created}">
-                            <div class="text">${text}</div>
-                            <div class="date">&nbsp;</div>
-                        </div>`;
-
             if (i === last) {
+                var text = game.messages[i].text;
+                var message = `<div class="message" data-created="${game.messages[i].created}">
+                    <div class="text">${text}</div>
+                    <div class="date">&nbsp;</div>
+                </div>`;
+
                 $('#CurrentMessage').html(message);
+            } else {
+                var text = escapeHtml(game.messages[i].text);
+                var message = `<div class="message p-2 my-2" data-created="${game.messages[i].created}">
+                    <div class="text">${text}</div>
+                    <div class="date">&nbsp;</div>
+                </div>`;
+
+                var current = $('#Messages').html();
+                $('#Messages').html(current + message);
             }
 
-            var current = $('#Messages').html();
-            $('#Messages').html(current + message);
-
             i--;
-            j += 0.1;
         }
     }
 
@@ -172,4 +185,21 @@ function renderPage(game) {
 
     updateMessageTime();
     timerInterval = setInterval(updateMessageTime, 1000);
+}
+
+var entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+    '/': '&#x2F;',
+    '`': '&#x60;',
+    '=': '&#x3D;'
+};
+
+function escapeHtml(string) {
+    return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+        return entityMap[s];
+    });
 }
