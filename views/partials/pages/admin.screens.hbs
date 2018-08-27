@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h5>Recent Clues</h5>
-                <div id="Messages">
+                <div id="Clues">
                     
                 </div>
             </div>
@@ -51,21 +51,24 @@
             </div>
             
             <div class="col-12 text-center my-3">
-                <form>
+                <form id="ClueForm">
                     <div class="input-group">
                         <input type="text" id="Clue" name="Clue" class="form-control" placeholder="Clue...">
                         <div class="input-group-append">
-                            <button id="MessageSubmit" class="btn btn-primary" type="button" disabled>Send</button>
+                            <button id="ClueSubmit" class="btn btn-primary" type="submit" disabled>Send</button>
                         </div>
                     </div>
                 </form>
             </div>
 
             <div class="col-12 mt-3 text-center">
-                <div class="screenMirror p-3">
-                    <div id="GameTime" class="text-center">00:00</div>
-                    <div id="CurrentMessage" class="text-center">Clue</div>
-                    <div id="ClueCount" class="text-center">0</div>
+                <div class="screenMirror">
+                    <div id="GameTime" class="text-center">&nbsp;</div>
+                    <div id="CurrentClue" class="text-center d-flex justify-content-center align-items-center">&nbsp;</div>
+                    <div id="ClueCount" class="text-center">&nbsp;</div>
+                    <div id="Ping" class="text-center text-primary" style="display:none;">
+                        <i class="fas fa-bell fa-fw"></i>
+                    </div>
                 </div>
                 
             </div>   

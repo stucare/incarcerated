@@ -67,13 +67,30 @@ exports = module.exports = function (io) {
                         io.in(roomCode).emit('refreshRoomData', { apiResponse: response.data });
                         break;
 
+                    case "clue":
+                        response = await axios({
+                            method: "post",
+                            headers: { 'x-auth': authToken.token },
+                            url: "/api/sas/" + roomCode + "/" + sasRequest.action,
+                            data: {
+                                clue: sasRequest.clue,
+                                isSilent: false
+                            },
+                            proxy: {
+                                port: process.env.PORT
+                            }
+                        });
+
+                        io.in(roomCode).emit('refreshRoomData', { apiResponse: response.data });
+                        io.in(roomCode).emit('ping', {});
+                        break;
+
                     default:
                         break;
                 }
 
             } catch (error) {
                 //todo error log
-                console.log(error)
             }
         });
     });

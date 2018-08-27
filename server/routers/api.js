@@ -708,9 +708,10 @@ module.exports = (router) => {
         }
     });
 
-    router.post('/sas/:code/message', async (req, res) => {
+    router.post('/sas/:code/clue', async (req, res) => {
         try {
             let roomCode = req.params.code;
+
             let room = await Room.findOne({ code: roomCode });
             if (!room) {
                 return res.status(404).send(
@@ -718,21 +719,21 @@ module.exports = (router) => {
                 );
             }
 
-            let data = _.pick(req.body, ['message', 'isSilent']);
+            let data = _.pick(req.body, ['clue', 'isSilent']);
 
-            if (data.message.length === 0) {
+            if (data.clue.length === 0) {
                 data.isSilent = true;
             }
 
-            let message = await room.addMessage({
-                text: data.message,
+            let clue = await room.addClue({
+                text: data.clue,
                 isSilent: !data.isSilent ? false : data.isSilent,
                 createdBy: req.user._id.toString(),
                 created: new Date().getTime()
             })
 
             res.send(
-                createResponse(true, true, "success", { message }, req.user)
+                createResponse(true, true, "success", { game: room.game }, req.user)
             );
 
         } catch (error) {
@@ -836,19 +837,23 @@ module.exports = (router) => {
                 let timeElapsed = segmentElapsed + room.game.timeElapsed;
                 let timeRemain = room.game.timeRemain - segmentElapsed;
 
-                let message = await room.addMessage({
+                if (room.game.state === 'active') {
+                    room.game.timeElapsed = timeElapsed;
+                    room.game.timeRemain = timeRemain;
+                    room.game.timeBase = currentTime;
+                }
+
+                let clue = await room.addClue({
                     text: `<div class="win">Congratulations</div>
-                    <div>You escaped in: ${moment(timeElapsed).format('mm:ss')}</div>
+                    <div>You escaped in: ${moment(room.game.timeElapsed).format('mm:ss')}</div>
                     <div>${room.game.clueCount} Clues</div>`,
                     isSilent: true,
                     createdBy: req.user._id.toString(),
-                    created: new Date().getTime()
+                    created: new Date().getTime(),
+                    ignoreCount: true
                 });
 
-                room.game.timeElapsed = timeElapsed;
-                room.game.timeRemain = timeRemain;
                 room.game.state = "win";
-                room.game.timeBase = currentTime;
                 await room.save()
 
                 return res.send(
@@ -881,11 +886,12 @@ module.exports = (router) => {
             if (room.game.state === "active" || room.game.state === "inactive") {
                 let currentTime = new Date().getTime();
 
-                let message = await room.addMessage({
+                let clue = await room.addClue({
                     text: `<div class="loss">Forever Incarcerated</div>`,
                     isSilent: true,
                     createdBy: req.user._id.toString(),
-                    created: new Date().getTime()
+                    created: new Date().getTime(),
+                    ignoreCount: true
                 });
 
                 room.game.timeElapsed = room.game.gameDuration;
@@ -923,39 +929,38 @@ module.exports = (router) => {
 
             if (room.game.state !== "active") {
 
-            let data = _.pick(req.body, ['gameDuration', 'resetMessage']);
+                let data = _.pick(req.body, ['gameDuration']);
 
-            let gameDuration = 60 * 60 * 1000;
-            if (data.gameDuration) {
-                gameDuration = data.gameDuration * 60 * 1000;
-            }
+                let gameDuration = 60 * 60 * 1000;
+                if (data.gameDuration) {
+                    gameDuration = data.gameDuration * 60 * 1000;
+                }
 
-            if ('resetMessage') {
-                let message = await room.addMessage({
+                let clue = await room.addClue({
                     text: `<h1>${room.display.name}</h1>
-                    <div>${moment(gameDuration).format('mm:ss')}</div>`,
+                <div>INCARCERATED SWINDON</div>`,
                     isSilent: true,
                     createdBy: req.user._id.toString(),
-                    created: new Date().getTime()
+                    created: new Date().getTime(),
+                    ignoreCount: true
                 });
+
+                room.game.timeElapsed = 0;
+                room.game.timeRemain = gameDuration;
+                room.game.gameDuration = gameDuration;
+                room.game.state = "ready";
+                room.game.timeBase = 0;
+                room.game.clueCount = 0;
+                await room.save()
+
+                res.send(
+                    createResponse(true, true, "success", { game: room.game }, req.user)
+                );
+            } else {
+                res.send(
+                    createResponse(true, true, "no-change", { game: room.game }, req.user)
+                );
             }
-
-            room.game.timeElapsed = 0;
-            room.game.timeRemain = gameDuration;
-            room.game.gameDuration = gameDuration;
-            room.game.state = "ready";
-            room.game.timeBase = 0;
-            room.game.clueCount = 0;
-            await room.save()
-
-            res.send(
-                createResponse(true, true, "success", { game: room.game }, req.user)
-            );
-        } else {
-            res.send(
-                createResponse(true, true, "no-change", { game: room.game }, req.user)
-            );
-        }
 
         } catch (error) {
             logger.errorlog(req, res, "Unknown Error", error);

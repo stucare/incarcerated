@@ -8,11 +8,17 @@ $(function () {
     });
 
     socket.on('refreshRoomData', function (data) {
-        console.log(JSON.stringify(data.apiResponse, undefined, 2));
         renderPage(data.apiResponse.return.game);
     });
 
-    $('form').on('submit', function (e) { e.preventDefault(); return false; });
+    socket.on('ping', function (data) {
+        $('#Ping').show();
+        setTimeout( function () {
+            $('#Ping').fadeOut(500);
+        }, 2000) 
+    });
+
+    $('form#ClueForm').on('submit', sendClue);
 
     $('#RoomSelect').on('changed.bs.select', changeRoom);
 
@@ -66,6 +72,16 @@ function resetGame() {
     socket.emit('sasRequest', { action: "reset", roomCode: roomCode });
 }
 
+function sendClue(event) {
+    event.preventDefault();
+    var roomCode = $('#SelectedRoom').val();
+    var text = $('#Clue').val();
+
+    socket.emit('sasRequest', { action: "clue", roomCode: roomCode, clue: text });
+
+    $('#Clue').val('');
+}
+
 function setButtons(game) {
     $('button.active').addClass('btn-outline-primary');
     $('button.active').removeClass('active btn-success');
@@ -76,7 +92,7 @@ function setButtons(game) {
             $('#Escape').prop('disabled', false);
             $('#Fail').prop('disabled', false);
             $('#Reset').prop('disabled', true);
-            $('#MessageSubmit').prop('disabled', false);
+            $('#ClueSubmit').prop('disabled', false);
             $('#Start').removeClass('btn-outline-primary');
             $('#Start').addClass('active btn-success');
             break;
@@ -87,7 +103,7 @@ function setButtons(game) {
             $('#Escape').prop('disabled', false);
             $('#Fail').prop('disabled', false);
             $('#Reset').prop('disabled', false);
-            $('#MessageSubmit').prop('disabled', false);
+            $('#ClueSubmit').prop('disabled', false);
             $('#Stop').removeClass('btn-outline-primary');
             $('#Stop').addClass('active btn-success');
             break;
@@ -98,7 +114,7 @@ function setButtons(game) {
             $('#Escape').prop('disabled', true)
             $('#Fail').prop('disabled', true);
             $('#Reset').prop('disabled', false);
-            $('#MessageSubmit').prop('disabled', false);
+            $('#ClueSubmit').prop('disabled', false);
             $('#Escape').removeClass('btn-outline-primary');
             $('#Escape').addClass('active btn-success');
             break;
@@ -109,7 +125,7 @@ function setButtons(game) {
             $('#Escape').prop('disabled', true);
             $('#Fail').prop('disabled', true)
             $('#Reset').prop('disabled', false);
-            $('#MessageSubmit').prop('disabled', false);
+            $('#ClueSubmit').prop('disabled', false);
             $('#Fail').removeClass('btn-outline-primary');
             $('#Fail').addClass('active btn-success');
             break;
@@ -120,7 +136,7 @@ function setButtons(game) {
             $('#Escape').prop('disabled', true);
             $('#Fail').prop('disabled', true);
             $('#Reset').prop('disabled', false)
-            $('#MessageSubmit').prop('disabled', false);
+            $('#ClueSubmit').prop('disabled', false);
             $('#Reset').removeClass('btn-outline-primary');
             $('#Reset').addClass('active btn-success');
             break;
@@ -131,7 +147,7 @@ function setButtons(game) {
             $('#Escape').prop('disabled', true);
             $('#Fail').prop('disabled', true);
             $('#Reset').prop('disabled', true);
-            $('#MessageSubmit').prop('disabled', true);
+            $('#ClueSubmit').prop('disabled', true);
             break;
     }
 }
@@ -143,48 +159,68 @@ function renderPage(game) {
     setButtons(game);
 
     $('#GameState .placeholder').html(game.state);
-    $('#Messages .message').remove();
+    $('#Clues .clue').remove();
 
-    $('#GameTime').html(game.timeRemain);
-    //$('#ClueCount').text(game.clueCount);
+    // ges the finish time
+    var finishDateTime = new Date(game.state==='active' ? game.timeBase + game.timeRemain : new Date().getTime() + game.timeRemain);
 
-    if (game.messages.length > 0) {
-        var last = game.messages.length - 1;
+    $('#GameTime').countdown(finishDateTime, function(event) {
+        $(this).html(event.strftime('%H:%M:%S'));
+      });
+
+    switch (game.state) {
+        case 'active':
+            $('#GameTime').countdown('start');
+            break;
+        case 'inactive':
+        case 'win':
+        case 'loss':
+        case 'ready':
+            $('#GameTime').countdown('stop');
+            break;
+    }
+
+    $('#ClueCount').text(game.clueCount);
+
+    if (game.clues.length > 0) {
+        var last = game.clues.length - 1;
         var i = last;
 
         while (i >= (last - 10) && i >= 0) {
 
             if (i === last) {
-                var text = game.messages[i].text;
-                var message = `<div class="message" data-created="${game.messages[i].created}">
-                    <div class="text">${text}</div>
+                var text = game.clues[i].text;
+                var clue = `<div class="clue" data-created="${game.clues[i].created}">
+                    <div class="text">${text}&nbsp;</div>
                     <div class="date">&nbsp;</div>
                 </div>`;
 
-                $('#CurrentMessage').html(message);
+                $('#CurrentClue').html(clue);
             } else {
-                var text = escapeHtml(game.messages[i].text);
-                var message = `<div class="message p-2 my-2" data-created="${game.messages[i].created}">
-                    <div class="text">${text}</div>
-                    <div class="date">&nbsp;</div>
+                var text = escapeHtml(game.clues[i].text);
+                var clue = `<div class="clue p-2 my-2" data-created="${game.clues[i].created}">
+                    <div class="text">${text}&nbsp;</div>
+                    <div class="date small">&nbsp;</div>
                 </div>`;
 
-                var current = $('#Messages').html();
-                $('#Messages').html(current + message);
+                var current = $('#Clues').html();
+                $('#Clues').html(current + clue);
             }
 
             i--;
         }
     }
 
-    var updateMessageTime = function () {
-        $('.message .date').html(
-            moment($(this).data('created')).fromNow()
-        );
+    var updateClueTime = function () {
+        $('.clue').each(function () {
+            var date = new Date($(this).data('created'));
+            $(this).find('.date').html(moment(date).fromNow());
+        });
+
     }
 
-    updateMessageTime();
-    timerInterval = setInterval(updateMessageTime, 1000);
+    updateClueTime();
+    timerInterval = setInterval(updateClueTime, 1000);
 }
 
 var entityMap = {
