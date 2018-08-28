@@ -23,20 +23,18 @@ a{
     }
 }
 
-.btn-group-lg>.btn, .btn-lg{
-    border-radius: 0 0 0 0;
-}
-
 .btn{
-    border-radius: 0;
-
     &.btn-primary{
         background-color: @cRed;
         border-color: @cRed;
 
-        &:hover{
+        &:hover:not(:disabled):not(.disabled){
             background-color: darken(@cRed, 5%);
             border-color: darken(@cRed, 10%);
+        }
+
+        &:disabled, &.disabled{
+            cursor: default;
         }
 
         &:not(:disabled):not(.disabled):active{
@@ -52,14 +50,42 @@ a{
             box-shadow: 0 0 0 0.2rem fade(@cRed, 50%);
         }
     }
+
+    &.btn-outline-primary{
+        border-color: @cRed;
+        color: @cRed;
+
+        &:hover:not(:disabled):not(.disabled){
+            background-color: @cRed;
+            border-color: @cRed;
+            color: @cOffWhite;
+        }
+
+        &:disabled, &.disabled{
+            cursor: default;
+        }
+
+        &:not(:disabled):not(.disabled):active{
+            background-color: @cRed;
+            border-color: @cRed;
+            
+            &:focus{
+                box-shadow: 0 0 0 0.2rem fade(@cRed, 50%);
+            }
+        }
+
+        &:focus{
+            box-shadow: 0 0 0 0.2rem fade(@cRed, 50%);
+        }
+    }
+}
+
+.text-primary{
+    color: @cRed !important;
 }
 
 .input-group, .form-group{ 
     margin-bottom: 0;
-    
-    > input{
-        border-radius: 0;
-    }
 }
 
 // Styles
@@ -104,6 +130,10 @@ body {
     min-height: 100px;
     font-size: 1rem;
     font-family: 'Raleway';
+
+    .navbar-brand{
+        padding-right: none;
+    }
 
     .incarcerated{
         font-size: 1.5rem;
@@ -651,16 +681,30 @@ body {
         .screenMirror{
             background: @cOffBlack;
             color: @cOffWhite;
-            height: 250px;
+            height: 200px;
+            overflow: hidden;
 
-            #Ping{
-                position: absolute;
-                top: 5px;
-                left: 25px;
+            #CurrentClue{
+                width: 100%;
+                height: 100%;
+                padding: 5px;
+
+                h1, h2, h3, h4, h5, h6{
+                    font-size: 1rem;
+                    font-weight: 700;
+                }
+
+                .date{
+                    text-align: right;
+                    position: absolute;
+                    bottom: 5px;
+                    right: 25px;
+                }
             }
-            
+
             #GameTime{
                 position: absolute;
+                text-align: right;
                 top: 5px;
                 right: 25px;
             }
@@ -671,28 +715,56 @@ body {
                 left: 25px;
             }
 
-            #CurrentClue{
-                width: 100%;
-                height: 100%;
-                padding: 5px;
-
-                .date{
-                    text-align: right;
-                    position: absolute;
-                    bottom: 5px;
-                    right: 25px;
-                }
+            #Ping{
+                position: absolute;
+                top: 5px;
+                left: 25px;
             }
+
+
         }
 
         #Clues {
             position: relative;
-            height: ~"calc(100vh - 400px)";
+            max-height: ~"calc(100vh - 400px)";
             overflow: auto;
             
+            
             .clue {
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
+
                 border-left: 3px solid @cRed;
                 text-align: left;
+
+                &:hover{
+                    background-color: lighten(@cRed, 50%);
+                }
+            }
+        }
+
+        .room-overview{
+
+            .room-row{
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
+
+                &:hover{
+                    background-color: lighten(@cRed, 50%);
+                }
+
+                .room-state{
+                    color: @cRed;
+                }
+
+                &.active{
+                    background: @cRed;
+                    border: 1px solid rgba(0,0,0,.125);
+
+                    .room-state{
+                        color: @cOffWhite;
+                    }
+                }
             }
         }
     }

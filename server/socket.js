@@ -6,7 +6,6 @@ const logger = require('../server/logger/logger');
 
 exports = module.exports = function (io) {
     io.on('connection', async (socket) => {
-
         let handshake = socket.handshake;
 
         let userId = handshake.query.userId;
@@ -46,7 +45,10 @@ exports = module.exports = function (io) {
                             }
                         });
 
+                        response.data.return.game.code = roomCode;
+
                         io.in(roomCode).emit('refreshRoomData', { apiResponse: response.data });
+                        io.in('sasTable').emit('refreshTableData', { apiResponse: response.data });
                         break;
 
                     case "start":
@@ -63,8 +65,11 @@ exports = module.exports = function (io) {
 
                             }
                         });
+                        
+                        response.data.return.game.code = roomCode;
 
                         io.in(roomCode).emit('refreshRoomData', { apiResponse: response.data });
+                        io.in('sasTable').emit('refreshTableData', { apiResponse: response.data });
                         break;
 
                     case "clue":
@@ -81,8 +86,11 @@ exports = module.exports = function (io) {
                             }
                         });
 
+                        response.data.return.game.code = roomCode;
+
                         io.in(roomCode).emit('refreshRoomData', { apiResponse: response.data });
                         io.in(roomCode).emit('ping', {});
+                        io.in('sasTable').emit('refreshTableData', { apiResponse: response.data });
                         break;
 
                     default:

@@ -1,102 +1,75 @@
-<div class="row m-md-5">
-    <div class="col-12 col-md-4 my-4 my-md-0 order-2 order-md-1">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h5>Recent Clues</h5>
-                <div id="Clues">
-                    
-                </div>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-12 d-none">
+        <select id="RoomSelect" class="selectpicker show-tick" title="None" data-style="btn-primary">
+            <option value="adod">A Dose of Death</option>
+            <option value="age">Conspiracy - Agenda 21</option>
+            <option value="crc">Cops &amp; Robbers - Cops</option>
+            <option value="crr">Cops &amp; Robbers - Robbers</strong></option>
+            <option value="pow">Prisoner of War</option>
+        </select>
     </div>
-
-    <div class="col-12 col-md-4 my-4 my-md-0 order-1 order-md-2">
-        <div class="row">
-            <div class="col-12 text-center mb-3">
-                <select id="RoomSelect" class="selectpicker show-tick mt-2" title="None" data-style="btn-primary">
-                    <option value="adod">A Dose of Death</option>
-                    <option value="pow">Prisoner of War</option>
-                    <option value="crc">Cops &amp; Robbers - Cops</option>
-                    <option value="crr">Cops &amp; Robbers - Robbers</strong></option>
-                    <option value="age">Conspiracy - Agenda 21</option>
-                </select>
-            </div>
-
-            <div class="col-12 text-center my-3">
-                <div id="GameState" class="text-uppercase text-center"><span class="placeholder">&nbsp;</span></div>
-            </div>
-          
-            <div class="col-12 text-center my-3">
-                <div class="btn-group btn-group-lg mx-auto" role="group">
-                    <button type="button" id="Start" class="btn btn-outline-primary" disabled>
-                        <i class="fas fa-play fa-fw"></i>
-                    </button>
-                    
-                    <button type="button" id="Stop" class="btn btn-outline-primary" disabled>
-                        <i class="fas fa-pause fa-fw"></i>
-                    </button>
-
-                    <button type="button" id="Escape" class="btn btn-outline-primary" disabled>
-                        <i class="fas fa-door-open fa-fw"></i>
-                    </button>
-
-                    <button type="button" id="Fail" class="btn btn-outline-primary" disabled>
-                        <i class="fas fa-door-closed fa-fw"></i>
-                    </button>
-
-                    <button type="button" id="Reset" class="btn btn-outline-primary" disabled>
-                        <i class="fas fa-undo-alt fa-fw"></i>
-                    </button>
-                </div>
-            </div>
+    <div class="col-12 mb-2">
+        <ul class="list-group room-overview">
+            {{#each rooms}}
+                <li class="list-group-item d-flex justify-content-between align-items-center room-row" id="{{this.code}}" data-room="{{this.code}}" data-state="{{this.game.state}}" data-time-base="{{this.game.timeBase}}" data-time-remain="{{this.game.timeRemain}}">
+                    <span><span class="room-state"></span>&nbsp;&nbsp;{{{this.adminName}}}</span>
+                    <span><span class="room-clues">{{this.game.clueCount}}</span>&nbsp;&nbsp;-&nbsp;&nbsp;<span class="room-countdown"></span></span>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+    <div class="col-12 my-2 text-center">
+        <div class="btn-group btn-group-lg" role="group">
+            <button type="button" id="Start" class="btn btn-outline-primary" disabled>
+                <i class="fas fa-play fa-fw"></i>
+            </button>
             
-            <div class="col-12 text-center my-3">
-                <form id="ClueForm">
-                    <div class="input-group">
-                        <input type="text" id="Clue" name="Clue" class="form-control" placeholder="Clue...">
-                        <div class="input-group-append">
-                            <button id="ClueSubmit" class="btn btn-primary" type="submit" disabled>Send</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+            <button type="button" id="DoubleStart" class="btn btn-outline-primary d-none" disabled>
+                <i class="fas fa-forward fa-fw"></i>
+            </button>
 
-            <div class="col-12 mt-3 text-center">
-                <div class="screenMirror">
-                    <div id="GameTime" class="text-center">&nbsp;</div>
-                    <div id="CurrentClue" class="text-center d-flex justify-content-center align-items-center">&nbsp;</div>
-                    <div id="ClueCount" class="text-center">&nbsp;</div>
-                    <div id="Ping" class="text-center text-primary" style="display:none;">
-                        <i class="fas fa-bell fa-fw"></i>
-                    </div>
-                </div>
-                
-            </div>   
+            <button type="button" id="Stop" class="btn btn-outline-primary" disabled>
+                <i class="fas fa-pause fa-fw"></i>
+            </button>
 
+            <button type="button" id="Escape" class="btn btn-outline-primary" disabled>
+                <i class="fas fa-door-open fa-fw"></i>
+            </button>
+
+            <button type="button" id="Fail" class="btn btn-outline-primary" disabled>
+                <i class="fas fa-door-closed fa-fw"></i>
+            </button>
+
+            <button type="button" id="Reset" class="btn btn-outline-primary" disabled>
+                <i class="fas fa-undo-alt fa-fw"></i>
+            </button>
         </div>
     </div>
-
-    <div class="col-12 col-md-4 my-4 my-md-0 order-3">
-        <table class="table table-fluid">
-            <thead>
-                <tr>
-                    <td>Room</td>
-                    <td>State</td>
-                    <td>Remain</td>
-                    <td># Clues</td>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each rooms}}
-                <tr class="room-row" data-room="{{this.code}}">
-                    <td>{{{this.adminName}}}</td>
-                    <td>{{this.game.state}}</td>
-                    <td>{{this.game.timeRemain}}</td>
-                    <td>{{this.game.clueCount}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+    <div class="col-12 my-2">
+        <form id="ClueForm">
+            <div class="input-group">
+                <input type="text" id="Clue" name="Clue" class="form-control" placeholder="Clue...">
+                <div class="input-group-append">
+                    <button id="ClueSubmit" class="btn btn-primary" type="submit" disabled>
+                        <i class="fas fa-terminal fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 my-2">
+        <div class="screenMirror">
+            <div id="GameTime" class="text-center">&nbsp;</div>
+            <div id="CurrentClue" class="text-center d-flex justify-content-center align-items-center">&nbsp;</div>
+            <div id="ClueCount" class="text-center">&nbsp;</div>
+            <div id="Ping" class="text-center text-primary" style="display:none;">
+                <i class="fas fa-bell fa-fw"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 my-2 mb-5 d-none">
+        <h5>Recent Clues</h5>
+        <div id="Clues"></div>
     </div>
 </div>
 

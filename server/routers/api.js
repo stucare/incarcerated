@@ -894,8 +894,12 @@ module.exports = (router) => {
                     ignoreCount: true
                 });
 
-                room.game.timeElapsed = room.game.gameDuration;
-                room.game.timeRemain = 0;
+                let segmentElapsed = (currentTime - room.game.timeBase);
+                let timeElapsed = segmentElapsed + room.game.timeElapsed;
+                let timeRemain = room.game.timeRemain - segmentElapsed;
+
+                room.game.timeElapsed = timeElapsed;
+                room.game.timeRemain = timeRemain;
                 room.game.state = 'loss';
                 room.game.timeBase = currentTime;
                 await room.save()
