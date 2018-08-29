@@ -24,6 +24,8 @@ a{
 }
 
 .btn{
+    border-radius: 0;
+
     &.btn-primary{
         background-color: @cRed;
         border-color: @cRed;
@@ -86,6 +88,10 @@ a{
 
 .input-group, .form-group{ 
     margin-bottom: 0;
+}
+
+.input-group>.custom-select:not(:last-child), .input-group>.form-control:not(:last-child){
+    border-radius: 0;
 }
 
 // Styles
@@ -677,12 +683,19 @@ body {
     }
 
     &.screens{
+        max-width: 1200px;
+        width: 100%;
+        margin-bottom: 100px;
 
         .screenMirror{
             background: @cOffBlack;
             color: @cOffWhite;
             height: 200px;
             overflow: hidden;
+
+            @media @md {
+                height: 231px;
+            }
 
             #CurrentClue{
                 width: 100%;
@@ -726,7 +739,7 @@ body {
 
         #Clues {
             position: relative;
-            max-height: ~"calc(100vh - 400px)";
+            height: 200px;
             overflow: auto;
             
             

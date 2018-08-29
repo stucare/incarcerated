@@ -4,6 +4,9 @@ a {
 a:hover {
   color: #9d0505;
 }
+.btn {
+  border-radius: 0;
+}
 .btn.btn-primary {
   background-color: #cf0606;
   border-color: #cf0606;
@@ -55,6 +58,10 @@ a:hover {
 .input-group,
 .form-group {
   margin-bottom: 0;
+}
+.input-group > .custom-select:not(:last-child),
+.input-group > .form-control:not(:last-child) {
+  border-radius: 0;
 }
 body {
   font-family: 'Open Sans';
@@ -529,11 +536,21 @@ body h6 {
   color: #cf0606;
   border-color: #cf0606;
 }
+.admin.screens {
+  max-width: 1200px;
+  width: 100%;
+  margin-bottom: 100px;
+}
 .admin.screens .screenMirror {
   background: #111111;
   color: #fbfbff;
   height: 200px;
   overflow: hidden;
+}
+@media only screen and (min-width: 768px) {
+  .admin.screens .screenMirror {
+    height: 231px;
+  }
 }
 .admin.screens .screenMirror #CurrentClue {
   width: 100%;
@@ -573,7 +590,7 @@ body h6 {
 }
 .admin.screens #Clues {
   position: relative;
-  max-height: calc(100vh - 400px);
+  height: 200px;
   overflow: auto;
 }
 .admin.screens #Clues .clue {

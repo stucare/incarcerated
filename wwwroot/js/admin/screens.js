@@ -17,11 +17,9 @@ $(function () {
         renderTable(data.apiResponse.return.game);
     })
 
-    socket.on('ping', function (data) {
-        $('#Ping').show();
-        setTimeout(function () {
-            $('#Ping').fadeOut(500);
-        }, 2000)
+    socket.on('sendPing', function (data) {
+        console.log("ping called");
+        ping();
     });
 
     initialiseTable();
@@ -59,7 +57,6 @@ function changeRoom(e, clickedIndex, isSelected, previousValue) {
     $('#SelectedRoom').val(roomCode);
 
     // change to correct socket room
-    console.log(previousRoom);
     if (previousRoom) {
         socket.emit('leave', previousRoom);
     }
@@ -116,7 +113,7 @@ function setButtons(game) {
         case "crc":
             $('#DoubleStart').removeClass('d-none');
             break;
-    
+
         default:
             $('#DoubleStart').addClass('d-none');
             break;
@@ -235,7 +232,7 @@ function renderPage(game) {
         var last = game.clues.length - 1;
         var i = last;
 
-        while (i >= (last - 10) && i >= 0) {
+        while (i >= (last - 3) && i >= 0) {
 
             if (i === last) {
                 var text = game.clues[i].text;
@@ -302,7 +299,6 @@ function initialiseTable() {
 }
 
 function renderTable(game) {
-    console.log(game);
     var row = $('#' + game.code);
 
     $(row).data('state', game.state);
@@ -331,6 +327,13 @@ function renderTable(game) {
             $(row).find('.room-countdown').countdown('stop');
             break;
     }
+}
+
+function ping() {
+    $('#Ping').show();
+    setTimeout(function () {
+        $('#Ping').fadeOut(500);
+    }, 2000)
 }
 
 function getStateIconClass(state) {

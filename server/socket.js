@@ -25,6 +25,8 @@ exports = module.exports = function (io) {
 
         socket.on('sasRequest', async function (sasRequest) {
             try {
+                console.log(new Date().toTimeString() + " - " + sasRequest.roomCode + " - " + sasRequest.action);
+
                 let roomCode = sasRequest.roomCode;
 
                 // get auth token for request
@@ -89,7 +91,7 @@ exports = module.exports = function (io) {
                         response.data.return.game.code = roomCode;
 
                         io.in(roomCode).emit('refreshRoomData', { apiResponse: response.data });
-                        io.in(roomCode).emit('ping', {});
+                        io.in(roomCode).emit('sendPing', {});
                         io.in('sasTable').emit('refreshTableData', { apiResponse: response.data });
                         break;
 

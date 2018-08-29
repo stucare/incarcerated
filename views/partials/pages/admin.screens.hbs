@@ -8,7 +8,7 @@
             <option value="pow">Prisoner of War</option>
         </select>
     </div>
-    <div class="col-12 mb-2">
+    <div class="col-12 col-sm-9 col-md-6 mx-sm-auto mx-md-0 order-md-1 mb-2">
         <ul class="list-group room-overview">
             {{#each rooms}}
                 <li class="list-group-item d-flex justify-content-between align-items-center room-row" id="{{this.code}}" data-room="{{this.code}}" data-state="{{this.game.state}}" data-time-base="{{this.game.timeBase}}" data-time-remain="{{this.game.timeRemain}}">
@@ -18,7 +18,7 @@
             {{/each}}
         </ul>
     </div>
-    <div class="col-12 my-2 text-center">
+    <div class="col-12 col-md-6 col-lg-6 my-2 text-center order-md-4">
         <div class="btn-group btn-group-lg" role="group">
             <button type="button" id="Start" class="btn btn-outline-primary" disabled>
                 <i class="fas fa-play fa-fw"></i>
@@ -45,9 +45,9 @@
             </button>
         </div>
     </div>
-    <div class="col-12 my-2">
+    <div class="col-12 col-sm-9 col-md-6 col-lg-6 mx-sm-auto my-2 order-md-3">
         <form id="ClueForm">
-            <div class="input-group">
+            <div class="input-group input-group-lg">
                 <input type="text" id="Clue" name="Clue" class="form-control" placeholder="Clue...">
                 <div class="input-group-append">
                     <button id="ClueSubmit" class="btn btn-primary" type="submit" disabled>
@@ -57,7 +57,7 @@
             </div>
         </form>
     </div>
-    <div class="col-12 my-2">
+    <div class="col-12 col-sm-9 col-md-6 mx-sm-auto order-md-2 my-2 mt-md-0">
         <div class="screenMirror">
             <div id="GameTime" class="text-center">&nbsp;</div>
             <div id="CurrentClue" class="text-center d-flex justify-content-center align-items-center">&nbsp;</div>
@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    <div class="col-12 my-2 mb-5 d-none">
+    <div class="col-12 my-2 d-none d-md-block order-md-5">
         <h5>Recent Clues</h5>
         <div id="Clues"></div>
     </div>

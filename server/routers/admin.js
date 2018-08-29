@@ -96,9 +96,9 @@ module.exports = (router) => {
         res.render('admin', {
             layout: false,
             user: req.user,
-            title: 'Screen Administration System',
+            title: 'Screen Admin System',
             template: 'pages/admin.screens',
-            mainClass: 'screens d-flex flex-column flex-wrap ',
+            mainClass: 'screens d-flex flex-column flex-wrap justify-content-center align-items-center',
             showHomeLink: true,
             rooms: rooms
         });
