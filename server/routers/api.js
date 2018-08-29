@@ -607,10 +607,11 @@ module.exports = (router) => {
                 );
             }
 
-            let data = _.pick(req.body, ['code', 'name', 'description', 'minPlayers', 'maxPlayers', 'isLive', 'isAccessible']);
+            let data = _.pick(req.body, ['code', 'name', 'description', 'adminName', 'minPlayers', 'maxPlayers', 'isLive', 'isAccessible']);
 
             let newRoom = new Room({
                 code: data.code,
+                adminName: data.adminName,
                 display: {
                     name: data.name,
                     description: data.description,
