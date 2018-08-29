@@ -82,6 +82,13 @@ a{
     }
 }
 
+.btn-group>.btn-group:not(:last-child)>.btn, .btn-group>.btn:not(:last-child):not(.dropdown-toggle){
+    border-radius: 0;
+}
+.btn-group>.btn-group:not(:first-child)>.btn, .btn-group>.btn:not(:first-child){
+    border-radius: 0;
+}
+
 .text-primary{
     color: @cRed !important;
 }
@@ -91,6 +98,20 @@ a{
 }
 
 .input-group>.custom-select:not(:last-child), .input-group>.form-control:not(:last-child){
+    border-radius: 0;
+}
+
+.input-group-lg>.input-group-append>.btn{
+    border-radius: 0;
+}
+
+.list-group-item{ 
+    &:last-child, &:first-child{
+        border-radius: 0;
+    }
+}
+
+.form-control{
     border-radius: 0;
 }
 
@@ -686,6 +707,14 @@ body {
         max-width: 1200px;
         width: 100%;
         margin-bottom: 100px;
+
+        #Duration{
+            transition: all 0.3s ease-in-out;
+
+            &.is-valid{
+                background-color: lighten(#28a745, 66%);
+            }
+        }
 
         .screenMirror{
             background: @cOffBlack;

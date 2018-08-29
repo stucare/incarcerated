@@ -57,7 +57,6 @@ exports = module.exports = function (io) {
                     case "stop":
                     case "win":
                     case "loss":
-                    case "reset":
                         response = await axios({
                             method: "patch",
                             headers: { 'x-auth': authToken.token },
@@ -67,7 +66,27 @@ exports = module.exports = function (io) {
 
                             }
                         });
-                        
+
+                        response.data.return.game.code = roomCode;
+
+                        io.in(roomCode).emit('refreshRoomData', { apiResponse: response.data });
+                        io.in('sasTable').emit('refreshTableData', { apiResponse: response.data });
+                        break;
+
+                    case "reset":
+                        response = await axios({
+                            method: "patch",
+                            headers: { 'x-auth': authToken.token },
+                            url: "/api/sas/" + roomCode + "/" + sasRequest.action,
+                            data: {
+                                gameDuration: sasRequest.duration
+                            },
+                            proxy: {
+                                port: process.env.PORT
+
+                            }
+                        });
+
                         response.data.return.game.code = roomCode;
 
                         io.in(roomCode).emit('refreshRoomData', { apiResponse: response.data });

@@ -93,7 +93,17 @@ function loseGame() {
 
 function resetGame() {
     var roomCode = $('#SelectedRoom').val();
-    socket.emit('sasRequest', { action: "reset", roomCode: roomCode });
+    var duration = $('#Duration').val();
+
+    if (duration !== "") {
+        $('#Duration').addClass('is-valid');
+        setTimeout(function () {
+            $('#Duration').removeClass('is-valid');
+            $('#Duration').val('');
+        }, 2000)
+    }
+
+    socket.emit('sasRequest', { action: "reset", roomCode: roomCode, duration: duration });
 }
 
 function sendClue(event) {
