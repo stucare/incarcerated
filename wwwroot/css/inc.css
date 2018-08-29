@@ -568,12 +568,12 @@ body h6 {
 .admin.screens .screenMirror {
   background: #111111;
   color: #fbfbff;
-  height: 200px;
+  min-height: 200px;
   overflow: hidden;
 }
 @media only screen and (min-width: 768px) {
   .admin.screens .screenMirror {
-    height: 231px;
+    height: 100%;
   }
 }
 .admin.screens .screenMirror #CurrentClue {

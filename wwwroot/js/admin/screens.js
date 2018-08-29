@@ -37,6 +37,8 @@ $(function () {
 
     $('#GameTime').on('finish.countdown', loseGame);
 
+    $('.room-countdown').on('finish.countdown', loseRemoteGame);
+
     $('.room-row').on('click', function () {
         $('#RoomSelect').selectpicker('val', $(this).data('room'));
         $('.room-row.active').removeClass('active');
@@ -89,6 +91,11 @@ function winGame() {
 function loseGame() {
     var roomCode = $('#SelectedRoom').val();
     socket.emit('sasRequest', { action: "loss", roomCode: roomCode });
+}
+
+function loseRemoteGame() {
+    var roomCode = $(this).closest('.room-row').data('room');
+    socket.emit('sasRequest', { action: "remoteLoss", roomCode: roomCode });
 }
 
 function resetGame() {
@@ -242,7 +249,7 @@ function renderPage(game) {
         var last = game.clues.length - 1;
         var i = last;
 
-        while (i >= (last - 3) && i >= 0) {
+        while (i >= (last - 10) && i >= 0) {
 
             if (i === last) {
                 var text = game.clues[i].text;
@@ -266,6 +273,8 @@ function renderPage(game) {
             i--;
         }
     }
+
+    $('#Clues').animate({scrollTop:0}, 'slow');
 
     var updateClueTime = function () {
         $('.clue').each(function () {

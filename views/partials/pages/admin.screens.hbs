@@ -1,11 +1,9 @@
 <div class="row">
     <div class="col-12 d-none">
         <select id="RoomSelect" class="selectpicker show-tick" title="None" data-style="btn-primary">
-            <option value="adod">A Dose of Death</option>
-            <option value="age">Conspiracy - Agenda 21</option>
-            <option value="crc">Cops &amp; Robbers - Cops</option>
-            <option value="crr">Cops &amp; Robbers - Robbers</strong></option>
-            <option value="pow">Prisoner of War</option>
+            {{#each rooms}}
+            <option value="{{this.code}}">{{{this.adminName}}}</option>
+            {{/each}}
         </select>
     </div>
     <div class="col-12 col-sm-9 col-md-6 mx-sm-auto mx-md-0 order-md-1 mb-2">

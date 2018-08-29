@@ -25,7 +25,7 @@ exports = module.exports = function (io) {
 
         socket.on('sasRequest', async function (sasRequest) {
             try {
-                console.log(new Date().toTimeString() + " - " + sasRequest.roomCode + " - " + sasRequest.action);
+                //console.log(new Date().toTimeString() + " - " + sasRequest.roomCode + " - " + sasRequest.action);
 
                 let roomCode = sasRequest.roomCode;
 
@@ -43,7 +43,6 @@ exports = module.exports = function (io) {
                             url: "/api/sas/" + roomCode,
                             proxy: {
                                 port: process.env.PORT
-
                             }
                         });
 
@@ -63,7 +62,6 @@ exports = module.exports = function (io) {
                             url: "/api/sas/" + roomCode + "/" + sasRequest.action,
                             proxy: {
                                 port: process.env.PORT
-
                             }
                         });
 
@@ -71,6 +69,24 @@ exports = module.exports = function (io) {
 
                         io.in(roomCode).emit('refreshRoomData', { apiResponse: response.data });
                         io.in('sasTable').emit('refreshTableData', { apiResponse: response.data });
+                        break;
+
+                    case 'remoteLoss':
+                        if(!io.sockets.adapter.rooms[roomCode]){
+                            response = await axios({
+                                method: "patch",
+                                headers: { 'x-auth': authToken.token },
+                                url: "/api/sas/" + roomCode + "/loss",
+                                proxy: {
+                                    port: process.env.PORT
+                                }
+                            });
+    
+                            response.data.return.game.code = roomCode;
+    
+                            io.in(roomCode).emit('refreshRoomData', { apiResponse: response.data });
+                            io.in('sasTable').emit('refreshTableData', { apiResponse: response.data });
+                        }
                         break;
 
                     case "reset":
@@ -83,7 +99,6 @@ exports = module.exports = function (io) {
                             },
                             proxy: {
                                 port: process.env.PORT
-
                             }
                         });
 

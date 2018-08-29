@@ -619,6 +619,12 @@ module.exports = (router) => {
                     maxPlayers: data.maxPlayers,
                     isLive: !data.isLive ? false : data.isLive,
                     isAccessible: !data.isAccessible ? false : data.isAccessible
+                },
+                game: {
+                    clues: [{
+                        text: "",
+                        createdBy: req.user._id.toString()
+                    }]
                 }
             });
 
