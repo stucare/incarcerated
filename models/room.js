@@ -13,6 +13,12 @@ let RoomSchema = new mongoose.Schema({
         unique: true,
         minlength: 2
     },
+    adminName: {
+        type: String,
+        required: true,
+        unique: true,
+        minlength: 2
+    },
     game: {
         state: {
             type: String,
@@ -44,7 +50,7 @@ let RoomSchema = new mongoose.Schema({
             required: true,
             default: 0
         },
-        messages: [{
+        clues: [{
             text: {
                 type: String,
             },
@@ -107,31 +113,35 @@ let RoomSchema = new mongoose.Schema({
     }
 })
 
-RoomSchema.methods.addMessage = function (message) {
+RoomSchema.methods.addClue = function (clue) {
     let room = this;
+    let ignoreInCount = clue.ignoreCount === undefined ? false : clue.ignoreCount;
 
-    if (room.game.messages.length > 0) {
-        if (_.last(room.game.messages).text !== message.text) {
-            if (message.text.length !== 0) {
+
+    if (room.game.clues.length > 0) {
+
+        if (_.last(room.game.clues).text !== clue.text) {
+
+            if (clue.text.length !== 0 && !ignoreInCount) {
                 room.game.clueCount++;
             }
 
-            room.game.messages = _.takeRight(room.game.messages.concat([message]), 100);
+            room.game.clues = _.takeRight(room.game.clues.concat([clue]), 100);
 
             return room.save().then(() => {
-                return Promise.resolve(_.last(room.game.messages));
+                return Promise.resolve(_.last(room.game.clues));
             }).catch((err) => {
                 return Promise.reject();
             });
         } else {
-            return Promise.resolve(_.last(room.game.messages))
+            return Promise.resolve(_.last(room.game.clues))
         }
     } else {
         room.game.clueCount++;
-        room.game.messages = _.takeRight(room.game.messages.concat([message]), 100);
+        room.game.clues = _.takeRight(room.game.clues.concat([clue]), 100);
 
         return room.save().then(() => {
-            return Promise.resolve(_.last(room.game.messages));
+            return Promise.resolve(_.last(room.game.clues));
         }).catch((err) => {
             return Promise.reject();
         });

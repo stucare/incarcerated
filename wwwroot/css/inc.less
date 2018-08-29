@@ -30,9 +30,13 @@ a{
         background-color: @cRed;
         border-color: @cRed;
 
-        &:hover{
+        &:hover:not(:disabled):not(.disabled){
             background-color: darken(@cRed, 5%);
             border-color: darken(@cRed, 10%);
+        }
+
+        &:disabled, &.disabled{
+            cursor: default;
         }
 
         &:not(:disabled):not(.disabled):active{
@@ -48,14 +52,67 @@ a{
             box-shadow: 0 0 0 0.2rem fade(@cRed, 50%);
         }
     }
+
+    &.btn-outline-primary{
+        border-color: @cRed;
+        color: @cRed;
+
+        &:hover:not(:disabled):not(.disabled){
+            background-color: @cRed;
+            border-color: @cRed;
+            color: @cOffWhite;
+        }
+
+        &:disabled, &.disabled{
+            cursor: default;
+        }
+
+        &:not(:disabled):not(.disabled):active{
+            background-color: @cRed;
+            border-color: @cRed;
+            
+            &:focus{
+                box-shadow: 0 0 0 0.2rem fade(@cRed, 50%);
+            }
+        }
+
+        &:focus{
+            box-shadow: 0 0 0 0.2rem fade(@cRed, 50%);
+        }
+    }
+}
+
+.btn-group>.btn-group:not(:last-child)>.btn, .btn-group>.btn:not(:last-child):not(.dropdown-toggle){
+    border-radius: 0;
+}
+.btn-group>.btn-group:not(:first-child)>.btn, .btn-group>.btn:not(:first-child){
+    border-radius: 0;
+}
+
+.text-primary{
+    color: @cRed !important;
 }
 
 .input-group, .form-group{ 
     margin-bottom: 0;
-    
-    > input{
+}
+
+.input-group>.custom-select:not(:last-child), .input-group>.form-control:not(:last-child){
+    border-radius: 0;
+}
+
+.input-group-lg>.input-group-append>.btn{
+    border-radius: 0;
+}
+
+.list-group-item{ 
+    &:last-child, &:first-child{
         border-radius: 0;
     }
+}
+
+.form-control{
+    border-radius: 0;
 }
 
 // Styles
@@ -100,6 +157,10 @@ body {
     min-height: 100px;
     font-size: 1rem;
     font-family: 'Raleway';
+
+    .navbar-brand{
+        padding-right: none;
+    }
 
     .incarcerated{
         font-size: 1.5rem;
@@ -392,6 +453,10 @@ body {
 
         .icon-row{
             transition: all 0.3s ease-in;
+
+            strong{
+                color: @cOffWhite;
+            }
         }
     }
 }
@@ -543,56 +608,66 @@ body {
     z-index: 1000;
 }
 
+.admin-postnav{
+    background: url('/images/layout/postnav.png');
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+
+    position: fixed;
+    top: 100px;
+
+    height: 100px;
+    width: 100%;
+    
+    z-index: 900;
+    
+}
+
+.admin-foot{
+    background: url('/images/layout/prefoot.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+
+    position: fixed;
+    bottom: 0;
+
+    height: 100px;
+    width: 100%;
+
+    z-index: 900;
+
+    .logged-in-as{
+        
+        z-index: 901;
+        color: @cOffWhite;
+    }
+}
+
 .admin{
-
-    min-height: ~"calc(100vh - 100px)";
-    margin-top: 100px;
-
-    .admin-postnav{
-        background: url('/images/layout/postnav.png');
-        background-repeat: no-repeat;
-        background-position: center top;
-        background-size: cover;
-
-        position: fixed;
-        top: 100px;
-
-        height: 100px;
-        width: 100%;
-        
-        z-index: 900;
-        
-    }
+    min-height: ~"calc(100vh - 300px)";
+    margin-top: 200px;
     
-    > .row{
-        margin-top: 100px;
-        margin-bottom: 100px;
-    }
-
-    .admin-foot{
-        background: url('/images/layout/prefoot.png');
-        background-repeat: no-repeat;
-        background-position: center bottom;
-        background-size: cover;
-
-        position: fixed;
-        bottom: 0;
-
-        height: 100px;
-        width: 100%;
-
-        z-index: 900;
-    
-        .logged-in-as{
-            
-            z-index: 901;
-            color: @cOffWhite;
-        }
-    }
-
     &.login{
         background: @cOffWhite;
+        
+        h3{
+            color: @cRed;
+        }
 
+        #LoginForm{
+            input{
+                border-radius: none;
+                font-size: 1.25rem;
+                padding: 0.5rem;
+                color: @cOffBlack;
+            }
+            
+            a{
+                color: @cRed;
+            }
+        }
     }
 
     &.dashboard{
@@ -624,6 +699,114 @@ body {
                 background: @cOffWhite;
                 color: @cRed;
                 border-color: @cRed;
+            }
+        }
+    }
+
+    &.screens{
+        max-width: 1200px;
+        width: 100%;
+        margin-bottom: 100px;
+
+        #Duration{
+            transition: all 0.3s ease-in-out;
+
+            &.is-valid{
+                background-color: lighten(#28a745, 66%);
+            }
+        }
+
+        .screenMirror{
+            background: @cOffBlack;
+            color: @cOffWhite;
+            min-height: 200px;
+            overflow: hidden;
+
+            @media @md {
+                height: 100%;
+            }
+
+            #CurrentClue{
+                width: 100%;
+                height: 100%;
+                padding: 5px;
+
+                h1, h2, h3, h4, h5, h6{
+                    font-size: 1rem;
+                    font-weight: 700;
+                }
+
+                .date{
+                    text-align: right;
+                    position: absolute;
+                    bottom: 5px;
+                    right: 25px;
+                }
+            }
+
+            #GameTime{
+                position: absolute;
+                text-align: right;
+                top: 5px;
+                right: 25px;
+            }
+
+            #ClueCount{
+                position: absolute;
+                bottom: 5px;
+                left: 25px;
+            }
+
+            #Ping{
+                position: absolute;
+                top: 5px;
+                left: 25px;
+            }
+
+
+        }
+
+        #Clues {
+            position: relative;
+            height: 200px;
+            overflow: auto;
+            
+            
+            .clue {
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
+
+                border-left: 3px solid @cRed;
+                text-align: left;
+
+                &:hover{
+                    background-color: lighten(@cRed, 50%);
+                }
+            }
+        }
+
+        .room-overview{
+
+            .room-row{
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
+
+                &:hover{
+                    background-color: lighten(@cRed, 50%);
+                }
+
+                .room-state{
+                    color: @cRed;
+                }
+
+                &.active{
+                    background: @cRed;
+                    border: 1px solid rgba(0,0,0,.125);
+
+                    .room-state{
+                        color: @cOffWhite;
+                    }
+                }
             }
         }
     }
