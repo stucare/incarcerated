@@ -1,6 +1,7 @@
 {
+    "version": "0.4",
     "test": {
-      "PORT": 3000,
+      "PORT": 3001,
       "MONGODB_URI": "mongodb://localhost:27017/IncTest",
       "SECRET": "gcDybf782TPSK7LONNnQawrml6zrr8r5FNRHpQ0eQa0HtUzcGLxew5PnyRC4W9b0"
     },

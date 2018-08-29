@@ -11,9 +11,13 @@ a:hover {
   background-color: #cf0606;
   border-color: #cf0606;
 }
-.btn.btn-primary:hover {
+.btn.btn-primary:hover:not(:disabled):not(.disabled) {
   background-color: #b60505;
   border-color: #9d0505;
+}
+.btn.btn-primary:disabled,
+.btn.btn-primary.disabled {
+  cursor: default;
 }
 .btn.btn-primary:not(:disabled):not(.disabled):active {
   background-color: #9d0505;
@@ -25,12 +29,56 @@ a:hover {
 .btn.btn-primary:focus {
   box-shadow: 0 0 0 0.2rem rgba(207, 6, 6, 0.5);
 }
+.btn.btn-outline-primary {
+  border-color: #cf0606;
+  color: #cf0606;
+}
+.btn.btn-outline-primary:hover:not(:disabled):not(.disabled) {
+  background-color: #cf0606;
+  border-color: #cf0606;
+  color: #fbfbff;
+}
+.btn.btn-outline-primary:disabled,
+.btn.btn-outline-primary.disabled {
+  cursor: default;
+}
+.btn.btn-outline-primary:not(:disabled):not(.disabled):active {
+  background-color: #cf0606;
+  border-color: #cf0606;
+}
+.btn.btn-outline-primary:not(:disabled):not(.disabled):active:focus {
+  box-shadow: 0 0 0 0.2rem rgba(207, 6, 6, 0.5);
+}
+.btn.btn-outline-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(207, 6, 6, 0.5);
+}
+.btn-group > .btn-group:not(:last-child) > .btn,
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle) {
+  border-radius: 0;
+}
+.btn-group > .btn-group:not(:first-child) > .btn,
+.btn-group > .btn:not(:first-child) {
+  border-radius: 0;
+}
+.text-primary {
+  color: #cf0606 !important;
+}
 .input-group,
 .form-group {
   margin-bottom: 0;
 }
-.input-group > input,
-.form-group > input {
+.input-group > .custom-select:not(:last-child),
+.input-group > .form-control:not(:last-child) {
+  border-radius: 0;
+}
+.input-group-lg > .input-group-append > .btn {
+  border-radius: 0;
+}
+.list-group-item:last-child,
+.list-group-item:first-child {
+  border-radius: 0;
+}
+.form-control {
   border-radius: 0;
 }
 body {
@@ -48,6 +96,9 @@ body h6 {
 }
 .scrollable {
   overflow-y: auto;
+}
+.text-red {
+  color: #cf0606;
 }
 .incarcerated {
   font-weight: 700;
@@ -70,6 +121,9 @@ body h6 {
   font-size: 1rem;
   font-family: 'Raleway';
 }
+.navbar .navbar-brand {
+  padding-right: none;
+}
 .navbar .incarcerated {
   font-size: 1.5rem;
 }
@@ -81,7 +135,7 @@ body h6 {
 }
 @media only screen and (min-width: 992px) {
   .navbar ul.navbar-nav li {
-    border-right: thin solid rgba(251, 251, 255, 0.25);
+    border-right: thin solid rgba(251, 251, 255, 0.12);
   }
   .navbar ul.navbar-nav li:last-child {
     border-right: none;
@@ -147,8 +201,189 @@ body h6 {
   background-position: center bottom;
   background-size: cover;
 }
+.red-above {
+  height: 50px;
+  background: url('/images/layout/redabove.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+}
+.red {
+  background-color: #cf0606;
+  color: #fbfbff;
+}
+.red-below {
+  height: 50px;
+  background: url('/images/layout/redbelow.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+}
+.black-above {
+  height: 50px;
+  background: url('/images/layout/blackabove.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+}
+.black {
+  background-color: #111111;
+  color: #fbfbff;
+}
+.black-below {
+  height: 50px;
+  background: url('/images/layout/blackbelow.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+}
+.maint {
+  height: calc(100vh - 250px);
+}
 .home .landing {
   background: #fbfbff;
+}
+.home .landing .carousel img:not(.no-shadow) {
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 5px 0 #ccc;
+}
+.home .landing .carousel .carousel-control-prev,
+.home .landing .carousel .carousel-control-next {
+  color: #cf0606;
+}
+.home .landing h2 {
+  font-weight: 200;
+}
+.home .boasts .whofor-icon .text {
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  font-weight: 200;
+}
+.home .boasts .whofor-icon .icon {
+  max-width: 90px;
+  max-height: 90px;
+}
+.home .rooms .carousel .carousel-indicators {
+  position: relative;
+  margin-bottom: 0;
+}
+.home .rooms .carousel .carousel-indicators li {
+  background: rgba(207, 6, 6, 0.25);
+}
+.home .rooms .carousel .carousel-indicators li.active {
+  background: #cf0606;
+}
+.home .rooms .carousel .carousel-control-prev,
+.home .rooms .carousel .carousel-control-next {
+  color: #cf0606;
+}
+.home .rooms .carousel img {
+  border-radius: 5px 5px 0 0;
+}
+@media only screen and (min-width: 1200px) {
+  .home .rooms .carousel img {
+    border-radius: 5px 0 0 5px;
+  }
+}
+.home .rooms .carousel .details {
+  min-width: 30vw;
+  border-radius: 0 0 5px 5px;
+  border: 1px solid #cf0606;
+  border-top: none;
+}
+@media only screen and (min-width: 1200px) {
+  .home .rooms .carousel .details {
+    max-width: 30vw;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .home .rooms .carousel .details {
+    border-radius: 0 5px 5px 0;
+    border-top: 1px solid #cf0606;
+    border-left: none;
+  }
+}
+.ourrooms #RoomTabs {
+  border-bottom: none;
+}
+.ourrooms #RoomTabs img {
+  border-radius: 3px;
+}
+.ourrooms #RoomTabs .nav-item {
+  margin: 5px;
+}
+.ourrooms #RoomTabs .nav-item .nav-link {
+  padding: 3px;
+  border-radius: 0.25rem;
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+.ourrooms #RoomTabs .nav-item .nav-link:hover {
+  background: rgba(207, 6, 6, 0.33);
+}
+.ourrooms #RoomTabs .nav-item .nav-link.active {
+  background: #cf0606;
+}
+.ourrooms .tab-pane h1 {
+  text-align: center;
+  color: #cf0606;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0 #111111;
+  margin: 2rem;
+}
+.ourrooms .tab-pane h2 {
+  text-align: center;
+  color: #fbfbff;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0 #cf0606;
+}
+.ourrooms .tab-pane p {
+  font-size: 1.33rem;
+  font-family: 'Anonymous Pro';
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.ourrooms .tab-pane .leaderboards p {
+  font-size: 1.33rem;
+  text-align: center;
+  font-family: 'Anonymous Pro';
+}
+.ourrooms .tab-pane strong {
+  text-transform: uppercase;
+  color: #cf0606;
+}
+.ourrooms .tab-pane .icon-row {
+  transition: all 0.3s ease-in;
+}
+.ourrooms .tab-pane .icon-row strong {
+  color: #fbfbff;
+}
+.packages .type-selector {
+  font-size: 1.5rem;
+}
+.packages .type-selector a {
+  color: #fbfbff;
+}
+.packages .type-selector a.box-1 {
+  background: url('/images/packages/sb1.png') center no-repeat;
+  background-size: contain;
+}
+.packages .type-selector a.box-2 {
+  background: url('/images/packages/sb2.png') center no-repeat;
+  background-size: contain;
+}
+.packages .type-selector a:hover {
+  text-decoration: none;
+}
+.packages .type-selector a div {
+  font-family: 'Raleway';
+  font-weight: 100;
+}
+.packages .type-selector a div .read-more {
+  font-family: 'Open Sans';
+  font-size: 0.8rem;
 }
 .footer {
   background-color: #111111;
@@ -245,11 +480,7 @@ body h6 {
   width: 100vw;
   z-index: 1000;
 }
-.admin {
-  min-height: calc(100vh - 100px);
-  margin-top: 100px;
-}
-.admin .admin-postnav {
+.admin-postnav {
   background: url('/images/layout/postnav.png');
   background-repeat: no-repeat;
   background-position: center top;
@@ -260,11 +491,7 @@ body h6 {
   width: 100%;
   z-index: 900;
 }
-.admin > .row {
-  margin-top: 100px;
-  margin-bottom: 100px;
-}
-.admin .admin-foot {
+.admin-foot {
   background: url('/images/layout/prefoot.png');
   background-repeat: no-repeat;
   background-position: center bottom;
@@ -275,12 +502,28 @@ body h6 {
   width: 100%;
   z-index: 900;
 }
-.admin .admin-foot .logged-in-as {
+.admin-foot .logged-in-as {
   z-index: 901;
   color: #fbfbff;
 }
+.admin {
+  min-height: calc(100vh - 300px);
+  margin-top: 200px;
+}
 .admin.login {
   background: #fbfbff;
+}
+.admin.login h3 {
+  color: #cf0606;
+}
+.admin.login #LoginForm input {
+  border-radius: none;
+  font-size: 1.25rem;
+  padding: 0.5rem;
+  color: #111111;
+}
+.admin.login #LoginForm a {
+  color: #cf0606;
 }
 .admin.dashboard {
   background: #fbfbff;
@@ -310,6 +553,95 @@ body h6 {
   background: #fbfbff;
   color: #cf0606;
   border-color: #cf0606;
+}
+.admin.screens {
+  max-width: 1200px;
+  width: 100%;
+  margin-bottom: 100px;
+}
+.admin.screens #Duration {
+  transition: all 0.3s ease-in-out;
+}
+.admin.screens #Duration.is-valid {
+  background-color: #ffffff;
+}
+.admin.screens .screenMirror {
+  background: #111111;
+  color: #fbfbff;
+  min-height: 200px;
+  overflow: hidden;
+}
+@media only screen and (min-width: 768px) {
+  .admin.screens .screenMirror {
+    height: 100%;
+  }
+}
+.admin.screens .screenMirror #CurrentClue {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+}
+.admin.screens .screenMirror #CurrentClue h1,
+.admin.screens .screenMirror #CurrentClue h2,
+.admin.screens .screenMirror #CurrentClue h3,
+.admin.screens .screenMirror #CurrentClue h4,
+.admin.screens .screenMirror #CurrentClue h5,
+.admin.screens .screenMirror #CurrentClue h6 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+.admin.screens .screenMirror #CurrentClue .date {
+  text-align: right;
+  position: absolute;
+  bottom: 5px;
+  right: 25px;
+}
+.admin.screens .screenMirror #GameTime {
+  position: absolute;
+  text-align: right;
+  top: 5px;
+  right: 25px;
+}
+.admin.screens .screenMirror #ClueCount {
+  position: absolute;
+  bottom: 5px;
+  left: 25px;
+}
+.admin.screens .screenMirror #Ping {
+  position: absolute;
+  top: 5px;
+  left: 25px;
+}
+.admin.screens #Clues {
+  position: relative;
+  height: 200px;
+  overflow: auto;
+}
+.admin.screens #Clues .clue {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  border-left: 3px solid #cf0606;
+  text-align: left;
+}
+.admin.screens #Clues .clue:hover {
+  background-color: #fed6d6;
+}
+.admin.screens .room-overview .room-row {
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.admin.screens .room-overview .room-row:hover {
+  background-color: #fed6d6;
+}
+.admin.screens .room-overview .room-row .room-state {
+  color: #cf0606;
+}
+.admin.screens .room-overview .room-row.active {
+  background: #cf0606;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+.admin.screens .room-overview .room-row.active .room-state {
+  color: #fbfbff;
 }
 .part ol {
   counter-reset: sectioncounter partcounter;

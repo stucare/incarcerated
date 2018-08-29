@@ -1,1 +1,78 @@
+<div class="row">
+    <div class="col-12 d-none">
+        <select id="RoomSelect" class="selectpicker show-tick" title="None" data-style="btn-primary">
+            {{#each rooms}}
+            <option value="{{this.code}}">{{{this.adminName}}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="col-12 col-sm-9 col-md-6 mx-sm-auto mx-md-0 order-md-1 mb-2">
+        <ul class="list-group room-overview">
+            {{#each rooms}}
+                <li class="list-group-item d-flex justify-content-between align-items-center room-row" id="{{this.code}}" data-room="{{this.code}}" data-state="{{this.game.state}}" data-time-base="{{this.game.timeBase}}" data-time-remain="{{this.game.timeRemain}}">
+                    <span><span class="room-state"></span>&nbsp;&nbsp;{{{this.adminName}}}</span>
+                    <span><span class="room-clues">{{this.game.clueCount}}</span>&nbsp;&nbsp;-&nbsp;&nbsp;<span class="room-countdown"></span></span>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+    <div class="col-12 col-sm-9 col-md-6 col-lg-6 my-2 mx-sm-auto text-center order-md-4">
+        <div class="btn-group btn-group-lg" role="group">
+            <button type="button" id="Start" class="btn btn-outline-primary" disabled>
+                <i class="fas fa-play fa-fw"></i>
+            </button>
+            
+            <button type="button" id="DoubleStart" class="btn btn-outline-primary d-none" disabled>
+                <i class="fas fa-forward fa-fw"></i>
+            </button>
+
+            <button type="button" id="Stop" class="btn btn-outline-primary" disabled>
+                <i class="fas fa-pause fa-fw"></i>
+            </button>
+
+            <button type="button" id="Escape" class="btn btn-outline-primary" disabled>
+                <i class="fas fa-door-open fa-fw"></i>
+            </button>
+
+            <button type="button" id="Fail" class="btn btn-outline-primary" disabled>
+                <i class="fas fa-door-closed fa-fw"></i>
+            </button>
+
+            <button type="button" id="Reset" class="btn btn-outline-primary" disabled>
+                <i class="fas fa-undo-alt fa-fw"></i>
+            </button>
+
+            <input type="text" id="Duration" name="Duration" class="form-control text-center" placeholder="mm">
+        </div>
+    </div>
+    <div class="col-12 col-sm-9 col-md-6 col-lg-6 mx-sm-auto my-2 order-md-3">
+        <form id="ClueForm">
+            <div class="input-group input-group-lg">
+                <input type="text" id="Clue" name="Clue" class="form-control" placeholder="Clue...">
+                <div class="input-group-append">
+                    <button id="ClueSubmit" class="btn btn-primary" type="submit" disabled>
+                        <i class="fas fa-terminal fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 col-sm-9 col-md-6 mx-sm-auto order-md-2 my-2 mt-md-0">
+        <div class="screenMirror">
+            <div id="GameTime" class="text-center">&nbsp;</div>
+            <div id="CurrentClue" class="text-center d-flex justify-content-center align-items-center">&nbsp;</div>
+            <div id="ClueCount" class="text-center">&nbsp;</div>
+            <div id="Ping" class="text-center text-primary" style="display:none;">
+                <i class="fas fa-bell fa-fw"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 my-2 d-none d-md-block order-md-5">
+        <h5>Recent Clues</h5>
+        <div id="Clues"></div>
+    </div>
+</div>
+
+<input id="SelectedRoom" type="hidden" value="">
+    
 <script src="/js/admin/screens.js"></script>

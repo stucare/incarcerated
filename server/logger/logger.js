@@ -1,32 +1,50 @@
 const fs = require('fs');
+const { Log } = require('./../../models/log');
 
 let env = process.env.NODE_ENV || 'development';
 
-let serverlog = (req, res, next) => {
-  let now = new Date().toUTCString();
-  let log = `${now}: (${env.substring(0,3)}) ${res.statusCode} ${req.method} ${req.url}`;
-  if (env === 'development') {
-    console.log(log);
-  }
-  fs.appendFile(__dirname + `\\..\\logs\\server.log`, log + '\n', (err) => {
-    if (err) {
-      errorlog('Unable to add to server.log', err);
+let serverlog = async (req, res, next) => {
+    let now = new Date().getTime();
+
+    let userId = req.user === undefined ? req.ip : req.user._id.toString() ;
+
+    let log = new Log({
+      path: req.url,
+      method: req.method,
+      status: res.statusCode,
+      environment: env,
+      createdBy: userId
+    })
+       
+    let createdLog = await log.save();
+    
+    if (env === 'development') {
+      //console.log(JSON.stringify(createdLog, undefined, 2));
     }
-  });
-  next();
+
+    next();
 };
 
-let errorlog = (message, err) => {
-  let now = new Date().toUTCString();
-  let log = `${now} (${env.substring(0,3)}):\n\t${message}\n\t${err}`;
+let errorlog = async (req, res, message, err) => {
+  let now = new Date().getTime();
+
+  let userId = req.user === undefined ? req.ip : req.user._id.toString() ;
+
+  let log = new Log({
+    path: req.url,
+    method: req.method,
+    status: res.statusCode,
+    environment: env,
+    createdBy: userId,
+    message: message,
+    error: err
+  })
+     
+  let createdLog = await log.save();
+  
   if (env === 'development') {
-    console.log(log);
+    console.log(JSON.stringify(createdLog, undefined, 2));
   }
-  fs.appendFile(__dirname + `\\..\\logs\\error.log`, log + '\n', (err) => {
-    if (err) {
-      console.log('Unable to append to error.log', err);
-    }
-  });
 };
 
 module.exports = { serverlog, errorlog };

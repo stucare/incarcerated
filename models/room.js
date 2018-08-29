@@ -13,30 +13,63 @@ let RoomSchema = new mongoose.Schema({
         unique: true,
         minlength: 2
     },
-    state: {
+    adminName: {
         type: String,
         required: true,
-        default: 'ready'
+        unique: true,
+        minlength: 2
     },
-    time: {
-        type: Number,
-        required: true,
-        default: (60*60*1000)
-    },
-    messages: [{
-        message: {
+    game: {
+        state: {
             type: String,
+            required: true,
+            default: 'ready'
         },
-        created: {
+        timeBase: {
+            type: Number,
+            required: false,
+            default: 0
+        },
+        timeRemain: {
             type: Number,
             required: true,
-            default: new Date().getTime()
+            default: (60 * 60 * 1000)
         },
-        createdBy: {
-            type: String,
-            required: true
-        }
-    }],
+        gameDuration: {
+            type: Number,
+            required: true,
+            default: (60 * 60 * 1000)
+        },
+        timeElapsed: {
+            type: Number,
+            required: true,
+            default: 0
+        },
+        clueCount: {
+            type: Number,
+            required: true,
+            default: 0
+        },
+        clues: [{
+            text: {
+                type: String,
+            },
+            isSilent: {
+                type: Boolean,
+                required: true,
+                default: true
+            },
+            created: {
+                type: Number,
+                required: true,
+                default: new Date().getTime()
+            },
+            createdBy: {
+                type: String,
+                required: true
+            }
+        }]
+    },
     display: {
         name: {
             type: String,
@@ -79,6 +112,41 @@ let RoomSchema = new mongoose.Schema({
         default: new Date().getTime()
     }
 })
+
+RoomSchema.methods.addClue = function (clue) {
+    let room = this;
+    let ignoreInCount = clue.ignoreCount === undefined ? false : clue.ignoreCount;
+
+
+    if (room.game.clues.length > 0) {
+
+        if (_.last(room.game.clues).text !== clue.text) {
+
+            if (clue.text.length !== 0 && !ignoreInCount) {
+                room.game.clueCount++;
+            }
+
+            room.game.clues = _.takeRight(room.game.clues.concat([clue]), 100);
+
+            return room.save().then(() => {
+                return Promise.resolve(_.last(room.game.clues));
+            }).catch((err) => {
+                return Promise.reject();
+            });
+        } else {
+            return Promise.resolve(_.last(room.game.clues))
+        }
+    } else {
+        room.game.clueCount++;
+        room.game.clues = _.takeRight(room.game.clues.concat([clue]), 100);
+
+        return room.save().then(() => {
+            return Promise.resolve(_.last(room.game.clues));
+        }).catch((err) => {
+            return Promise.reject();
+        });
+    }
+};
 
 let Room = mongoose.model('Room', RoomSchema);
 
