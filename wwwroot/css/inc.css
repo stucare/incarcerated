@@ -11,6 +11,10 @@ a:hover {
   background-color: #cf0606;
   border-color: #cf0606;
 }
+.btn.btn-primary:not(:disabled):not(.disabled).active {
+  background-color: #cf0606;
+  border-color: #cf0606;
+}
 .btn.btn-primary:hover:not(:disabled):not(.disabled) {
   background-color: #b60505;
   border-color: #9d0505;
@@ -185,6 +189,12 @@ body h6 {
 }
 .navbar .navbar-toggler:hover {
   color: #fbfbff;
+}
+.navbar .navbar-collapse.show {
+  text-align: center;
+}
+.navbar .navbar-collapse.show > a.btn {
+  margin-top: 2rem;
 }
 .navbar .navbar-collapse.show ul li,
 .navbar .navbar-collapse.collapsing ul li {
