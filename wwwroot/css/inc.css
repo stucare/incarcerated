@@ -74,6 +74,9 @@ a:hover {
 .input-group-lg > .input-group-append > .btn {
   border-radius: 0;
 }
+.input-group > .input-group-prepend > .input-group-text {
+  border-radius: 0;
+}
 .list-group-item:last-child,
 .list-group-item:first-child {
   border-radius: 0;
@@ -434,12 +437,12 @@ body h6 {
 .footer {
   background-color: #111111;
   color: #fbfbff;
-  margin-bottom: 8rem;
+  padding-bottom: 8rem !important;
   text-align: center;
 }
 @media only screen and (min-width: 576px) {
   .footer {
-    margin-bottom: 0;
+    padding-bottom: 0 !important;
   }
 }
 .footer h5 {
@@ -454,6 +457,11 @@ body h6 {
 }
 .footer .center-section {
   text-align: center;
+}
+.footer .center-section .subscribe .signup .input-group-prepend .input-group-text {
+  color: #fbfbff;
+  background: #cf0606;
+  border-color: #cf0606;
 }
 @media only screen and (min-width: 768px) {
   .footer .right-section {

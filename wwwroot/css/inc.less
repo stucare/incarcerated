@@ -106,6 +106,10 @@ a{
     border-radius: 0;
 }
 
+.input-group>.input-group-prepend>.input-group-text{
+    border-radius: 0;
+}
+
 .list-group-item{ 
     &:last-child, &:first-child{
         border-radius: 0;
@@ -560,12 +564,12 @@ body {
 
 .footer {
     background-color: @cOffBlack;
-        color: @cOffWhite;
-    margin-bottom: 8rem;
+    color: @cOffWhite;
+    padding-bottom: 8rem !important;
     text-align: center;
 
   @media @sm{
-      margin-bottom: 0;
+      padding-bottom: 0 !important;
   }
 
   h5{
@@ -582,6 +586,13 @@ body {
 
   .center-section {
       text-align: center;
+
+      .subscribe .signup .input-group-prepend .input-group-text{
+          color: @cOffWhite;
+          background: @cRed;
+          border-color: @cRed;
+
+      }
   }
 
   .right-section {
