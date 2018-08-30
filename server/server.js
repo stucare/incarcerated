@@ -174,7 +174,8 @@ app.get('/booknow', (req, res) => {
         mainClass: 'book',
         activeNav: {
             book: true
-        }
+        },
+        footColour: 'red'
     });
 });
 
