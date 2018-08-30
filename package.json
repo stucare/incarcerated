@@ -8,8 +8,10 @@
     "test:watch": "nodemon --exec \"npm test\"",
     "less:compile": "lessc ./wwwroot/css/inc.less ./wwwroot/css/inc.css",
     "less:compile:watch": "nodemon --exec \"npm run less:compile\" -e less",
+    "lcw": "nodemon --exec \"npm run less:compile\" -e less",
     "start": "node ./server/server.js",
-    "start:watch": "nodemon ./server/server.js -e js,json,hbs"
+    "start:watch": "nodemon ./server/server.js -e js,json,hbs",
+    "sw": "nodemon ./server/server.js -e js,json,hbs"
   },
   "engines": {
     "node": "10.5.0"
