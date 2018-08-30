@@ -7,6 +7,7 @@
 @cTripadvisor: rgb(88, 148, 66);
 
 @shadowLight: ~"0 0 5px 0 #ccc";
+@shadowDark: ~"0 0 5px 0 #444";
 
 // Media Queries
 @sm:   ~"only screen and (min-width: 576px)";
@@ -113,6 +114,29 @@ a{
 
 .form-control{
     border-radius: 0;
+}
+
+.modal-dialog{
+    max-width: 80vw !important;
+
+    &.modal-lg{
+        max-width: 80vw !important;
+    }
+
+    > .modal-content{
+        border: none;
+        box-shadow: @shadowDark;
+
+        > .modal-header{
+            background: @cRed;
+            text-transform: uppercase;
+            color: @cOffWhite;
+
+            .close{
+                color: @cOffWhite;
+            }
+        }
+    }
 }
 
 // Styles
@@ -490,6 +514,45 @@ body {
                     font-family: 'Open Sans';
                     font-size: 0.8rem
                 }
+            }
+        }
+    }
+}
+
+.book{
+    h1{
+        text-align: center;
+        color: @cRed;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 0 @cOffBlack;
+        margin: 2rem;
+    }
+
+    .criteria{
+        img{
+            width: 60px;
+        }
+    }
+
+    .pricing{
+                
+        font-weight: 200;
+
+        h2{
+            text-align: center;
+            color: @cOffWhite;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0 @cOffBlack;
+            margin: 2rem;
+        }
+
+        ul > li{
+            font-weight: 200;
+
+            strong{
+                font-weight: 700;
             }
         }
     }
