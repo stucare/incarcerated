@@ -385,6 +385,25 @@ body h6 {
   font-family: 'Open Sans';
   font-size: 0.8rem;
 }
+.book h1 {
+  text-align: center;
+  color: #cf0606;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 0 #111111;
+  margin: 2rem;
+}
+.book .criteria img {
+  width: 60px;
+}
+.book .pricing h2 {
+  text-align: center;
+  color: #fbfbff;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 #111111;
+  margin: 2rem;
+}
 .footer {
   background-color: #111111;
   color: #fbfbff;
