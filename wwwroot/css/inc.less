@@ -31,6 +31,11 @@ a{
         background-color: @cRed;
         border-color: @cRed;
 
+        &:not(:disabled):not(.disabled).active{
+            background-color: @cRed;
+            border-color: @cRed;
+        }
+
         &:hover:not(:disabled):not(.disabled){
             background-color: darken(@cRed, 5%);
             border-color: darken(@cRed, 10%);
@@ -244,6 +249,14 @@ body {
     }
 
     .navbar-collapse{ 
+        &.show{
+            text-align: center;
+
+            > a.btn{
+                margin-top: 2rem;
+            }
+        }
+
         &.show, &.collapsing{
             ul li{
                 padding: 0.5rem;
