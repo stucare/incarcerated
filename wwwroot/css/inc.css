@@ -580,6 +580,11 @@ body h6 {
 .admin.login h3 {
   color: #cf0606;
 }
+.admin.login h3 small {
+  margin-top: 20px;
+  float: right;
+  font-size: 1rem;
+}
 .admin.login #LoginForm input {
   border-radius: none;
   font-size: 1.25rem;
