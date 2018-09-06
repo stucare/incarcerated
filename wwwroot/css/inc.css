@@ -712,6 +712,38 @@ body h6 {
 .admin.screens .room-overview .room-row.active .room-state {
   color: #fbfbff;
 }
+.screen {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #111111;
+  color: #fbfbff;
+  font-weight: 200;
+  cursor: none;
+}
+.screen > div:not(.timer) {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-size: 5rem;
+}
+.screen > .timer {
+  font-size: 10rem;
+  line-height: 10rem;
+  position: fixed;
+  right: 2vw;
+  top: 2vw;
+}
 .part ol {
   counter-reset: sectioncounter partcounter;
   margin: 0px;

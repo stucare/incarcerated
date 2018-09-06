@@ -905,6 +905,42 @@ body {
     }
 }
 
+.screen{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: @cOffBlack;
+    color: @cOffWhite;
+    font-weight: 200;
+    cursor: none;
+
+    > div:not(.timer){
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        font-size: 5rem;
+    }
+
+    >.timer{
+        font-size: 10rem;
+        line-height: 10rem;
+        position: fixed;
+        right: 2vw;
+        top: 2vw;
+    }
+}
+
 // Privacy Policy
 .part ol {
 	counter-reset: sectioncounter partcounter;

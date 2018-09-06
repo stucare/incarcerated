@@ -12,6 +12,7 @@ const seedUserIds = [
     new ObjectID(),
     new ObjectID(),
     new ObjectID(),
+    new ObjectID(),
     new ObjectID()
 ];
 
@@ -33,6 +34,19 @@ const seedUser = [{
     }]
 }, {
     _id: seedUserIds[1],
+    username: 'screen',
+    password: process.env.SECRET,
+    firstName: 'Screen',
+    lastName: 'System',
+    isActive: true,
+    isSuperuser: true,
+    tokens: [{
+        access: 'auth',
+        token: jwt.sign({ _id: seedUserIds[1], access: 'auth' }, process.env.SECRET).toString(),
+        expired: new Date().getTime() + (999 * 52 * 7 * 24 * 60 * 60 * 1000)
+    }]
+}, {
+    _id: seedUserIds[2],
     username: 'tsu',
     password: 'test',
     firstName: 'test',
@@ -41,10 +55,10 @@ const seedUser = [{
     isSuperuser: true,
     tokens: [{
         access: 'auth',
-        token: jwt.sign({ _id: seedUserIds[1], access: 'auth' }, process.env.SECRET).toString()
+        token: jwt.sign({ _id: seedUserIds[2], access: 'auth' }, process.env.SECRET).toString()
     }]
 }, {
-    _id: seedUserIds[2],
+    _id: seedUserIds[3],
     username: 'tru',
     password: 'test',
     firstName: 'test',
@@ -53,10 +67,10 @@ const seedUser = [{
     isSuperuser: false,
     tokens: [{
         access: 'auth',
-        token: jwt.sign({ _id: seedUserIds[2], access: 'auth' }, process.env.SECRET).toString()
+        token: jwt.sign({ _id: seedUserIds[3], access: 'auth' }, process.env.SECRET).toString()
     }]
 }, {
-    _id: seedUserIds[3],
+    _id: seedUserIds[4],
     username: 'tiu',
     password: 'test',
     firstName: 'test',
@@ -65,10 +79,10 @@ const seedUser = [{
     isSuperuser: false,
     tokens: [{
         access: 'auth',
-        token: jwt.sign({ _id: seedUserIds[3], access: 'auth' }, process.env.SECRET).toString()
+        token: jwt.sign({ _id: seedUserIds[4], access: 'auth' }, process.env.SECRET).toString()
     }]
 }, {
-    _id: seedUserIds[4],
+    _id: seedUserIds[5],
     username: 'userManager',
     password: 'test',
     firstName: 'test',
@@ -77,14 +91,14 @@ const seedUser = [{
     isSuperuser: false,
     tokens: [{
         access: 'auth',
-        token: jwt.sign({ _id: seedUserIds[4], access: 'auth' }, process.env.SECRET).toString()
+        token: jwt.sign({ _id: seedUserIds[5], access: 'auth' }, process.env.SECRET).toString()
     }],
     roles: [{
         role: 'canManageUsers',
         description: 'canManageUsers'
     }]
 }, {
-    _id: seedUserIds[5],
+    _id: seedUserIds[6],
     username: 'userDeleter',
     password: 'test',
     firstName: 'test',
@@ -93,7 +107,7 @@ const seedUser = [{
     isSuperuser: false,
     tokens: [{
         access: 'auth',
-        token: jwt.sign({ _id: seedUserIds[5], access: 'auth' }, process.env.SECRET).toString()
+        token: jwt.sign({ _id: seedUserIds[6], access: 'auth' }, process.env.SECRET).toString()
     }],
     roles: [{
         role: 'canDeleteUsers',
@@ -201,6 +215,7 @@ const seedDb = () => {
     User.findOne({ username: seedUser[0].username }).then((user) => {
         if (!user) {
             new User(seedUser[0]).save();
+            new User(seedUser[1]).save();
         }
     }).catch((err) => {
         console.log(err);

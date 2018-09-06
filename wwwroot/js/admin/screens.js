@@ -249,7 +249,7 @@ function renderPage(game) {
         var last = game.clues.length - 1;
         var i = last;
 
-        while (i >= (last - 10) && i >= 0) {
+        while (i >= (last - 20) && i >= 0) {
 
             if (i === last) {
                 var text = game.clues[i].text;

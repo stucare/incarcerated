@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{{title}} &raquo; Admin &raquo; Incarcerated Swindon, Live Escape Room Games</title>
+
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="{{meta.description}}" /> 
+
+    {{> _favicon}} 
+    {{> _jquery}} 
+    {{> _stylesheets}}
+</head>
+
+
+<body class="screen">
+    <div class="timer text-right"></div>
+    <div class="d-flex flex-row justify-content-center align-items-center text-center">
+        <div class="clue-text text-center"></div>
+    </div>
+    <span id="RoomCode" data-room-code="{{roomCode}}"></span>
+    <span id="UserId" data-user-id="{{user._id}}"></span>
+
+    <audio id="Ping">
+        <source src="/audio/ping.mp3"></source>
+    </audio>
+		
+    <audio id="Soundscape">
+        <source src="/audio/{{roomCode}}.mp3"></source>
+    </audio>
+
+    <script src="/js/screen/screen.js"></script>
+    {{> _scripts}}
+</body>
+
+</html>
