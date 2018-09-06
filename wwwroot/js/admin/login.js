@@ -30,6 +30,11 @@ $(function () {
         submitButton.removeAttr('disabled','disabled');
         submitButton.find('.button-text').show()
         submitButton.find('.button-spinner').hide();
+
+        var failResponses = ["much try, such fail... <strong>༼☉ɷ⊙༽</strong>"];
+        var randResponse = failResponses[Math.floor(Math.random() * failResponses.length)];
+
+        $('.warn').html(randResponse);
       });
   });
 })
