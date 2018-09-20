@@ -24,6 +24,17 @@ a{
     }
 }
 
+.red{
+    a{
+        color: @cOffBlack;
+        font-weight: 600;
+        
+        &:hover{
+            color: lighten(@cOffBlack, 10%);
+        }
+    }
+}
+
 .btn{
     border-radius: 0;
 
@@ -166,6 +177,11 @@ body {
 .text-red{
     color: @cRed;
 }
+
+.text-black{
+    color: @cOffBlack;
+}
+
 
 .incarcerated {
     font-weight: 700;
