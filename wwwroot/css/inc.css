@@ -426,6 +426,14 @@ body h6 {
   font-family: 'Open Sans';
   font-size: 0.8rem;
 }
+.giftvouchers .carousel img:not(.no-shadow) {
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 5px 0 #ccc;
+}
+.giftvouchers .carousel .carousel-control-prev,
+.giftvouchers .carousel .carousel-control-next {
+  color: #cf0606;
+}
 .book h1 {
   text-align: center;
   color: #cf0606;
