@@ -18,6 +18,9 @@ a:hover {
   background-color: #cf0606;
   border-color: #cf0606;
 }
+.btn.btn-primary > svg {
+  margin-top: -3px;
+}
 .btn.btn-primary:not(:disabled):not(.disabled).active {
   background-color: #cf0606;
   border-color: #cf0606;
@@ -44,6 +47,9 @@ a:hover {
   border-color: #cf0606;
   color: #cf0606;
 }
+.btn.btn-outline-primary > svg {
+  margin-top: -3px;
+}
 .btn.btn-outline-primary:hover:not(:disabled):not(.disabled) {
   background-color: #cf0606;
   border-color: #cf0606;
@@ -62,6 +68,36 @@ a:hover {
 }
 .btn.btn-outline-primary:focus {
   box-shadow: 0 0 0 0.2rem rgba(207, 6, 6, 0.5);
+}
+.btn.btn-secondary {
+  background-color: #fbfbff;
+  border-color: #fbfbff;
+  color: #cf0606;
+}
+.btn.btn-secondary > svg {
+  margin-top: -3px;
+}
+.btn.btn-secondary:not(:disabled):not(.disabled).active {
+  background-color: #fbfbff;
+  border-color: #fbfbff;
+}
+.btn.btn-secondary:hover:not(:disabled):not(.disabled) {
+  background-color: #e2e2ff;
+  border-color: #c8c8ff;
+}
+.btn.btn-secondary:disabled,
+.btn.btn-secondary.disabled {
+  cursor: default;
+}
+.btn.btn-secondary:not(:disabled):not(.disabled):active {
+  background-color: #c8c8ff;
+  border-color: #e2e2ff;
+}
+.btn.btn-secondary:not(:disabled):not(.disabled):active:focus {
+  box-shadow: 0 0 0 0.2rem rgba(251, 251, 255, 0.5);
+}
+.btn.btn-secondary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(251, 251, 255, 0.5);
 }
 .btn-group > .btn-group:not(:last-child) > .btn,
 .btn-group > .btn:not(:last-child):not(.dropdown-toggle) {
