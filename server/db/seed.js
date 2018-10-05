@@ -122,6 +122,7 @@ const seedRoom = [{
         name: "A Dose of Death",
         description: "<p>A large number of the local community have fallen ill, the latest person to start feeling unwell is a very close friend of yours. You have been trying to get the bottom of things as you have a strong suspicion that a well regarded local doctor is behind the outbreak.</p><p>After overhearing a strange conversation while out at a restaurant between two local MP’s your theory seems even more feasible. But how will you prove that this well respected local figure has sinister intentions?</p><p>You and a friend have snuck into the rogue doctor’s office to investigate, but have been accidently locked in by the cleaner. This gives you the opportunity to search for evidence to prove your theory. Time is ticking, the cleaner will be back in 60 minutes to check the building before locking up, can you find what you need and escape the office before you get caught? Remember, don’t get found out or you could end up being the next victim of this diabolical doctor’s evil plan.</p>"
     },
+    isLive: false,
     game: {
         clues: [{
             text: "",
@@ -180,6 +181,21 @@ const seedRoom = [{
         name: "Prisoner of War",
         description: "<p>It’s August 8th 1971, you and your squadron are deep in the Vietnamese jungle and are under heavy fire from the advancing Viet Cong troops. Your team spread out to try and find better cover as your camp is now overrun by the communist opposition. Several of your comrades have been killed in action but you and a small number of troops have managed to retreat to a safe distance.</p><p>You have been made aware that during your retreat attempt your leading commander has been captured on the battlefield and is being held in a cell deep behind enemy lines. You and your squadron have made the treacherous hike back into the jungle to find your commander as you would never leave a good man behind.</p><p>After discovering the location of his jungle cell, you and your team tunnel into the guard’s office where you discover your commander is still alive but locked in a small cell. All of a sudden, the tunnel you dug to enter the room collapses so not only is your commander still trapped in the cell but you find yourselves in the locked guard’s room with no way out. Can you find a way to get your commander out of the cell and escape the guard’s office before they return?  You have 60 minutes…</p>",
         isAccessible: true
+    },
+    game: {
+        clues: [{
+            text: "",
+            createdBy: seedUserIds[0]
+        }]
+    }
+}, {
+    code: "tts",
+    adminName: "The Tortured Soul",
+    display: {
+        name: "The Tortured Soul",
+        description: "<p>tts gubbins</p>",
+        minPlayers: 3,
+        maxPlayers: 7
     },
     game: {
         clues: [{
