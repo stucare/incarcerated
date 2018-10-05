@@ -42,6 +42,10 @@ a{
         background-color: @cRed;
         border-color: @cRed;
 
+        > svg {
+            margin-top: -3px;
+        }
+
         &:not(:disabled):not(.disabled).active{
             background-color: @cRed;
             border-color: @cRed;
@@ -68,11 +72,16 @@ a{
         &:focus{
             box-shadow: 0 0 0 0.2rem fade(@cRed, 50%);
         }
+        
     }
 
     &.btn-outline-primary{
         border-color: @cRed;
         color: @cRed;
+
+        > svg {
+            margin-top: -3px;
+        }
 
         &:hover:not(:disabled):not(.disabled){
             background-color: @cRed;
@@ -96,6 +105,44 @@ a{
         &:focus{
             box-shadow: 0 0 0 0.2rem fade(@cRed, 50%);
         }
+    }
+
+    &.btn-secondary{
+        background-color: @cOffWhite;
+        border-color: @cOffWhite;
+        color: @cRed;
+
+        > svg {
+            margin-top: -3px;
+        }
+
+        &:not(:disabled):not(.disabled).active{
+            background-color: @cOffWhite;
+            border-color: @cOffWhite;
+        }
+
+        &:hover:not(:disabled):not(.disabled){
+            background-color: darken(@cOffWhite, 5%);
+            border-color: darken(@cOffWhite, 10%);
+        }
+
+        &:disabled, &.disabled{
+            cursor: default;
+        }
+
+        &:not(:disabled):not(.disabled):active{
+            background-color: darken(@cOffWhite, 10%);
+            border-color: darken(@cOffWhite, 5%);
+            
+            &:focus{
+                box-shadow: 0 0 0 0.2rem fade(@cOffWhite, 50%);
+            }
+        }
+
+        &:focus{
+            box-shadow: 0 0 0 0.2rem fade(@cOffWhite, 50%);
+        }
+        
     }
 }
 
