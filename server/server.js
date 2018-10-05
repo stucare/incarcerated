@@ -42,7 +42,7 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.all(/^(?!((\/api){1,}|(\/admin){1,})).*$/, async (req, res, next) => {
+app.all(/^(?!((\/api){1,}|(\/admin){1,})|(\/screen){1,}).*$/, async (req, res, next) => {
     try {
         let maint = await Maintenance.findOne({});
         if (maint) {
@@ -77,6 +77,10 @@ app.use('/admin', adminRouter);
 let apiRouter = express.Router();
 require('./routers/api')(apiRouter);
 app.use('/api', apiRouter);
+
+let screenRouter = express.Router();
+require('./routers/screen')(screenRouter);
+app.use('/screen', screenRouter);
 
 // routes
 app.get('/', (req, res) => {
@@ -174,7 +178,8 @@ app.get('/booknow', (req, res) => {
         mainClass: 'book',
         activeNav: {
             book: true
-        }
+        },
+        footColour: 'red'
     });
 });
 

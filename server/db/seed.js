@@ -12,6 +12,7 @@ const seedUserIds = [
     new ObjectID(),
     new ObjectID(),
     new ObjectID(),
+    new ObjectID(),
     new ObjectID()
 ];
 
@@ -33,6 +34,19 @@ const seedUser = [{
     }]
 }, {
     _id: seedUserIds[1],
+    username: 'screen',
+    password: process.env.SECRET,
+    firstName: 'Screen',
+    lastName: 'System',
+    isActive: true,
+    isSuperuser: true,
+    tokens: [{
+        access: 'auth',
+        token: jwt.sign({ _id: seedUserIds[1], access: 'auth' }, process.env.SECRET).toString(),
+        expired: new Date().getTime() + (999 * 52 * 7 * 24 * 60 * 60 * 1000)
+    }]
+}, {
+    _id: seedUserIds[2],
     username: 'tsu',
     password: 'test',
     firstName: 'test',
@@ -41,10 +55,10 @@ const seedUser = [{
     isSuperuser: true,
     tokens: [{
         access: 'auth',
-        token: jwt.sign({ _id: seedUserIds[1], access: 'auth' }, process.env.SECRET).toString()
+        token: jwt.sign({ _id: seedUserIds[2], access: 'auth' }, process.env.SECRET).toString()
     }]
 }, {
-    _id: seedUserIds[2],
+    _id: seedUserIds[3],
     username: 'tru',
     password: 'test',
     firstName: 'test',
@@ -53,10 +67,10 @@ const seedUser = [{
     isSuperuser: false,
     tokens: [{
         access: 'auth',
-        token: jwt.sign({ _id: seedUserIds[2], access: 'auth' }, process.env.SECRET).toString()
+        token: jwt.sign({ _id: seedUserIds[3], access: 'auth' }, process.env.SECRET).toString()
     }]
 }, {
-    _id: seedUserIds[3],
+    _id: seedUserIds[4],
     username: 'tiu',
     password: 'test',
     firstName: 'test',
@@ -65,10 +79,10 @@ const seedUser = [{
     isSuperuser: false,
     tokens: [{
         access: 'auth',
-        token: jwt.sign({ _id: seedUserIds[3], access: 'auth' }, process.env.SECRET).toString()
+        token: jwt.sign({ _id: seedUserIds[4], access: 'auth' }, process.env.SECRET).toString()
     }]
 }, {
-    _id: seedUserIds[4],
+    _id: seedUserIds[5],
     username: 'userManager',
     password: 'test',
     firstName: 'test',
@@ -77,14 +91,14 @@ const seedUser = [{
     isSuperuser: false,
     tokens: [{
         access: 'auth',
-        token: jwt.sign({ _id: seedUserIds[4], access: 'auth' }, process.env.SECRET).toString()
+        token: jwt.sign({ _id: seedUserIds[5], access: 'auth' }, process.env.SECRET).toString()
     }],
     roles: [{
         role: 'canManageUsers',
         description: 'canManageUsers'
     }]
 }, {
-    _id: seedUserIds[5],
+    _id: seedUserIds[6],
     username: 'userDeleter',
     password: 'test',
     firstName: 'test',
@@ -93,7 +107,7 @@ const seedUser = [{
     isSuperuser: false,
     tokens: [{
         access: 'auth',
-        token: jwt.sign({ _id: seedUserIds[5], access: 'auth' }, process.env.SECRET).toString()
+        token: jwt.sign({ _id: seedUserIds[6], access: 'auth' }, process.env.SECRET).toString()
     }],
     roles: [{
         role: 'canDeleteUsers',
@@ -108,6 +122,7 @@ const seedRoom = [{
         name: "A Dose of Death",
         description: "<p>A large number of the local community have fallen ill, the latest person to start feeling unwell is a very close friend of yours. You have been trying to get the bottom of things as you have a strong suspicion that a well regarded local doctor is behind the outbreak.</p><p>After overhearing a strange conversation while out at a restaurant between two local MP’s your theory seems even more feasible. But how will you prove that this well respected local figure has sinister intentions?</p><p>You and a friend have snuck into the rogue doctor’s office to investigate, but have been accidently locked in by the cleaner. This gives you the opportunity to search for evidence to prove your theory. Time is ticking, the cleaner will be back in 60 minutes to check the building before locking up, can you find what you need and escape the office before you get caught? Remember, don’t get found out or you could end up being the next victim of this diabolical doctor’s evil plan.</p>"
     },
+    isLive: false,
     game: {
         clues: [{
             text: "",
@@ -119,7 +134,7 @@ const seedRoom = [{
     adminName: "Conspiracy - Agenda 21",
     display: {
         name: "Conspiracy - Agenda 21",
-        description: "<p>After seeing a story online about a YouTube Conspiracy Theorist who has concerns about a UN research facility, you have been following the story and his updates. One night you see a live feed on his Facebook account which leads you to believe he has been captured.  Ever since the live feed there has been no updates to any of his accounts. Was it all a hoax? Is there something more sinister going on?</p><p>Roll on 6 months, you and your friends no longer speak of the YouTuber and life goes on as normal. One morning you all receive individual letters from the Supreme Court asking you to report for “Jury Service” at The Old Bailey. The letter states you must not tell anyone that you have been called in, the case you have been assigned to is extremely serious and the person on trial is a huge threat to national security. The letter also states that all Jury candidates are required to attend by law and any leak of information will lead to prosecution.</p><p>Further instructions ask you to arrive at the ‘UN Research Facility Northwood’ as secure transport will be provided to ensure all Jury members are kept safe on the way to the trial.</p><p><strong>This Game may not be suitable for those with epilepsy.<br>This game may not be suitable for players under the age of 16.</strong></p>",
+        description: "<p>After seeing a story online about a YouTube Conspiracy Theorist who has concerns about a UN research facility, you have been following the story and his updates. One night you see a live feed on his Facebook account which leads you to believe he has been captured.  Ever since the live feed there has been no updates to any of his accounts. Was it all a hoax? Is there something more sinister going on?</p><p>Roll on 6 months, you and your friends no longer speak of the YouTuber and life goes on as normal. One morning you all receive individual letters from the Supreme Court asking you to report for “Jury Service” at The Old Bailey. The letter states you must not tell anyone that you have been called in, the case you have been assigned to is extremely serious and the person on trial is a huge threat to national security. The letter also states that all Jury candidates are required to attend by law and any leak of information will lead to prosecution.</p><p>Further instructions ask you to arrive at the ‘UN Research Facility Northwood’ as secure transport will be provided to ensure all Jury members are kept safe on the way to the trial.</p><p><strong>This game may not be suitable for those with epilepsy.<br>This game contains mild gore, parental discretion advised.</strong></p>",
         minPlayers: 3,
         maxPlayers: 7
     },
@@ -173,6 +188,21 @@ const seedRoom = [{
             createdBy: seedUserIds[0]
         }]
     }
+}, {
+    code: "tts",
+    adminName: "The Tortured Soul",
+    display: {
+        name: "The Tortured Soul",
+        description: "<p>tts gubbins</p>",
+        minPlayers: 3,
+        maxPlayers: 7
+    },
+    game: {
+        clues: [{
+            text: "",
+            createdBy: seedUserIds[0]
+        }]
+    }
 }]
 
 const seedMaintenance = {
@@ -201,6 +231,7 @@ const seedDb = () => {
     User.findOne({ username: seedUser[0].username }).then((user) => {
         if (!user) {
             new User(seedUser[0]).save();
+            new User(seedUser[1]).save();
         }
     }).catch((err) => {
         console.log(err);

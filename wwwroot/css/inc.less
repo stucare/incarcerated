@@ -7,6 +7,7 @@
 @cTripadvisor: rgb(88, 148, 66);
 
 @shadowLight: ~"0 0 5px 0 #ccc";
+@shadowDark: ~"0 0 5px 0 #444";
 
 // Media Queries
 @sm:   ~"only screen and (min-width: 576px)";
@@ -23,12 +24,32 @@ a{
     }
 }
 
+.red{
+    a{
+        color: @cOffBlack;
+        font-weight: 600;
+        
+        &:hover{
+            color: lighten(@cOffBlack, 10%);
+        }
+    }
+}
+
 .btn{
     border-radius: 0;
 
     &.btn-primary{
         background-color: @cRed;
         border-color: @cRed;
+
+        > svg {
+            margin-top: -3px;
+        }
+
+        &:not(:disabled):not(.disabled).active{
+            background-color: @cRed;
+            border-color: @cRed;
+        }
 
         &:hover:not(:disabled):not(.disabled){
             background-color: darken(@cRed, 5%);
@@ -51,11 +72,16 @@ a{
         &:focus{
             box-shadow: 0 0 0 0.2rem fade(@cRed, 50%);
         }
+        
     }
 
     &.btn-outline-primary{
         border-color: @cRed;
         color: @cRed;
+
+        > svg {
+            margin-top: -3px;
+        }
 
         &:hover:not(:disabled):not(.disabled){
             background-color: @cRed;
@@ -79,6 +105,44 @@ a{
         &:focus{
             box-shadow: 0 0 0 0.2rem fade(@cRed, 50%);
         }
+    }
+
+    &.btn-secondary{
+        background-color: @cOffWhite;
+        border-color: @cOffWhite;
+        color: @cRed;
+
+        > svg {
+            margin-top: -3px;
+        }
+
+        &:not(:disabled):not(.disabled).active{
+            background-color: @cOffWhite;
+            border-color: @cOffWhite;
+        }
+
+        &:hover:not(:disabled):not(.disabled){
+            background-color: darken(@cOffWhite, 5%);
+            border-color: darken(@cOffWhite, 10%);
+        }
+
+        &:disabled, &.disabled{
+            cursor: default;
+        }
+
+        &:not(:disabled):not(.disabled):active{
+            background-color: darken(@cOffWhite, 10%);
+            border-color: darken(@cOffWhite, 5%);
+            
+            &:focus{
+                box-shadow: 0 0 0 0.2rem fade(@cOffWhite, 50%);
+            }
+        }
+
+        &:focus{
+            box-shadow: 0 0 0 0.2rem fade(@cOffWhite, 50%);
+        }
+        
     }
 }
 
@@ -105,6 +169,10 @@ a{
     border-radius: 0;
 }
 
+.input-group>.input-group-prepend>.input-group-text{
+    border-radius: 0;
+}
+
 .list-group-item{ 
     &:last-child, &:first-child{
         border-radius: 0;
@@ -113,6 +181,29 @@ a{
 
 .form-control{
     border-radius: 0;
+}
+
+.modal-dialog{
+    max-width: 80vw !important;
+
+    &.modal-lg{
+        max-width: 80vw !important;
+    }
+
+    > .modal-content{
+        border: none;
+        box-shadow: @shadowDark;
+
+        > .modal-header{
+            background: @cRed;
+            text-transform: uppercase;
+            color: @cOffWhite;
+
+            .close{
+                color: @cOffWhite;
+            }
+        }
+    }
 }
 
 // Styles
@@ -133,6 +224,11 @@ body {
 .text-red{
     color: @cRed;
 }
+
+.text-black{
+    color: @cOffBlack;
+}
+
 
 .incarcerated {
     font-weight: 700;
@@ -216,6 +312,14 @@ body {
     }
 
     .navbar-collapse{ 
+        &.show{
+            text-align: center;
+
+            > a.btn{
+                margin-top: 2rem;
+            }
+        }
+
         &.show, &.collapsing{
             ul li{
                 padding: 0.5rem;
@@ -495,14 +599,66 @@ body {
     }
 }
 
+.giftvouchers{
+    .carousel{
+        img:not(.no-shadow){
+            transition: all 0.3s ease-in-out;
+            box-shadow: @shadowLight;
+        }
+
+        .carousel-control-prev, .carousel-control-next{
+            color: @cRed;
+        }
+    }
+}
+
+.book{
+    h1{
+        text-align: center;
+        color: @cRed;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 0 @cOffBlack;
+        margin: 2rem;
+    }
+
+    .criteria{
+        img{
+            width: 60px;
+        }
+    }
+
+    .pricing{
+                
+        font-weight: 200;
+
+        h2{
+            text-align: center;
+            color: @cOffWhite;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0 @cOffBlack;
+            margin: 2rem;
+        }
+
+        ul > li{
+            font-weight: 200;
+
+            strong{
+                font-weight: 700;
+            }
+        }
+    }
+}
+
 .footer {
     background-color: @cOffBlack;
-        color: @cOffWhite;
-    margin-bottom: 8rem;
+    color: @cOffWhite;
+    padding-bottom: 8rem !important;
     text-align: center;
 
   @media @sm{
-      margin-bottom: 0;
+      padding-bottom: 0 !important;
   }
 
   h5{
@@ -519,6 +675,13 @@ body {
 
   .center-section {
       text-align: center;
+
+      .subscribe .signup .input-group-prepend .input-group-text{
+          color: @cOffWhite;
+          background: @cRed;
+          border-color: @cRed;
+
+      }
   }
 
   .right-section {
@@ -654,6 +817,12 @@ body {
         
         h3{
             color: @cRed;
+
+            small{
+                margin-top: 20px;
+                float: right;
+                font-size: 1rem;
+            }
         }
 
         #LoginForm{
@@ -809,6 +978,42 @@ body {
                 }
             }
         }
+    }
+}
+
+.screen{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: @cOffBlack;
+    color: @cOffWhite;
+    font-weight: 200;
+    cursor: none;
+
+    > div:not(.timer){
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        font-size: 5rem;
+    }
+
+    >.timer{
+        font-size: 10rem;
+        line-height: 10rem;
+        position: fixed;
+        right: 2vw;
+        top: 2vw;
     }
 }
 

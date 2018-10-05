@@ -19,7 +19,7 @@ let serverlog = async (req, res, next) => {
     let createdLog = await log.save();
     
     if (env === 'development') {
-      //console.log(JSON.stringify(createdLog, undefined, 2));
+      // console.log(JSON.stringify(createdLog, undefined, 2));
     }
 
     next();

@@ -7,7 +7,7 @@ const logger = require('../server/logger/logger');
 exports = module.exports = function (io) {
     io.on('connection', async (socket) => {
         let handshake = socket.handshake;
-
+       
         let userId = handshake.query.userId;
         let user = await User.findById(userId);
 
@@ -134,7 +134,7 @@ exports = module.exports = function (io) {
                 }
 
             } catch (error) {
-                //todo error log
+                console.log(error);
             }
         });
     });
