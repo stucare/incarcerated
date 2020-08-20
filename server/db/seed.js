@@ -113,7 +113,7 @@ const seedUser = [{
         role: 'canDeleteUsers',
         description: 'canDeleteUsers'
     }]
-}]
+}];
 
 const seedRoom = [{
     code: "adod",
@@ -203,29 +203,29 @@ const seedRoom = [{
             createdBy: seedUserIds[0]
         }]
     }
-}]
+}];
 
 const seedMaintenance = {
     active: true
-}
+};
 
 const seedTestUser = async function (done) {
     await User.remove({});
     await User.insertMany(seedUser);
     done();
-}
+};
 
 const seedTestRoom = async function (done) {
     await Room.remove({})
     await Room.insertMany(seedRoom);
     done();
-}
+};
 
 const seedTestMaintenance = async function (done) {
     await Maintenance.remove({})
     await new Maintenance(seedMaintenance).save();
     done();
-}
+};
 
 const seedDb = () => {
     User.findOne({ username: seedUser[0].username }).then((user) => {
@@ -255,7 +255,7 @@ const seedDb = () => {
         console.log(err);
     });
 
-}
+};
 
 module.exports = {
     seed: {
