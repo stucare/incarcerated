@@ -19,7 +19,7 @@ const seedUserIds = [
 const seedUser = [{
     _id: seedUserIds[0],
     username: 'admin',
-    password: 'nRn)0op{',
+    password: 'password',
     firstName: 'Admin',
     lastName: 'User',
     isActive: true,
